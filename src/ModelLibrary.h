@@ -15,12 +15,12 @@ public:
 	ModelLibrary();
 	~ModelLibrary();
 
-	Model* carModel;
-	Texture* playerTexture;
+	Model playerModel;
+	Texture playerTexture;
 
-	std::vector<Texture*> enemyCarTextures;
+	std::vector<Texture> enemyCarTextures;
 
-	Mesh* quadMesh;
+	Mesh quadMesh;
 };
 
 #endif // MODELLIBRARY_H

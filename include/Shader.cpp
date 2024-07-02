@@ -2,6 +2,7 @@
 
 #include <glm/ext.hpp>
 
+#include <iostream>
 #include <exception>
 #include <fstream>
 
@@ -14,6 +15,7 @@ Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 	
 	if (!vfile.is_open())
 	{
+		std::cout << "Couln't open vertex shader: " << _vertpath << std::endl;
 		throw std::exception();
 	}
 	
@@ -31,6 +33,7 @@ Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 
 	if (!lfile.is_open())
 	{
+		std::cout << "Couln't open fragment shader: " << _fragpath << std::endl;
 		throw std::exception();
 	}
 

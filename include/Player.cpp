@@ -4,9 +4,9 @@
 
 Player::Player(Game* _game) : GameObject(_game)
 {
-	mShader = new Shader("Assets/Shaders/Shader.vert", "Assets/Shaders/Shader.frag");
-	mModel = mGame->GetModelLibrary()->carModel;
-	mTexture = mGame->GetModelLibrary()->playerTexture;
+	mShader = new Shader("Assets/Shaders/ObjShader.vert", "Assets/Shaders/ObjShader.frag");
+	mModel = &(mGame->GetModelLibrary()->playerModel);
+	mTexture = &(mGame->GetModelLibrary()->playerTexture);
 
 	transform.rotation.y = 90;
 
@@ -42,11 +42,11 @@ void Player::Draw()
 	view = glm::inverse(view);
 
 	// Upload uniforms to our shader
-	GetShader()->uniform("u_Projection", projection);
-	GetShader()->uniform("u_Model", model);
-	GetShader()->uniform("u_View", view);
-	GetShader()->uniform("u_LightPos", mGame->GetLightPos());
+	mShader->uniform("u_Projection", projection);
+	mShader->uniform("u_Model", model);
+	mShader->uniform("u_View", view);
+	mShader->uniform("u_LightPos", mGame->GetLightPos());
 
 	// Draw using our shader and out model and texture
-	GetShader()->draw(GetModel(), GetTexture());
+	mShader->draw(GetModel(), GetTexture());
 }

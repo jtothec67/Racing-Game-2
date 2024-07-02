@@ -19,20 +19,20 @@ public:
 
 	void Run(float _deltaTime);
 
-	GameObject* GetCamera() { return mCamera; }
+	GameObject* GetCamera() { return &mCamera; }
 
-	Window* GetWindow() { return mWindow; }
-	void GetWindowSize(int& _width, int& _height) { mWindow->GetWindowSize(_width, _height); }
+	Window* GetWindow() { return &mWindow; }
+	void GetWindowSize(int& _width, int& _height) { mWindow.GetWindowSize(_width, _height); }
 
 	void AddGameObject(GameObject* _gameObject) { mGameObjects.push_back(_gameObject); }
-	std::vector<GameObject*> GetGameObjects() { return mGameObjects; }
+	const std::vector<GameObject*>* GetGameObjects() { return &mGameObjects; }
 	
-	void RemoveGameObject(GameObject &_gameObject) { mGameObjectsToRemove.push_back(&_gameObject); }
+	void RemoveGameObject(GameObject* _gameObject) { mGameObjectsToRemove.push_back(_gameObject); }
 
 	void StopGameRunning() { gameRunning = false; }
 	bool IsGameRunning() { return gameRunning; }
 
-	ModelLibrary* GetModelLibrary() { return mModelLibrary; }
+	ModelLibrary* GetModelLibrary() { return &mModelLibrary; }
 
 	glm::vec3 GetLightPos() { return mLightPos; }
 
@@ -42,14 +42,14 @@ private:
 
 	void mRemoveGameObjects();
 
-	Window* mWindow;
+	Window mWindow;
 
-	GameObject* mCamera;
+	GameObject mCamera;
 
 	std::vector<GameObject*> mGameObjects;
 	std::vector<GameObject*> mGameObjectsToRemove;
 
-	ModelLibrary* mModelLibrary;
+	ModelLibrary mModelLibrary;
 
 	glm::vec3 mLightPos = glm::vec3(0.0f, 20.0f, 0.0f);
 

@@ -28,8 +28,6 @@ public:
 	virtual void Update(float _deltaTime) {}
 	virtual void Draw() {}
 
-	Game* GetGame() { return mGame; }
-
 	virtual void SetModel(Model* _model) { mModel = _model; }
 	virtual Model* GetModel() { return mModel; }
 
