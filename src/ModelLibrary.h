@@ -9,18 +9,19 @@
 #ifndef MODELLIBRARY_H
 #define MODELLIBRARY_H
 
-class ModelLibrary
+struct ModelLibrary
 {
-public:
 	ModelLibrary();
-	~ModelLibrary();
+	~ModelLibrary() {}
 
-	Model playerModel;
+	Model carModel;
 	Texture playerTexture;
 
 	std::vector<Texture> enemyCarTextures;
 
 	Mesh quadMesh;
+
+	Texture defaultTexture;
 };
 
 #endif // MODELLIBRARY_H

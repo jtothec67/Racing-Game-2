@@ -1,12 +1,12 @@
 #pragma once
 
-#include "GameObject.h"
+#include "threeDObject.h"
 #include "Game.h"
 
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class Player : public GameObject
+class Player : public threeDObject
 {
 public:
 	Player(Game* _game);
@@ -14,7 +14,6 @@ public:
 	~Player() {}
 
 	void Update(float _deltaTime) override;
-	void Draw() override;
 
 	void SetSpeed(float _speed) { mSpeed = _speed; }
 	float GetSpeed() { return mSpeed; }

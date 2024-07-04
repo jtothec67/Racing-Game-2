@@ -15,6 +15,8 @@ public:
 	Texture(const std::vector<std::string>& _facePaths);
 	GLuint id();
 
+	void GetSize(int& _width, int& _height) { _width = m_width; _height = m_height; }
+
 private:
 	GLuint m_id;
 

@@ -1,8 +1,9 @@
 #include "ModelLibrary.h"
 
 ModelLibrary::ModelLibrary()
-	: playerModel("Assets/Models/F1Car/Model/formula_car.obj")
+	: carModel("Assets/Models/F1Car/Model/formula_car.obj")
 	, playerTexture("Assets/Models/F1Car/Textures/car_02_m.png")
+	, defaultTexture("Assets/Textures/defaultTex.png")
 {
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m2.png"));
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m3.png"));
@@ -34,8 +35,4 @@ ModelLibrary::ModelLibrary()
 	face2.b.m_texcoords = glm::vec2(1.0f, 1.0f);
 	face2.c.m_texcoords = glm::vec2(0.0f, 1.0f);
 	quadMesh.add(face2);
-}
-
-ModelLibrary::~ModelLibrary()
-{
 }

@@ -1,10 +1,10 @@
 #include "Texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
+
 #include <stb_image.h>
 #include <exception>
-
-
+#include <iostream>
 
 Texture::Texture(const std::string& _path)
 	: m_id(0)
@@ -17,6 +17,7 @@ Texture::Texture(const std::string& _path)
 
 	if (!data)
 	{
+		std::cout << "Failed to load texture: " << _path << std::endl;
 		throw std::exception();
 	}
 

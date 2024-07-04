@@ -8,6 +8,7 @@ Game::Game()
 	, mModelLibrary()
 {
 	AddGameObject(new Player(this));
+	AddGameObject(new UIObject(this));
 }
 
 Game::~Game()

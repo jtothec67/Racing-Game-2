@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "GameObject.h"
 #include "ModelLibrary.h"
+#include "ShaderLibrary.h"
 
 #include <glm/glm.hpp>
 
@@ -33,6 +34,7 @@ public:
 	bool IsGameRunning() { return gameRunning; }
 
 	ModelLibrary* GetModelLibrary() { return &mModelLibrary; }
+	ShaderLibrary* GetShaderLibrary() { return &mShaderLibrary; }
 
 	glm::vec3 GetLightPos() { return mLightPos; }
 
@@ -50,6 +52,7 @@ private:
 	std::vector<GameObject*> mGameObjectsToRemove;
 
 	ModelLibrary mModelLibrary;
+	ShaderLibrary mShaderLibrary;
 
 	glm::vec3 mLightPos = glm::vec3(0.0f, 20.0f, 0.0f);
 
