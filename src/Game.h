@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "ModelLibrary.h"
 #include "ShaderLibrary.h"
+#include "Camera.h"
 
 #include <glm/glm.hpp>
 
@@ -44,9 +45,11 @@ private:
 
 	void mRemoveGameObjects();
 
+	void SetGlobalUniforms();
+
 	Window mWindow;
 
-	GameObject mCamera;
+	Camera mCamera;
 
 	std::vector<GameObject*> mGameObjects;
 	std::vector<GameObject*> mGameObjectsToRemove;

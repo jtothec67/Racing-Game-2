@@ -2,10 +2,12 @@
 #include "Player.h"
 #include "UIObject.h"
 
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+
 Game::Game()
 	: mWindow(1920, 1080)
-	, mCamera(this)
-	, mModelLibrary()
+	, mCamera(this, 45, 0.1f, 100.f)
 {
 	AddGameObject(new Player(this));
 	AddGameObject(new UIObject(this));
@@ -39,6 +41,8 @@ void Game::Draw()
 {
 	mWindow.ClearWindow();
 
+	SetGlobalUniforms();
+
 	for (int i = 0; i < mGameObjects.size(); i++)
 	{
 		mGameObjects[i]->Draw();
@@ -65,4 +69,29 @@ void Game::mRemoveGameObjects()
     }
 
     mGameObjectsToRemove.clear();
+}
+
+void Game::SetGlobalUniforms()
+{
+	int width, height;
+	GetWindowSize(width, height);
+	glm::mat4 projection = glm::perspective(glm::radians(mCamera.GetFOV()), (float)width / (float)height, mCamera.GetNearClip(), mCamera.GetFarClip());
+
+	// Use camera position and rotation to translate and rotate view matrix, then inverse it (view moves left, objects move right)
+	glm::mat4 view(1.0f);
+	view = glm::translate(view, mCamera.transform.position);
+	view = glm::rotate(view, glm::radians(mCamera.transform.rotation.x), glm::vec3(1, 0, 0));
+	view = glm::rotate(view, glm::radians(mCamera.transform.rotation.y), glm::vec3(0, 1, 0));
+	view = glm::rotate(view, glm::radians(mCamera.transform.rotation.z), glm::vec3(0, 0, 1));
+	view = glm::inverse(view);
+
+	mShaderLibrary.objectShader.uniform("u_Projection", projection);
+	mShaderLibrary.objectShader.uniform("u_View", view);
+	mShaderLibrary.objectShader.uniform("u_LightPos", mLightPos);
+
+
+	glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
+
+	mShaderLibrary.uiShader.uniform("u_Projection", uiProjection);
+	mShaderLibrary.uiShader.uniform("u_View", glm::mat4(1.0f));
 }

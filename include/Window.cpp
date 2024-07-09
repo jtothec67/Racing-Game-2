@@ -1,5 +1,6 @@
 #include "Window.h"
 
+#include <iostream>
 #include <exception>
 
 Window::Window(int _width, int _height)
@@ -37,4 +38,5 @@ void Window::Update()
 {
 	SDL_GetWindowSize(mWindow, &mWidth, &mHeight);
 	glViewport(0, 0, mWidth, mHeight);
+	//std::cout << "Window size: " << mWidth << "x" << mHeight << std::endl;
 }
