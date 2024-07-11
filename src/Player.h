@@ -19,7 +19,7 @@ public:
 	float GetSpeed() { return mSpeed; }
 
 private:
-	float mSpeed = 5.0f;
+	float mSpeed = 10.0f;
 };
 
 #endif // PLAYER_H

@@ -21,10 +21,8 @@ Game::~Game()
 
 void Game::Run(float _deltaTime)
 {
-	Update(_deltaTime);
+	Update(_deltaTime); // deltaTime is the time the last frame took to update and draw (in seconds)
 	Draw();
-
-	mRemoveGameObjects();
 }
 
 void Game::Update(float _deltaTime)
@@ -35,6 +33,8 @@ void Game::Update(float _deltaTime)
 	{
 		mGameObjects[i]->Update(_deltaTime);
 	}
+
+	mRemoveGameObjects();
 }
 
 void Game::Draw()

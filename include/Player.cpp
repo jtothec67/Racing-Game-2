@@ -16,5 +16,5 @@ Player::Player(Game* _game) : threeDObject(_game)
 
 void Player::Update(float _deltaTime)
 {
-	transform.position.x += 0.1f;
+	transform.position.x += mSpeed * _deltaTime;
 }

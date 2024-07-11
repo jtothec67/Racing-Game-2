@@ -167,6 +167,7 @@
     <ClCompile Include="include\ShaderLibrary.cpp" />
     <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="include\threeDObject.cpp" />
+    <ClCompile Include="include\Timer.cpp" />
     <ClCompile Include="include\UIObject.cpp" />
     <ClCompile Include="include\Window.cpp" />
   </ItemGroup>
@@ -183,6 +184,7 @@
     <ClInclude Include="src\ShaderLibrary.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\threeDObject.h" />
+    <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\UIObject.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
