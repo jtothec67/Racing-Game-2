@@ -19,6 +19,9 @@ struct ModelLibrary
 
 	std::vector<Texture> enemyCarTextures;
 
+	Mesh skyboxMesh;
+	Texture skyboxTexture;
+
 	Mesh quadMesh;
 
 	Texture defaultTexture;

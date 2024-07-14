@@ -27,7 +27,7 @@ public:
 	void draw(Model& _model, GLuint _texId);
 	void draw(Model& _model, Texture& _tex, RenderTexture& _renderTex);
 	void draw(Mesh& _mesh, Texture& _tex, RenderTexture& _renderTexId);
-	void drawSkybox(Texture& _tex, GLuint& _vao);
+	void drawSkybox(Mesh& _skyboxMesh, Texture& _tex);
 
 private:
 	GLuint m_id;

@@ -26,6 +26,7 @@ class Mesh
 {
 public:
 	Mesh();
+	Mesh(bool _skybox); // If mesh constructor called with true, it will create a skybox mesh
 
 	void add(Face& _face);
 	GLuint id();
@@ -39,6 +40,7 @@ private:
 	GLuint m_vboid;
 
 	bool m_dirty;
+	bool m_skybox;
 
 	std::vector<Face> m_faces;
 };

@@ -226,13 +226,13 @@ void Shader::draw(Mesh& _mesh, Texture& _tex, RenderTexture& _renderTex)
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 }
 
-void Shader::drawSkybox(Texture& _tex, GLuint& _vao)
+void Shader::drawSkybox(Mesh& _skyboxMesh, Texture& _tex)
 {
 	glUseProgram(id());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, _tex.id());
 	GLuint textureLocation = glGetUniformLocation(id(), "uTexEnv");
 	glUniform1i(textureLocation, 0);
-	glBindVertexArray(_vao);
+	glBindVertexArray(_skyboxMesh.id());
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
 }

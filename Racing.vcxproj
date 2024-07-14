@@ -165,6 +165,7 @@
     <ClCompile Include="include\RenderTexture.cpp" />
     <ClCompile Include="include\Shader.cpp" />
     <ClCompile Include="include\ShaderLibrary.cpp" />
+    <ClCompile Include="include\Skybox.cpp" />
     <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="include\threeDObject.cpp" />
     <ClCompile Include="include\Timer.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="src\RenderTexture.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\ShaderLibrary.h" />
+    <ClInclude Include="src\Skybox.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\threeDObject.h" />
     <ClInclude Include="src\Timer.h" />
@@ -191,6 +193,8 @@
   <ItemGroup>
     <None Include="Assets\Shaders\ObjShader.frag" />
     <None Include="Assets\Shaders\ObjShader.vert" />
+    <None Include="Assets\Shaders\SkyboxShader.frag" />
+    <None Include="Assets\Shaders\SkyboxShader.vert" />
     <None Include="Assets\Shaders\UIShader.frag" />
     <None Include="Assets\Shaders\UIShader.vert" />
   </ItemGroup>

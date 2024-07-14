@@ -60,6 +60,9 @@
     <ClCompile Include="include\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Mesh.h">
@@ -107,11 +110,16 @@
     <ClInclude Include="src\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\ObjShader.vert" />
     <None Include="Assets\Shaders\ObjShader.frag" />
     <None Include="Assets\Shaders\UIShader.frag" />
     <None Include="Assets\Shaders\UIShader.vert" />
+    <None Include="Assets\Shaders\SkyboxShader.frag" />
+    <None Include="Assets\Shaders\SkyboxShader.vert" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
 ModelLibrary::ModelLibrary()
 	: carModel("Assets/Models/F1Car/Model/formula_car.obj")
 	, playerTexture("Assets/Models/F1Car/Textures/car_02_m.png")
+	, skyboxMesh(true)
+	, skyboxTexture({ "Assets/Textures/skyboxHangar/px.png", "Assets/Textures/skyboxHangar/nx.png", "Assets/Textures/skyboxHangar/py.png", "Assets/Textures/skyboxHangar/ny.png", "Assets/Textures/skyboxHangar/pz.png", "Assets/Textures/skyboxHangar/nz.png" })
 	, defaultTexture("Assets/Textures/defaultTex.png")
 {
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m2.png"));
@@ -14,7 +16,6 @@ ModelLibrary::ModelLibrary()
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m8.png"));
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m9.png"));
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m10.png"));
-
 
 	quadMesh = Mesh();
 

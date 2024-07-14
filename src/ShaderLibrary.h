@@ -9,4 +9,5 @@ struct ShaderLibrary
 
 	Shader objectShader;
 	Shader uiShader;
+	Shader skyboxShader;
 };

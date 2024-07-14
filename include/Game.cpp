@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "UIObject.h"
+#include "Skybox.h"
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -11,6 +12,7 @@ Game::Game()
 {
 	AddGameObject(new Player(this));
 	AddGameObject(new UIObject(this));
+	AddGameObject(new Skybox(this));
 }
 
 Game::~Game()
@@ -77,7 +79,6 @@ void Game::SetGlobalUniforms()
 	GetWindowSize(width, height);
 	glm::mat4 projection = glm::perspective(glm::radians(mCamera.GetFOV()), (float)width / (float)height, mCamera.GetNearClip(), mCamera.GetFarClip());
 
-	// Use camera position and rotation to translate and rotate view matrix, then inverse it (view moves left, objects move right)
 	glm::mat4 view(1.0f);
 	view = glm::translate(view, mCamera.transform.position);
 	view = glm::rotate(view, glm::radians(mCamera.transform.rotation.x), glm::vec3(1, 0, 0));
@@ -94,4 +95,9 @@ void Game::SetGlobalUniforms()
 
 	mShaderLibrary.uiShader.uniform("u_Projection", uiProjection);
 	mShaderLibrary.uiShader.uniform("u_View", glm::mat4(1.0f));
+
+
+	glm::mat4 invPV = glm::inverse(projection * view);
+
+	mShaderLibrary.skyboxShader.uniform("invPV", invPV);
 }
