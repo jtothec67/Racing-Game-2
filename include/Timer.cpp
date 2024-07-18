@@ -3,19 +3,37 @@
 void Timer::Start()
 {
 	mStart = std::chrono::steady_clock::now();
-	mEnd = mStart;
+	mRunning = true;
 }
 
 float Timer::Stop()
 {
+	if (!mRunning)
+	{
+		return 0.0f;
+	}
+
 	mEnd = std::chrono::steady_clock::now();
 
-	return GetTime();
+	std::chrono::duration<float> duration = mEnd - mStart;
+
+	mStart = mEnd;
+
+	mRunning = false;
+
+	return duration.count();
 }
 
-float Timer::GetTime()
+float Timer::GetElapsedTime()
 {
-	std::chrono::duration<float> duration = mEnd - mStart;
+	if (!mRunning)
+	{
+		return 0.0f;
+	}
+
+	mTempTimeStamp = std::chrono::steady_clock::now();
+
+	std::chrono::duration<float> duration = mTempTimeStamp - mStart;
 
 	return duration.count();
 }

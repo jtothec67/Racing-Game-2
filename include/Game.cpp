@@ -31,6 +31,8 @@ void Game::Update(float _deltaTime)
 {
 	mWindow.Update();
 
+	CheckUserInput();
+
 	for (int i = 0; i < mGameObjects.size(); i++)
 	{
 		mGameObjects[i]->Update(_deltaTime);
@@ -100,4 +102,25 @@ void Game::SetGlobalUniforms()
 	glm::mat4 invPV = glm::inverse(projection * view);
 
 	mShaderLibrary.skyboxShader.uniform("invPV", invPV);
+}
+
+void Game::CheckUserInput()
+{
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_QUIT)
+		{
+			StopGameRunning();
+		}
+
+		if (event.type == SDL_KEYDOWN)
+		{
+			keyboard[event.key.keysym.sym] = true;
+		}
+
+		if (event.type == SDL_KEYUP)
+		{
+			keyboard[event.key.keysym.sym] = false;
+		}
+	}
 }

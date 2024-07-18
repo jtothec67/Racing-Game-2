@@ -6,13 +6,10 @@
 #include "ShaderLibrary.h"
 #include "Camera.h"
 
-
 #include <glm/glm.hpp>
 
+#include <map>
 #include <vector>
-
-#ifndef GAME_H
-#define GAME_H
 
 class Game
 {
@@ -40,6 +37,8 @@ public:
 
 	glm::vec3 GetLightPos() { return mLightPos; }
 
+	std::map<int, bool> keyboard;
+
 private:
 	void Update(float _deltaTime);
 	void Draw();
@@ -47,6 +46,10 @@ private:
 	void mRemoveGameObjects();
 
 	void SetGlobalUniforms();
+
+	void CheckUserInput();
+
+	SDL_Event event = {};
 
 	Window mWindow;
 
@@ -62,5 +65,3 @@ private:
 
 	bool gameRunning = true;
 };
-
-#endif // GAME_H
