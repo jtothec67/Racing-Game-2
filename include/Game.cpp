@@ -1,7 +1,5 @@
 #include "Game.h"
-#include "Player.h"
-#include "UIObject.h"
-#include "Skybox.h"
+#include "MenuScene.h"
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -10,15 +8,12 @@ Game::Game()
 	: mWindow(1920, 1080)
 	, mCamera(this, 45, 0.1f, 100.f)
 {
-	AddGameObject(new Player(this));
-	AddGameObject(new UIObject(this));
-	AddGameObject(new Skybox(this));
+	mScenes.push_back(new MenuScene(this, true));
 }
 
 Game::~Game()
 {
-	mGameObjects.clear();
-	mGameObjectsToRemove.clear();
+	
 }
 
 void Game::Run(float _deltaTime)
@@ -27,18 +22,24 @@ void Game::Run(float _deltaTime)
 	Draw();
 }
 
+BaseScene* Game::GetCurrentScene()
+{
+	for (int i = 0; i < mScenes.size(); i++)
+	{
+		if (mScenes[i]->IsSceneActive())
+		{
+			return mScenes[i];
+		}
+	}
+}
+
 void Game::Update(float _deltaTime)
 {
 	mWindow.Update();
 
 	CheckUserInput();
 
-	for (int i = 0; i < mGameObjects.size(); i++)
-	{
-		mGameObjects[i]->Update(_deltaTime);
-	}
-
-	mRemoveGameObjects();
+	GetCurrentScene()->Update(_deltaTime);
 }
 
 void Game::Draw()
@@ -47,32 +48,9 @@ void Game::Draw()
 
 	SetGlobalUniforms();
 
-	for (int i = 0; i < mGameObjects.size(); i++)
-	{
-		mGameObjects[i]->Draw();
-	}
+	GetCurrentScene()->Draw();
 
 	mWindow.SwapWindows();
-}
-
-void Game::mRemoveGameObjects()
-{
-    if (mGameObjectsToRemove.empty())
-        return;
-
-    for (auto* objToRemove : mGameObjectsToRemove)
-    {
-        for (auto it = mGameObjects.rbegin(); it != mGameObjects.rend(); ++it)
-        {
-            if (*it == objToRemove)
-            {
-                mGameObjects.erase((it + 1).base());
-                break; 
-            }
-        }
-    }
-
-    mGameObjectsToRemove.clear();
 }
 
 void Game::SetGlobalUniforms()
@@ -90,7 +68,7 @@ void Game::SetGlobalUniforms()
 
 	mShaderLibrary.objectShader.uniform("u_Projection", projection);
 	mShaderLibrary.objectShader.uniform("u_View", view);
-	mShaderLibrary.objectShader.uniform("u_LightPos", mLightPos);
+	mShaderLibrary.objectShader.uniform("u_LightPos", GetCurrentScene()->GetLightPos());
 
 
 	glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
