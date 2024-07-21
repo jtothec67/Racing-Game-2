@@ -2,11 +2,11 @@
 
 #include "BaseScene.h"
 
-class MenuScene : public BaseScene
+class GameplayScene : public BaseScene
 {
 public:
-	MenuScene(Game* _game);
-	~MenuScene();
+	GameplayScene(Game* _game);
+	~GameplayScene();
 
 	void Update(float _deltaTime) override;
 	void Draw() override;

@@ -7,7 +7,7 @@
 class BaseScene
 {
 public:
-	BaseScene(Game* _game, bool _isActive);
+	BaseScene(Game* _game);
 	virtual ~BaseScene();
 
 	virtual void Update(float _deltaTime) {}
@@ -21,9 +21,6 @@ public:
 	glm::vec3 GetLightPos() { return mLightPos; }
 	void SetLightPos(glm::vec3 _lightPos) { mLightPos = _lightPos; }
 
-	void SetSceneActive(bool _sceneActive) { mSceneActive = _sceneActive; }
-	bool IsSceneActive() { return mSceneActive; }
-
 protected:
 	void mRemoveGameObjects();
 
@@ -33,6 +30,4 @@ protected:
 	std::vector<GameObject*> mGameObjectsToRemove;
 
 	glm::vec3 mLightPos = glm::vec3(0.f, 0.f, 0.f);
-
-	bool mSceneActive;
 };

@@ -1,9 +1,8 @@
 #include "BaseScene.h"
 
-BaseScene::BaseScene(Game* _game, bool _isActive)
+BaseScene::BaseScene(Game* _game)
 {
 	mGame = _game;
-    mSceneActive = _isActive;
 }
 
 BaseScene::~BaseScene()

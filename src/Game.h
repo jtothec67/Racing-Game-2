@@ -11,6 +11,12 @@
 #include <map>
 #include <vector>
 
+enum Scene
+{
+	Menu,
+	Gameplay
+};
+
 class Game
 {
 public:
@@ -19,7 +25,9 @@ public:
 
 	void Run(float _deltaTime);
 
-	BaseScene* GetCurrentScene();
+	BaseScene* GetCurrentScene() { return mCurrentScene; }
+
+	void ChangeScene(Scene _scene);
 
 	GameObject* GetCamera() { return &mCamera; }
 
@@ -42,7 +50,7 @@ private:
 
 	void CheckUserInput();
 
-	std::vector<BaseScene*> mScenes;
+	BaseScene* mCurrentScene;
 
 	SDL_Event event = {};
 

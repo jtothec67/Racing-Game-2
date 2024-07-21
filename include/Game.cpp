@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "MenuScene.h"
+#include "GameplayScene.h"
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -8,12 +9,12 @@ Game::Game()
 	: mWindow(1920, 1080)
 	, mCamera(this, 45, 0.1f, 100.f)
 {
-	mScenes.push_back(new MenuScene(this, true));
+	mCurrentScene = new MenuScene(this);
 }
 
 Game::~Game()
 {
-	
+	delete mCurrentScene;
 }
 
 void Game::Run(float _deltaTime)
@@ -22,24 +23,13 @@ void Game::Run(float _deltaTime)
 	Draw();
 }
 
-BaseScene* Game::GetCurrentScene()
-{
-	for (int i = 0; i < mScenes.size(); i++)
-	{
-		if (mScenes[i]->IsSceneActive())
-		{
-			return mScenes[i];
-		}
-	}
-}
-
 void Game::Update(float _deltaTime)
 {
 	mWindow.Update();
 
 	CheckUserInput();
 
-	GetCurrentScene()->Update(_deltaTime);
+	mCurrentScene->Update(_deltaTime);
 }
 
 void Game::Draw()
@@ -48,9 +38,23 @@ void Game::Draw()
 
 	SetGlobalUniforms();
 
-	GetCurrentScene()->Draw();
+	mCurrentScene->Draw();
 
 	mWindow.SwapWindows();
+}
+
+void Game::ChangeScene(Scene _scene)
+{
+	delete mCurrentScene;
+	switch (_scene)
+	{
+	case Menu:
+		mCurrentScene = new MenuScene(this);
+		break;
+	case Gameplay:
+		mCurrentScene = new GameplayScene(this);
+		break;
+	}
 }
 
 void Game::SetGlobalUniforms()

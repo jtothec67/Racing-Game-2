@@ -159,6 +159,7 @@
     <ClCompile Include="include\Camera.cpp" />
     <ClCompile Include="include\Game.cpp" />
     <ClCompile Include="include\GameObject.cpp" />
+    <ClCompile Include="include\GameplayScene.cpp" />
     <ClCompile Include="include\MenuScene.cpp" />
     <ClCompile Include="include\ModelLibrary.cpp" />
     <ClCompile Include="include\Player.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\GameplayScene.h" />
     <ClInclude Include="src\MenuScene.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Model.h" />

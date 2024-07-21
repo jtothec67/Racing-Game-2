@@ -2,7 +2,7 @@
 #include "UIObject.h"
 #include "Skybox.h"
 
-MenuScene::MenuScene(Game* _game, bool _isActive) : BaseScene(_game, _isActive)
+MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 {
 	AddGameObject(new Skybox(mGame));
 
@@ -13,7 +13,7 @@ MenuScene::MenuScene(Game* _game, bool _isActive) : BaseScene(_game, _isActive)
 
 MenuScene::~MenuScene()
 {
-
+	
 }
 
 void MenuScene::Update(float _deltaTime)
