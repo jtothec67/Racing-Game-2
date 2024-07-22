@@ -48,10 +48,10 @@ void Game::ChangeScene(Scene _scene)
 	delete mCurrentScene;
 	switch (_scene)
 	{
-	case Menu:
+	case Scene::Menu:
 		mCurrentScene = new MenuScene(this);
 		break;
-	case Gameplay:
+	case Scene::Game:
 		mCurrentScene = new GameplayScene(this);
 		break;
 	}

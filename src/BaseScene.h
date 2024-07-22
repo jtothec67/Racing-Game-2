@@ -10,16 +10,18 @@ public:
 	BaseScene(Game* _game);
 	virtual ~BaseScene();
 
-	virtual void Update(float _deltaTime) {}
-	virtual void Draw() {}
+	virtual void Update(float _deltaTime) = 0;
+	virtual void Draw() = 0;
 
-	virtual void RemoveGameObject(GameObject* _gameObject) { mGameObjectsToRemove.push_back(_gameObject); }
+	void RemoveGameObject(GameObject* _gameObject) { mGameObjectsToRemove.push_back(_gameObject); }
 
-	virtual void AddGameObject(GameObject* _gameObject) { mGameObjects.push_back(_gameObject); }
-	virtual const std::vector<GameObject*>* GetGameObjects() { return &mGameObjects; }
+	void AddGameObject(GameObject* _gameObject) { mGameObjects.push_back(_gameObject); }
+	const std::vector<GameObject*>* GetGameObjects() { return &mGameObjects; }
 
 	glm::vec3 GetLightPos() { return mLightPos; }
 	void SetLightPos(glm::vec3 _lightPos) { mLightPos = _lightPos; }
+
+	GameObject* FindGameObjectByTag(Tag _tag);
 
 protected:
 	void mRemoveGameObjects();

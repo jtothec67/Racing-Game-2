@@ -2,9 +2,9 @@
 
 #include "GameObject.h"
 #include "Game.h"
-#include "Mesh.h"
-#include "Texture.h"
-#include "Shader.h"
+#include "OpenGLWrappedh/Mesh.h"
+#include "OpenGLWrappedh/Texture.h"
+#include "OpenGLWrappedh/Shader.h"
 
 #ifndef UIOBJECT_H
 #define UIOBJECT_H
@@ -23,6 +23,8 @@ public:
 
 	virtual void SetShader(Shader* _shader) { mShader = _shader; }
 	virtual Shader* GetShader() { return mShader; }
+
+	void GetTextureSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
 
 protected:
 	int mWidth = 0;

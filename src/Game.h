@@ -11,10 +11,10 @@
 #include <map>
 #include <vector>
 
-enum Scene
+enum class Scene
 {
 	Menu,
-	Gameplay
+	Game
 };
 
 class Game

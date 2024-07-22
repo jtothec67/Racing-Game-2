@@ -2,9 +2,9 @@
 
 #include "GameObject.h"
 #include "Game.h"
-#include "Model.h"
-#include "Texture.h"
-#include "Shader.h"
+#include "OpenGLWrappedh/Model.h"
+#include "OpenGLWrappedh/Texture.h"
+#include "OpenGLWrappedh/Shader.h"
 
 class threeDObject : public GameObject
 {

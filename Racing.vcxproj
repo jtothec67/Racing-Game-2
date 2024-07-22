@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\BaseScene.cpp" />
+    <ClCompile Include="include\Button.cpp" />
     <ClCompile Include="include\Camera.cpp" />
     <ClCompile Include="include\Game.cpp" />
     <ClCompile Include="include\GameObject.cpp" />
@@ -164,12 +165,12 @@
     <ClCompile Include="include\ModelLibrary.cpp" />
     <ClCompile Include="include\Player.cpp" />
     <ClCompile Include="include\Racing.cpp" />
-    <ClCompile Include="include\Mesh.cpp" />
-    <ClCompile Include="include\RenderTexture.cpp" />
-    <ClCompile Include="include\Shader.cpp" />
+    <ClCompile Include="include\OpenGLWrappedcpp\Mesh.cpp" />
+    <ClCompile Include="include\OpenGLWrappedcpp\RenderTexture.cpp" />
+    <ClCompile Include="include\OpenGLWrappedcpp\Shader.cpp" />
     <ClCompile Include="include\ShaderLibrary.cpp" />
     <ClCompile Include="include\Skybox.cpp" />
-    <ClCompile Include="include\Texture.cpp" />
+    <ClCompile Include="include\OpenGLWrappedcpp\Texture.cpp" />
     <ClCompile Include="include\threeDObject.cpp" />
     <ClCompile Include="include\Timer.cpp" />
     <ClCompile Include="include\UIObject.cpp" />
@@ -177,20 +178,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BaseScene.h" />
+    <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameplayScene.h" />
     <ClInclude Include="src\MenuScene.h" />
-    <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\OpenGLWrappedh\Mesh.h" />
+    <ClInclude Include="src\OpenGLWrappedh\Model.h" />
     <ClInclude Include="src\ModelLibrary.h" />
     <ClInclude Include="src\Player.h" />
-    <ClInclude Include="src\RenderTexture.h" />
-    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\OpenGLWrappedh\RenderTexture.h" />
+    <ClInclude Include="src\OpenGLWrappedh\Shader.h" />
     <ClInclude Include="src\ShaderLibrary.h" />
     <ClInclude Include="src\Skybox.h" />
-    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\OpenGLWrappedh\Texture.h" />
     <ClInclude Include="src\threeDObject.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\UIObject.h" />

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Model.h"
-#include "Texture.h"
-#include "Mesh.h"
+#include "OpenGLWrappedh/Model.h"
+#include "OpenGLWrappedh/Texture.h"
+#include "OpenGLWrappedh/Mesh.h"
 
 #include <vector>
 

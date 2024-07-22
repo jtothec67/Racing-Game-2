@@ -2,9 +2,9 @@
 
 #include "GameObject.h"
 #include "Game.h"
-#include "Mesh.h"
-#include "Texture.h"
-#include "Shader.h"
+#include "OpenGLWrappedh/Mesh.h"
+#include "OpenGLWrappedh/Texture.h"
+#include "OpenGLWrappedh/Shader.h"
 
 class Skybox : public GameObject
 {

@@ -30,3 +30,16 @@ void BaseScene::mRemoveGameObjects()
 
     mGameObjectsToRemove.clear();
 }
+
+GameObject* BaseScene::FindGameObjectByTag(Tag _tag)
+{
+    // Returns the first instance of a GameObject with the tag in mGameObjects
+
+	for (auto* obj : mGameObjects)
+	{
+		if (obj->GetTag() == _tag)
+			return obj;
+	}
+
+	return nullptr;
+}

@@ -8,6 +8,7 @@ public:
 	MenuScene(Game* _game);
 	~MenuScene();
 
+private:
 	void Update(float _deltaTime) override;
 	void Draw() override;
 };

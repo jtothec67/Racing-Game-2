@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "OpenGLWrappedh/Mesh.h"
 
 Mesh::Mesh()
 	: m_id(0)
