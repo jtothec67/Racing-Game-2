@@ -18,7 +18,7 @@ public:
 
 	void Draw() override;
 
-	virtual void SetTexture(Texture* _texture) { mTexture = _texture; }
+	virtual void SetTexture(Texture* _texture) { mTexture = _texture; mTexture->GetSize(mWidth, mHeight); }
 	virtual Texture* GetTexture() { return mTexture; }
 
 	virtual void SetShader(Shader* _shader) { mShader = _shader; }

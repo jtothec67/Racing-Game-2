@@ -2,6 +2,8 @@
 
 #include "UIObject.h"
 
+#include <iostream>
+
 class Button : public UIObject
 {
 public:
@@ -11,13 +13,15 @@ public:
 
 	void Draw() override;
 
-	bool IsSelected() { return mSelected; }
-	void SetSelected(bool _selected) { mSelected = _selected; }
+	bool IsSelected() { return mHovered; }
+	void SetSelected(bool _hovered) { mHovered = _hovered; }
 
-	void SetSelectedTexture(Texture* _texture) { mSelectedTexture = _texture; }
+	void SetSelectedTexture(Texture* _texture) { mHoverTexture = _texture; mHoverTexture->GetSize(mHoveredWidth, mHoveredHeight); }
 
 protected:
-	Texture* mSelectedTexture;
+	Texture* mHoverTexture;
+	int mHoveredWidth = 0;
+	int mHoveredHeight = 0;
 
-	bool mSelected = false;
+	bool mHovered = false;
 };

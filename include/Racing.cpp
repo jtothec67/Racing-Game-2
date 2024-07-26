@@ -7,21 +7,26 @@
 
 int main()
 {
-    Game myGame;
-    Timer frameTimer;
-
-    frameTimer.Start(); // First timestep very short but that's fine
-
-    while (myGame.IsGameRunning())
     {
-        float deltaTime = frameTimer.Stop();
+        Game myGame;
 
-        frameTimer.Start();
+        Timer frameTimer;
+        frameTimer.Start(); // First timestep very short but that's fine
 
-        myGame.Run(deltaTime);
+        while (myGame.IsGameRunning())
+        {
+            float deltaTime = frameTimer.Stop();
 
-        //std::cout << "FPS: " << 1.0f / deltaTime << std::endl; // Uses vsync (apparently) so FPS should be monitors refresh rate (unless it's running slower)
+            frameTimer.Start();
+
+            myGame.Run(deltaTime);
+
+            //std::cout << "FPS: " << 1.0f / deltaTime << std::endl; // Uses vsync (apparently) so FPS should be monitors refresh rate (unless it's running slower)
+        }
     }
 
+    // Can check everything has been deleted properly by looking at memory usage (should be 45mb)
+    std::cin.get();
+
     return 0;
-} 
+}

@@ -15,6 +15,7 @@ Game::Game()
 Game::~Game()
 {
 	delete mCurrentScene;
+
 }
 
 void Game::Run(float _deltaTime)
@@ -88,6 +89,8 @@ void Game::SetGlobalUniforms()
 
 void Game::CheckUserInput()
 {
+	keyDown.clear();
+
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_QUIT)
@@ -95,14 +98,19 @@ void Game::CheckUserInput()
 			StopGameRunning();
 		}
 
-		if (event.type == SDL_KEYDOWN)
-		{
-			keyboard[event.key.keysym.sym] = true;
-		}
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (!keyPress[event.key.keysym.sym])
+            {
+                keyDown[event.key.keysym.sym] = true;
+            }
+
+            keyPress[event.key.keysym.sym] = true;
+        }
 
 		if (event.type == SDL_KEYUP)
 		{
-			keyboard[event.key.keysym.sym] = false;
+			keyPress[event.key.keysym.sym] = false;
 		}
 	}
 }

@@ -2,6 +2,7 @@
 
 #include <SDL2/sdl.h>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 #ifndef WINDOW_H
 #define WINDOW_H
@@ -14,22 +15,23 @@ public:
 
 	void Update();
 
-	void ClearWindow()
-	{
-		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
+	void ClearWindow();
+	
 	void SwapWindows() { SDL_GL_SwapWindow(mWindow); }
 
 	SDL_Window* GetWindow() { return mWindow; }
 	
 	void GetWindowSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
 
+	void SetClearColour(glm::vec4 _colour) { mClearColour = _colour; glClearColor(mClearColour.r, mClearColour.g, mClearColour.b, mClearColour.a); }
+
 private:
 	SDL_Window* mWindow;
 	
 	int mWidth;
 	int mHeight;
+
+	glm::vec4 mClearColour = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 };
 
 #endif // WINDOW_H

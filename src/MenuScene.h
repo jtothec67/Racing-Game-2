@@ -11,4 +11,13 @@ public:
 private:
 	void Update(float _deltaTime) override;
 	void Draw() override;
+
+	enum class MenuOption
+	{
+		Play,
+		HowToPlay,
+		Quit
+	};
+
+	MenuOption mCurrentOption = MenuOption::Play;
 };

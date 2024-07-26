@@ -1,5 +1,7 @@
 #include "BaseScene.h"
 
+#include <iostream>
+
 BaseScene::BaseScene(Game* _game)
 {
 	mGame = _game;
@@ -7,7 +9,16 @@ BaseScene::BaseScene(Game* _game)
 
 BaseScene::~BaseScene()
 {
+    for (int i = 0; i < mGameObjects.size(); i++)
+    {
+        delete mGameObjects[i];
+    }
     mGameObjects.clear();
+
+    for (int i = 0; i < mGameObjectsToRemove.size(); i++)
+    {
+        delete mGameObjectsToRemove[i];
+    }
     mGameObjectsToRemove.clear();
 }
 

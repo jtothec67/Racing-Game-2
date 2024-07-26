@@ -40,7 +40,8 @@ public:
 	ModelLibrary* GetModelLibrary() { return &mModelLibrary; }
 	ShaderLibrary* GetShaderLibrary() { return &mShaderLibrary; }
 
-	std::map<int, bool> keyboard;
+	std::map<int, bool> keyPress;
+	std::map<int, bool> keyDown;
 
 private:
 	void Update(float _deltaTime);

@@ -6,6 +6,12 @@ ModelLibrary::ModelLibrary()
 	, skyboxMesh(true)
 	, skyboxTexture({ "Assets/Textures/skyboxHangar/px.png", "Assets/Textures/skyboxHangar/nx.png", "Assets/Textures/skyboxHangar/py.png", "Assets/Textures/skyboxHangar/ny.png", "Assets/Textures/skyboxHangar/pz.png", "Assets/Textures/skyboxHangar/nz.png" })
 	, defaultTexture("Assets/Textures/defaultTex.png")
+	, playButTex("Assets/Textures/playButtonTex.png")
+	, playButHoverTex("Assets/Textures/playButtonSelectedTex.png")
+	, quitButTex("Assets/Textures/quitButtonTex.png")
+	, quitButHoverTex("Assets/Textures/quitSelectedButtonTex.png")
+	, htpButTex("Assets/Textures/htpButtonTex.png")
+	, htpButHoverTex("Assets/Textures/htpButtonSelectedTex.png")
 {
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m2.png"));
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m3.png"));

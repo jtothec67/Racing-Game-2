@@ -25,6 +25,15 @@ struct ModelLibrary
 	Mesh quadMesh;
 
 	Texture defaultTexture;
+
+	Texture playButTex;
+	Texture playButHoverTex;
+
+	Texture quitButTex;
+	Texture quitButHoverTex;
+
+	Texture htpButTex;
+	Texture htpButHoverTex;
 };
 
 #endif // MODELLIBRARY_H

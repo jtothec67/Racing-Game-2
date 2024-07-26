@@ -5,7 +5,9 @@
 
 Button::Button(Game* _game) : UIObject(_game)
 {
-	mSelectedTexture = &(mGame->GetModelLibrary()->defaultTexture);
+	mHoverTexture = &(mGame->GetModelLibrary()->defaultTexture);
+	mHoverTexture->GetSize(mHoveredWidth, mHoveredHeight);
+
 	mTag = Tag::Button;
 }
 
@@ -13,15 +15,25 @@ void Button::Draw()
 {
 	glm::mat4 model(1.0f);
 	model = glm::mat4(1.0f);
-	float halfWidth = mWidth * 0.5f * transform.scale.x;
-	float halfHeight = mHeight * 0.5f * transform.scale.y;
-	model = glm::translate(model, glm::vec3(transform.position.x - halfWidth, transform.position.y - halfHeight, 0));
-	model = glm::scale(model, glm::vec3(transform.scale.x * mWidth, transform.scale.y * mHeight, 1)); // Assuming selected texture is the same size as default texture
 
-	mShader->uniform("u_Model", model);
+	if (!mHovered)
+	{
+		float halfWidth = mWidth * 0.5f * transform.scale.x;
+		float halfHeight = mHeight * 0.5f * transform.scale.y;
+		model = glm::translate(model, glm::vec3(transform.position.x - halfWidth, transform.position.y - halfHeight, 0));
+		model = glm::scale(model, glm::vec3(transform.scale.x * mWidth, transform.scale.y * mHeight, 1));
+		mShader->uniform("u_Model", model);
 
-	if (!mSelected)
 		mShader->draw(mMesh, mTexture);
+	}
 	else
-		mShader->draw(mMesh, mSelectedTexture);
+	{
+		float halfWidth = mHoveredWidth * 0.5f * transform.scale.x;
+		float halfHeight = mHoveredHeight * 0.5f * transform.scale.y;
+		model = glm::translate(model, glm::vec3(transform.position.x - halfWidth, transform.position.y - halfHeight, 0));
+		model = glm::scale(model, glm::vec3(transform.scale.x * mHoveredWidth, transform.scale.y * mHoveredHeight, 1));
+		mShader->uniform("u_Model", model);
+
+		mShader->draw(mMesh, mHoverTexture);
+	}
 }
