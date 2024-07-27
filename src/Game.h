@@ -5,6 +5,7 @@
 #include "ModelLibrary.h"
 #include "ShaderLibrary.h"
 #include "Camera.h"
+#include "Timer.h"
 
 #include <glm/glm.hpp>
 
@@ -23,33 +24,36 @@ public:
 	Game();
 	~Game();
 
-	void Run(float _deltaTime);
+	void Run();
 
 	BaseScene* GetCurrentScene() { return mCurrentScene; }
 
 	void ChangeScene(Scene _scene);
 
-	GameObject* GetCamera() { return &mCamera; }
+	Camera* GetCamera() { return &mCamera; }
+
+	void UseCamera(Camera* _camera);
 
 	Window* GetWindow() { return &mWindow; }
 	void GetWindowSize(int& _width, int& _height) { mWindow.GetWindowSize(_width, _height); }
 
-	void StopGameRunning() { gameRunning = false; }
-	bool IsGameRunning() { return gameRunning; }
+	void StopGameRunning() { mGameRunning = false; }
+	bool IsGameRunning() { return mGameRunning; }
 
 	ModelLibrary* GetModelLibrary() { return &mModelLibrary; }
 	ShaderLibrary* GetShaderLibrary() { return &mShaderLibrary; }
 
 	std::map<int, bool> keyPress;
 	std::map<int, bool> keyDown;
+	std::map<int, bool> keyUp;
 
 private:
 	void Update(float _deltaTime);
 	void Draw();
 
-	void SetGlobalUniforms();
-
 	void CheckUserInput();
+
+	Timer mFrameTimer;
 
 	BaseScene* mCurrentScene;
 
@@ -62,5 +66,7 @@ private:
 	ModelLibrary mModelLibrary;
 	ShaderLibrary mShaderLibrary;
 
-	bool gameRunning = true;
+	bool mGameRunning = true;
+
+	bool mSceneChanged = false;
 };

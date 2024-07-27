@@ -125,6 +125,8 @@ void MenuScene::Update(float _deltaTime)
 
 void MenuScene::Draw()
 {
+	mGame->UseCamera(mGame->GetCamera());
+
 	for (int i = 0; i < mGameObjects.size(); i++)
 	{
 		mGameObjects[i]->Draw();
