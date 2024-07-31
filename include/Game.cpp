@@ -28,7 +28,7 @@ void Game::Run()
 
 	mFrameTimer.Start();
 
-	// Avoids first frame being very long due to scene initialising
+	// Avoids first frame after scene has been changed being very long due to scene initialising
 	if (mSceneChanged)
 	{
 		mSceneChanged = false;

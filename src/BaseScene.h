@@ -3,6 +3,8 @@
 #include "GameObject.h"
 
 #include <vector>
+#include <unordered_map>
+#include <string>
 
 class BaseScene
 {
@@ -28,6 +30,7 @@ protected:
 
 	Game* mGame;
 
+	std::unordered_map<std::string, GameObject*> mNamedGameObjects;
 	std::vector<GameObject*> mGameObjects;
 	std::vector<GameObject*> mGameObjectsToRemove;
 

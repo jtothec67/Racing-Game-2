@@ -37,6 +37,15 @@ void BaseScene::mRemoveGameObjects()
                 break;
             }
         }
+
+        for (auto it = mNamedGameObjects.begin(); it != mNamedGameObjects.end(); ++it)
+        {
+            if (it->second == objToRemove)
+            {
+                mNamedGameObjects.erase(it);
+                break;
+            }
+        }
     }
 
     mGameObjectsToRemove.clear();

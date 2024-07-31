@@ -9,6 +9,19 @@
 #ifndef UIOBJECT_H
 #define UIOBJECT_H
 
+enum class Anchor
+{
+	TopLeft,
+	TopRight,
+	TopCentre,
+	BottomLeft,
+	BottomRight,
+	BottomCentre,
+	Centre,
+	LeftCentre,
+	RightCentre
+};
+
 class UIObject : public GameObject
 {
 public:
@@ -16,6 +29,7 @@ public:
 
 	~UIObject() {}
 
+	void Update(float _deltaTime);
 	void Draw() override;
 
 	virtual void SetTexture(Texture* _texture) { mTexture = _texture; mTexture->GetSize(mWidth, mHeight); }
@@ -26,13 +40,21 @@ public:
 
 	void GetTextureSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
 
+	void SetAnchor(Anchor _anchor) { mAnchor = _anchor; }
+
 protected:
 	int mWidth = 0;
 	int mHeight = 0;
 
+	Anchor mAnchor = Anchor::Centre;
+
 	Mesh* mMesh;
 	Texture* mTexture;
 	Shader* mShader;
+
+private:
+	int mScreenWidthLastFrame = 0;
+	int mScreenHeightLastFrame = 0;
 };
 
 #endif // UIOBJECT_H

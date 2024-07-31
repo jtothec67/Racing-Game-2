@@ -9,7 +9,7 @@
 
 #include <glm/glm.hpp>
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 enum class Scene
@@ -43,9 +43,9 @@ public:
 	ModelLibrary* GetModelLibrary() { return &mModelLibrary; }
 	ShaderLibrary* GetShaderLibrary() { return &mShaderLibrary; }
 
-	std::map<int, bool> keyPress;
-	std::map<int, bool> keyDown;
-	std::map<int, bool> keyUp;
+	std::unordered_map<int, bool> keyPress;
+	std::unordered_map<int, bool> keyDown;
+	std::unordered_map<int, bool> keyUp;
 
 private:
 	void Update(float _deltaTime);

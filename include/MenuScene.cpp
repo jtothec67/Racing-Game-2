@@ -13,19 +13,25 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	playButton->SetSelectedTexture(&(mGame->GetModelLibrary()->playButHoverTex));
 	playButton->SetSelected(true);
 	playButton->transform.position = glm::vec3(windowWidth/2, (windowHeight / 4) * 3, 0);
+	playButton->SetAnchor(Anchor::TopCentre);
 	AddGameObject(playButton);
+	mNamedGameObjects["PlayButton"] = playButton;
 
 	Button* htpButton = new Button(mGame);
 	htpButton->SetTexture(&(mGame->GetModelLibrary()->htpButTex));
 	htpButton->SetSelectedTexture(&(mGame->GetModelLibrary()->htpButHoverTex));
 	htpButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4) * 2, 0);
+	htpButton->SetAnchor(Anchor::Centre);
 	AddGameObject(htpButton);
+	mNamedGameObjects["HowToPlayButton"] = htpButton;
 
 	Button* quitButton = new Button(mGame);
 	quitButton->SetTexture(&(mGame->GetModelLibrary()->quitButTex));
 	quitButton->SetSelectedTexture(&(mGame->GetModelLibrary()->quitButHoverTex));
 	quitButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4), 0);
+	quitButton->SetAnchor(Anchor::BottomCentre);
 	AddGameObject(quitButton);
+	mNamedGameObjects["QuitButton"] = quitButton;
 
 	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 }
@@ -41,77 +47,78 @@ void MenuScene::Update(float _deltaTime)
 	{
 		switch (mCurrentOption)
 		{
-		case MenuOption::Play:
-		{
-			mGame->ChangeScene(Scene::Game);
-			break;
-		}
-		case MenuOption::HowToPlay:
-		{
-			//mGame->ChangeScene(Scene::HowToPlay);
-			break;
-		}
-		case MenuOption::Quit:
-		{
-			mGame->StopGameRunning();
-			break;
-		}
+			case MenuOption::Play:
+			{
+				mGame->ChangeScene(Scene::Game);
+				break;
+			}
+			case MenuOption::HowToPlay:
+			{
+				//mGame->ChangeScene(Scene::HowToPlay);
+				break;
+			}
+			case MenuOption::Quit:
+			{
+				mGame->StopGameRunning();
+				break;
+			}
 		}
 	}
-	else
-	if(mGame->keyDown[SDLK_s])
+	
+	if(mGame->keyDown[SDLK_s] || mGame->keyDown[SDLK_DOWN])
 	{
 		switch (mCurrentOption)
 		{
-		case MenuOption::Play:
-		{
-			mCurrentOption = MenuOption::HowToPlay;
-			Button* playButton = dynamic_cast<Button*>(mGameObjects[0]); // Accessing them directly because we know what they are (disgusting, think of better way. Could use the tag system but a tag per button doesn't seem right)
-			playButton->SetSelected(false);
+			case MenuOption::Play:
+			{
+				mCurrentOption = MenuOption::HowToPlay;
+				Button* playButton = (Button*)(mNamedGameObjects["PlayButton"]);
+				playButton->SetSelected(false);
 
-			Button* htpButton = dynamic_cast<Button*>(mGameObjects[1]);
-			htpButton->SetSelected(true);
-			break;
-		}
-		case MenuOption::HowToPlay:
-		{
-			mCurrentOption = MenuOption::Quit;
+				Button* htpButton = (Button*)(mNamedGameObjects["HowToPlayButton"]);
+				htpButton->SetSelected(true);
+				break;
+			}
+			case MenuOption::HowToPlay:
+			{
+				mCurrentOption = MenuOption::Quit;
 
-			Button* htpButton2 = dynamic_cast<Button*>(mGameObjects[1]);
-			htpButton2->SetSelected(false);
+				Button* htpButton2 = (Button*)(mNamedGameObjects["HowToPlayButton"]);
+				htpButton2->SetSelected(false);
 
-			Button* quitButton2 = dynamic_cast<Button*>(mGameObjects[2]);
-			quitButton2->SetSelected(true);
-			break;
-		}
+				Button* quitButton2 = (Button*)(mNamedGameObjects["QuitButton"]);
+				quitButton2->SetSelected(true);
+				break;
+			}
 		}
 	}
-	else if (mGame->keyDown[SDLK_w])
+	
+	if (mGame->keyDown[SDLK_w] || mGame->keyDown[SDLK_UP])
 	{
 		switch (mCurrentOption)
 		{
-		case MenuOption::Quit:
-		{
-			mCurrentOption = MenuOption::HowToPlay;
+			case MenuOption::Quit:
+			{
+				mCurrentOption = MenuOption::HowToPlay;
 
-			Button* quitButton3 = (Button*)mGameObjects[2];
-			quitButton3->SetSelected(false);
+				Button* quitButton3 = (Button*)mNamedGameObjects["QuitButton"];
+				quitButton3->SetSelected(false);
 
-			Button* htpButton3 = (Button*)mGameObjects[1];
-			htpButton3->SetSelected(true);
-			break;
-		}
-		case MenuOption::HowToPlay:
-		{
-			mCurrentOption = MenuOption::Play;
+				Button* htpButton3 = (Button*)mNamedGameObjects["HowToPlayButton"];
+				htpButton3->SetSelected(true);
+				break;
+			}
+			case MenuOption::HowToPlay:
+			{
+				mCurrentOption = MenuOption::Play;
 
-			Button* htpButton4 = (Button*)mGameObjects[1];
-			htpButton4->SetSelected(false);
+				Button* htpButton4 = (Button*)mNamedGameObjects["HowToPlayButton"];
+				htpButton4->SetSelected(false);
 
-			Button* playButton4 = (Button*)mGameObjects[0];
-			playButton4->SetSelected(true);
-			break;
-		}
+				Button* playButton4 = (Button*)mNamedGameObjects["PlayButton"];
+				playButton4->SetSelected(true);
+				break;
+			}
 		}
 	}
 
