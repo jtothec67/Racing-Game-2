@@ -32,6 +32,9 @@ public:
 private:
 	GLuint m_id;
 
+	std::string m_vertpath;
+	std::string m_fragpath;
+
 	std::string m_vertsrc;
 	std::string m_fragsrc;
 

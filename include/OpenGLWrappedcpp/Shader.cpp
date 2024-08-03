@@ -8,14 +8,17 @@
 
 Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 	: m_id(0)
-	, m_vertsrc("")
+	, m_vertsrc()
 	, m_fragsrc("")
 {
+	m_vertpath = _vertpath;
+	m_fragpath = _fragpath;
+
 	std::ifstream vfile(_vertpath);
 	
 	if (!vfile.is_open())
 	{
-		std::cout << "Couln't open vertex shader: " << _vertpath << std::endl;
+		std::cout << "Couln't open shader: " << _vertpath << std::endl;
 		throw std::exception();
 	}
 	
@@ -33,7 +36,7 @@ Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 
 	if (!lfile.is_open())
 	{
-		std::cout << "Couln't open fragment shader: " << _fragpath << std::endl;
+		std::cout << "Couln't open shader: " << _fragpath << std::endl;
 		throw std::exception();
 	}
 
@@ -66,6 +69,7 @@ GLuint Shader::id()
 
 		if (!success)
 		{
+			std::cout << "Shader failed to compile: " << m_vertpath << std::endl;
 			throw std::exception();
 		}
 
@@ -78,6 +82,7 @@ GLuint Shader::id()
 
 		if (!success)
 		{
+			std::cout << "Shader failed to compile: " << m_fragpath << std::endl;
 			throw std::exception();
 		}
 
