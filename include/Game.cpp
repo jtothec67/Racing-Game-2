@@ -7,10 +7,10 @@
 #include <iostream>
 
 Game::Game()
-	: mWindow(1920, 1080)
+	: mWindow(1920/2, 1080/2)
 	, mCamera(this, 45, 0.1f, 100.f)
 {
-	mCurrentScene = new MenuScene(this);
+	mCurrentScene = new GameplayScene(this);
 
 	// First deltaTime very small but that's fine
 	mFrameTimer.Start();
@@ -19,7 +19,6 @@ Game::Game()
 Game::~Game()
 {
 	delete mCurrentScene;
-
 }
 
 void Game::Run()
@@ -38,7 +37,7 @@ void Game::Run()
 	Update(deltaTime); // deltaTime is the time the last frame took to update and draw (in seconds)
 	Draw();
 
-	//std::cout << "FPS: " << 1.0f / deltaTime << std::endl; // Uses vsync (apparently) so FPS should be monitors refresh rate (unless it's running slower)
+	//std::cout << "FPS: " << 1.0f / deltaTime << std::endl; // Uses vsync if monitor has gsync/freesync
 }
 
 void Game::Update(float _deltaTime)

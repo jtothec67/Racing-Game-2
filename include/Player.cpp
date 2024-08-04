@@ -1,6 +1,6 @@
 #include "Player.h"
 
-#include <glm/ext.hpp>
+#include <glm/glm.hpp>
 
 Player::Player(Game* _game) : threeDObject(_game)
 {
@@ -9,14 +9,10 @@ Player::Player(Game* _game) : threeDObject(_game)
 	mShader = &(mGame->GetShaderLibrary()->objectShader);
 	mModel = &(mGame->GetModelLibrary()->carModel);
 	mTexture = &(mGame->GetModelLibrary()->playerTexture);
-
-	transform.rotation.y = 90;
-
-	transform.position.x = -50;
-	transform.position.z = -50;
 }
 
 void Player::Update(float _deltaTime)
 {
-	transform.position.x += mSpeed * _deltaTime;
+    glm::vec3 forwardDirection = transform.GetForward();
+    transform.position += forwardDirection * mSpeed * _deltaTime;
 }

@@ -34,5 +34,5 @@ protected:
 	std::vector<GameObject*> mGameObjects;
 	std::vector<GameObject*> mGameObjectsToRemove;
 
-	glm::vec3 mLightPos = glm::vec3(0.f, 0.f, 0.f);
+	glm::vec3 mLightPos = glm::vec3(0.f, 20.f, 0.f);
 };

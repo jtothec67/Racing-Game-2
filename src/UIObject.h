@@ -6,9 +6,6 @@
 #include "OpenGLWrappedh/Texture.h"
 #include "OpenGLWrappedh/Shader.h"
 
-#ifndef UIOBJECT_H
-#define UIOBJECT_H
-
 enum class Anchor
 {
 	TopLeft,
@@ -56,5 +53,3 @@ private:
 	int mScreenWidthLastFrame = 0;
 	int mScreenHeightLastFrame = 0;
 };
-
-#endif // UIOBJECT_H

@@ -225,9 +225,9 @@ namespace glm
 	template<typename U>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR vec<3, T, Q> & vec<3, T, Q>::operator+=(U scalar)
 	{
-		this->x += static_cast<T>(scalar);
-		this->y += static_cast<T>(scalar);
-		this->z += static_cast<T>(scalar);
+        this->x += static_cast<T>(scalar);
+        this->y += static_cast<T>(scalar);
+        this->z += static_cast<T>(scalar);
 		return *this;
 	}
 

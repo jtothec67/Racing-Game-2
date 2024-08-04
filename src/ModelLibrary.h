@@ -6,9 +6,6 @@
 
 #include <vector>
 
-#ifndef MODELLIBRARY_H
-#define MODELLIBRARY_H
-
 struct ModelLibrary
 {
 	ModelLibrary();
@@ -35,5 +32,3 @@ struct ModelLibrary
 	Texture htpButTex;
 	Texture htpButHoverTex;
 };
-
-#endif // MODELLIBRARY_H

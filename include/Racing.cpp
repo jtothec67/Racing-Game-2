@@ -17,7 +17,7 @@ int main()
     }
 
     // Can check everything has been deleted properly by looking at memory usage (should be 45mb)
-    //std::cin.get();
+    std::cin.get();
 
     return 0;
 }

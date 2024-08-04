@@ -3,9 +3,6 @@
 #include "threeDObject.h"
 #include "Game.h"
 
-#ifndef PLAYER_H
-#define PLAYER_H
-
 class Player : public threeDObject
 {
 public:
@@ -19,7 +16,5 @@ public:
 	float GetSpeed() { return mSpeed; }
 
 private:
-	float mSpeed = 10.0f;
+	float mSpeed = 1.0f;
 };
-
-#endif // PLAYER_H

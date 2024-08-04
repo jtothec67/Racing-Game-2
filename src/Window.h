@@ -4,9 +4,6 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#ifndef WINDOW_H
-#define WINDOW_H
-
 class Window
 {
 public:
@@ -33,5 +30,3 @@ private:
 
 	glm::vec4 mClearColour = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 };
-
-#endif // WINDOW_H
