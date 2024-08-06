@@ -162,6 +162,7 @@
     <ClCompile Include="include\BaseScene.cpp" />
     <ClCompile Include="include\Button.cpp" />
     <ClCompile Include="include\Camera.cpp" />
+    <ClCompile Include="include\Enemy.cpp" />
     <ClCompile Include="include\Game.cpp" />
     <ClCompile Include="include\GameObject.cpp" />
     <ClCompile Include="include\GameplayScene.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\BaseScene.h" />
     <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameplayScene.h" />

@@ -81,8 +81,9 @@ void Game::UseCamera(Camera* _camera)
 
 	glm::mat4 view(1.0f);
 	view = glm::translate(view, _camera->transform.position);
+	
+	view = glm::rotate(view, glm::radians(_camera->transform.rotation.y + 180.f), glm::vec3(0, 1, 0));
 	view = glm::rotate(view, glm::radians(_camera->transform.rotation.x), glm::vec3(1, 0, 0));
-	view = glm::rotate(view, glm::radians(_camera->transform.rotation.y), glm::vec3(0, 1, 0));
 	view = glm::rotate(view, glm::radians(_camera->transform.rotation.z), glm::vec3(0, 0, 1));
 	view = glm::inverse(view);
 

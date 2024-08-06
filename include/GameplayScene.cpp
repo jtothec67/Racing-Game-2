@@ -1,20 +1,22 @@
 #include "GameplayScene.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Skybox.h"
+#include <iostream>
 
 GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 {
-	mGame->GetCamera()->transform.position = glm::vec3(0.f, 10.f, 0.f);
-	mGame->GetCamera()->transform.rotation = glm::vec3(-20.f, 0.f, 0.f);
-
 	AddGameObject(new Skybox(mGame));
 
 	Player* player = new Player(mGame);
-	player->transform.position = glm::vec3(0.f, 0.f, -15.f);
-	player->transform.rotation = glm::vec3(0.f, 180.f, 0.f);
 
 	AddGameObject(player);
 	mNamedGameObjects["Player"] = player;
+
+
+	Enemy* enemy = new Enemy(mGame);
+	enemy->transform.position = glm::vec3(0.f, 0.f, 20.f);
+	AddGameObject(enemy);
 }
 
 GameplayScene::~GameplayScene()
@@ -24,20 +26,18 @@ GameplayScene::~GameplayScene()
 
 void GameplayScene::Update(float _deltaTime)
 {
-	if (mGame->keyPress[SDLK_a])
-	{
-		mNamedGameObjects["Player"]->transform.rotation.y += 20.f * _deltaTime;
-	}
-
-	if (mGame->keyPress[SDLK_d])
-	{
-		mNamedGameObjects["Player"]->transform.rotation.y -= 20.f * _deltaTime;
-	}
-
 	for (int i = 0; i < mGameObjects.size(); i++)
 	{
 		mGameObjects[i]->Update(_deltaTime);
 	}
+	
+	mGame->GetCamera()->transform.rotation = mNamedGameObjects["Player"]->transform.rotation;
+
+	glm::vec3 camPos = mNamedGameObjects["Player"]->transform.position + -(mNamedGameObjects["Player"]->transform.GetForward() * 10.f);
+	camPos.y += 5.f;
+	mGame->GetCamera()->transform.position = camPos;
+
+	mGame->GetCamera()->transform.rotation.x = -20.f;
 
 	mRemoveGameObjects();
 }

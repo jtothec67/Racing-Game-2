@@ -16,5 +16,5 @@ public:
 	float GetSpeed() { return mSpeed; }
 
 private:
-	float mSpeed = 1.0f;
+	float mSpeed = 5.0f;
 };

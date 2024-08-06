@@ -13,6 +13,15 @@ Player::Player(Game* _game) : threeDObject(_game)
 
 void Player::Update(float _deltaTime)
 {
-    glm::vec3 forwardDirection = transform.GetForward();
-    transform.position += forwardDirection * mSpeed * _deltaTime;
+	if (mGame->keyPress[SDLK_a] || mGame->keyPress[SDLK_LEFT])
+	{
+		transform.rotation.y += 40.f * _deltaTime;
+	}
+
+	if (mGame->keyPress[SDLK_d] || mGame->keyPress[SDLK_RIGHT])
+	{
+		transform.rotation.y -= 40.f * _deltaTime;
+	}
+
+    transform.position += transform.GetForward() * mSpeed * _deltaTime;
 }
