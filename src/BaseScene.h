@@ -25,6 +25,8 @@ public:
 
 	GameObject* FindGameObjectByTag(Tag _tag);
 
+	GameObject* GetPlayer() { return mNamedGameObjects["Player"]; }
+
 protected:
 	void mRemoveGameObjects();
 

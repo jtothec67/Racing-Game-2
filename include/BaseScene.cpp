@@ -33,6 +33,7 @@ void BaseScene::mRemoveGameObjects()
         {
             if (*it == objToRemove)
             {
+                delete objToRemove;
                 mGameObjects.erase((it + 1).base());
                 break;
             }

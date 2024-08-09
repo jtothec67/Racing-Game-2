@@ -50,16 +50,19 @@ void MenuScene::Update(float _deltaTime)
 			case MenuOption::Play:
 			{
 				mGame->ChangeScene(Scene::Game);
+				return;
 				break;
 			}
 			case MenuOption::HowToPlay:
 			{
 				//mGame->ChangeScene(Scene::HowToPlay);
+				//return;
 				break;
 			}
 			case MenuOption::Quit:
 			{
 				mGame->StopGameRunning();
+				return;
 				break;
 			}
 		}

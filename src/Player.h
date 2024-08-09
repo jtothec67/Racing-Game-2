@@ -12,9 +12,10 @@ public:
 
 	void Update(float _deltaTime) override;
 
-	void SetSpeed(float _speed) { mSpeed = _speed; }
-	float GetSpeed() { return mSpeed; }
-
 private:
-	float mSpeed = 5.0f;
+	float mFBMoveSpeed = 5.f;
+	float mLRMoveSpeed = 5.f;
+
+	float mHoverValue = 0.f;
+	float mHoverSpeed = 3.f;
 };

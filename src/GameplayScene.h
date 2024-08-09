@@ -10,4 +10,10 @@ public:
 
 	void Update(float _deltaTime) override;
 	void Draw() override;
+
+	float GetGameSpeed() { return mGameSpeed; }
+
+private:
+	float mGameSpeed = 10.f;
+	float mGameSpeedAccel = 0.5f;
 };
