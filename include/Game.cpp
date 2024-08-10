@@ -7,8 +7,8 @@
 #include <iostream>
 
 Game::Game()
-	: mWindow(1920/2, 1080/2)
-	, mCamera(this, 45, 0.1f, 100.f)
+	: mWindow(1920, 1080)
+	, mCamera(this, 45, 0.1f, 200.f)
 {
 	mCurrentScene = new MenuScene(this);
 
@@ -23,23 +23,35 @@ Game::~Game()
 
 void Game::Run()
 {
+	
+
 	float deltaTime = mFrameTimer.Stop();
 
 	mFrameTimer.Start();
 
 	// Avoids first frame after scene has been changed being very long due to scene initialising
+	
 	if (mSceneChanged)
 	{
-		// Set deltaTime to 0 for the first two frames after the scene change
+		// Set deltaTime to 0 for the first frame after the scene change
 		deltaTime = 0;
 		mSceneChanged = false;
 	}
 
 	Update(deltaTime); // deltaTime is the time the last frame took to update and draw (in seconds)
 	
+
+	if (mSceneChanged)
+	{
+		// Swap scenes before draw because drawing takes a long time for a new scene (not sure why)
+		// so next frame will be longer but we will set deltaTime to 0 for that frame.
+		// Also being done after update so that we don't destroy the current scene when it's still in the middle of updating
+		SwapScenes();
+	}
+
 	Draw();
-	
-	//std::cout << "FPS: " << 1.0f / deltaTime << std::endl; // Uses vsync if monitor has gsync/freesync
+
+	//std::cout << "FPS: " << 1.f / deltaTime << std::endl; // Uses vsync if monitor has gsync/freesync
 }
 
 void Game::Update(float _deltaTime)
@@ -60,24 +72,23 @@ void Game::Draw()
 	mWindow.SwapWindows();
 }
 
-void Game::ChangeScene(Scene _scene)
+void Game::SwapScenes()
 {
 	delete mCurrentScene;
 
-	switch (_scene)
+	switch (mNextScene)
 	{
-		case Scene::Menu:
-		{
-			mCurrentScene = new MenuScene(this);
-			break;
-		}
-		case Scene::Game:
-		{
-			mCurrentScene = new GameplayScene(this);
-			break;
-		}
+	case Scene::Menu:
+	{
+		mCurrentScene = new MenuScene(this);
+		break;
 	}
-	mSceneChanged = true;
+	case Scene::Game:
+	{
+		mCurrentScene = new GameplayScene(this);
+		break;
+	}
+	}
 }
 
 void Game::UseCamera(Camera* _camera)

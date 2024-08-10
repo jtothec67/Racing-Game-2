@@ -1,17 +1,16 @@
 #version 460
 
-attribute vec3 a_Position;
-attribute vec2 a_TexCoord;
-varying vec2 v_TexCoord;
+in vec3 a_Position;
+in vec2 a_TexCoord;
+in vec3 a_Normal;
+
+out vec2 v_TexCoord;
+out vec3 v_Normal;
+out vec3 v_FragPos;
 
 uniform mat4 u_Projection;
 uniform mat4 u_Model;
 uniform mat4 u_View;
-
-attribute vec3 a_Normal;
-varying vec3 v_Normal;
-varying vec3 v_FragPos;
-
 
 void main()
 {

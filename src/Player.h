@@ -10,7 +10,7 @@ public:
 
 	~Player() {}
 
-	void Update(float _deltaTime) override;
+	void Update(float _deltaTime);
 
 private:
 	float mFBMoveSpeed = 5.f;

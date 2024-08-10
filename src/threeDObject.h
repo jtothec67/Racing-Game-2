@@ -6,6 +6,15 @@
 #include "OpenGLWrappedh/Texture.h"
 #include "OpenGLWrappedh/Shader.h"
 
+struct BoundingBox
+{
+	glm::vec3 offset = glm::vec3(0.f, 0.f, 0.f);
+
+	float widthX = 0.f;
+	float heightY = 0.f;
+	float depthZ = 0.f;
+};
+
 class threeDObject : public GameObject
 {
 public:
@@ -24,8 +33,12 @@ public:
 	virtual void SetShader(Shader* _shader) { mShader = _shader; }
 	virtual Shader* GetShader() { return mShader; }
 
+	BoundingBox GetBoundingBox() { return mBoundingBox; }
+
 protected:
 	Model* mModel;
 	Texture* mTexture;
 	Shader* mShader;
+
+	BoundingBox mBoundingBox;
 };

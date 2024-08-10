@@ -28,7 +28,7 @@ public:
 
 	BaseScene* GetCurrentScene() { return mCurrentScene; }
 
-	void ChangeScene(Scene _scene);
+	void ChangeScene(Scene _scene) { mSceneChanged = true; mNextScene = _scene; }
 
 	Camera* GetCamera() { return &mCamera; }
 
@@ -53,6 +53,8 @@ private:
 
 	void CheckUserInput();
 
+	void SwapScenes();
+
 	Timer mFrameTimer;
 
 	BaseScene* mCurrentScene;
@@ -68,5 +70,6 @@ private:
 
 	bool mGameRunning = true;
 
+	Scene mNextScene = Scene::Menu;
 	bool mSceneChanged = false;
 };

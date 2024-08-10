@@ -19,7 +19,7 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 	std::uniform_real_distribution<> dis(-7.5f, 7.5f); // Define the range
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		Enemy* enemy = new Enemy(mGame);
 		enemy->transform.position = glm::vec3(dis(gen), 0.f, 40.f + (40.f * i));
@@ -66,4 +66,9 @@ void GameplayScene::Draw()
 	{
 		mGameObjects[i]->Draw();
 	}
+}
+
+void GameplayScene::Collision()
+{
+	mGame->ChangeScene(Scene::Menu);
 }

@@ -13,7 +13,9 @@ public:
 
 	float GetGameSpeed() { return mGameSpeed; }
 
+	void Collision();
+
 private:
 	float mGameSpeed = 10.f;
-	float mGameSpeedAccel = 0.5f;
+	float mGameSpeedAccel = 1.f;
 };
