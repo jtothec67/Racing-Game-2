@@ -34,13 +34,22 @@ GameplayScene::~GameplayScene()
 
 void GameplayScene::Update(float _deltaTime)
 {
-	if (mGame->keyDown[SDLK_p])
+	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedTime() > mGameOverWaitTime)
 	{
 		mGame->ChangeScene(Scene::Menu);
-		return;
 	}
 
-	mGameSpeed += mGameSpeedAccel * _deltaTime;
+	if (mGameOver)
+	{
+		mGameSpeed -= mGameOverDecelSpeed * _deltaTime;
+		
+		if (mGameSpeed < 0.f)
+			mGameSpeed = 0.f;
+	}
+	else
+	{
+		mGameSpeed += mGameSpeedAccel * _deltaTime;
+	}
 
 	for (int i = 0; i < mGameObjects.size(); i++)
 	{
@@ -70,5 +79,10 @@ void GameplayScene::Draw()
 
 void GameplayScene::Collision()
 {
-	mGame->ChangeScene(Scene::Menu);
+	if (mGameOver)
+		return;
+
+	mGameOver = true;
+	mCrashTimer.Start();
+	mGameOverDecelSpeed = mGameSpeed / mGameOverWaitTime;
 }

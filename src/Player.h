@@ -18,4 +18,8 @@ private:
 
 	float mHoverValue = 0.f;
 	float mHoverSpeed = 3.f;
+
+	float mSpinTime = 0.f;
+	float mFinalRotation = 0.f;
+	float mSpinK = 5.f;
 };
