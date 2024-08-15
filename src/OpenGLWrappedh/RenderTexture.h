@@ -2,9 +2,6 @@
 
 #include <GL/glew.h>
 
-#ifndef RENDERTEXTURE_H
-#define RENDERTEXTURE_H
-
 class RenderTexture
 {
 public:
@@ -15,17 +12,16 @@ public:
 	void unbind();
 	GLuint getTextureId();
 
-	int getWidth();
-	int getHeight();
+	int getWidth() { return m_width; }
+	int getHeight() { return m_height; }
 
 	void clear();
 
 private:
-	GLuint m_fboId;
-	GLuint m_texId;
-	GLuint m_rboId;
+	GLuint m_fboId = 0;
+	GLuint m_texId = 0;
+	GLuint m_rboId = 0;
 
 	int m_width;
 	int m_height;
 };
-#endif // RENDERTEXTURE_H

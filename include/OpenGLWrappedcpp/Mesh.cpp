@@ -1,28 +1,19 @@
 #include "OpenGLWrappedh/Mesh.h"
 
 Mesh::Mesh()
-	: m_id(0)
-	, m_vaoid(0)
-	, m_vboid(0)
-	, m_dirty(true)
-	, m_skybox(false)
 {
 
 }
 
 Mesh::Mesh(bool _skybox)
-	: m_id(0)
-	, m_vaoid(0)
-	, m_vboid(0)
-	, m_dirty(true)
-	, m_skybox(_skybox)
 {
-
+	m_skybox = _skybox;
 }
 
 void Mesh::add(Face& _face)
 {
 	m_faces.push_back(_face);
+	m_dirty = true;
 }
 
 GLuint Mesh::id()

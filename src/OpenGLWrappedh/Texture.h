@@ -16,15 +16,17 @@ public:
 	GLuint id();
 
 	void GetSize(int& _width, int& _height) { _width = m_width; _height = m_height; }
+	bool IsSkybox() { return skybox; }
 
 private:
-	GLuint m_id;
+	GLuint m_id = 0;
 
-	int m_width;
-	int m_height;
-	bool m_dirty;
+	int m_width = 0;
+	int m_height = 0;
 
-	bool skybox;
+	bool m_dirty = false;
+
+	bool skybox = false;
 
 	std::vector<unsigned char> m_data;
 	std::vector<std::string> m_syboxFaces;

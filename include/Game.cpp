@@ -30,28 +30,27 @@ void Game::Run()
 	mFrameTimer.Start();
 
 	// Avoids first frame after scene has been changed being very long due to scene initialising
-	
 	if (mSceneChanged)
 	{
-		// Set deltaTime to 0 for the first frame after the scene change
 		deltaTime = 0;
 		mSceneChanged = false;
 	}
 
 	Update(deltaTime); // deltaTime is the time the last frame took to update and draw (in seconds)
-	
+
+	Draw();
 
 	if (mSceneChanged)
 	{
 		// Swap scenes before draw because drawing takes a long time for a new scene (not sure why)
+		// (EDIT: It's because the openGL objects are implimented using lazy loading, so the id only gets created the first time they are needed to be used. Will work on changing.)
+		// (EDIT 2: Changed where I can, but not possible in the mesh class due to how adding faces after class is initialised, could do it every time a face is added but would cause a long initial load time.)
 		// so next frame will be longer but we will set deltaTime to 0 for that frame.
 		// Also being done after update so that we don't destroy the current scene when it's still in the middle of updating
 		SwapScenes();
 	}
-
-	Draw();
-
-	//std::cout << "FPS: " << 1.f / deltaTime << std::endl; // Uses vsync if monitor has gsync/freesync
+	
+	//std::cout << "FPS: " << 1.f /  deltaTime << std::endl; // Uses vsync if monitor has gsync/freesync
 }
 
 void Game::Update(float _deltaTime)

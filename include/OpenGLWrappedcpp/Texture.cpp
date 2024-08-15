@@ -7,17 +7,12 @@
 #include <iostream>
 
 Texture::Texture(const std::string& _path)
-	: m_id(0)
-	, m_width(0)
-	, m_height(0)
-	, m_dirty(false)
-	, skybox(false)
 {
 	unsigned char* data = stbi_load(_path.c_str(), &m_width, &m_height, NULL, 4);
 
 	if (!data)
 	{
-		std::cout << "Failed to load texture: " << _path << std::endl;
+		std::cout << "Failed to load texture data: " << _path << std::endl;
 		throw std::exception();
 	}
 
@@ -26,21 +21,79 @@ Texture::Texture(const std::string& _path)
 		m_data.push_back(data[i]);
 	}
 
-	m_dirty = true;
-
 	free(data);
+
+	glGenTextures(1, &m_id);
+
+	if (!m_id)
+	{
+		std::cout << "Failed to load texture id: " << _path << std::endl;
+		throw std::exception();
+	}
+
+
+	glBindTexture(GL_TEXTURE_2D, m_id);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &m_data.at(0));
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-// Overloaded constructor for a cubemap, used for a skybox (usually 6 faces/images)
+// Overloaded constructor for a cubemap, used for a skybox (should be 6 faces/images)
 Texture::Texture(const std::vector<std::string>& _facePaths)
-	: m_id(0)
-	, m_width(0)
-	, m_height(0)
-	, m_dirty(false)
-	, skybox(true)
 {
+	if (_facePaths.size() != 6)
+	{
+		std::cout << "Skybox needs 6 image paths: " << _facePaths.at(0) << std::endl;
+		throw std::exception();
+	}
+
 	m_syboxFaces = _facePaths;
-	m_dirty = true;
+	skybox = true;
+
+	glGenTextures(1, &m_id);
+
+	if (!m_id)
+	{
+		std::cout << "Failed to load skybox texture id: " << _facePaths.at(0) << std::endl;
+		throw std::exception();
+	}
+
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
+
+	int width, height;
+	for (unsigned int i = 0; i < m_syboxFaces.size(); i++)
+	{
+		unsigned char* data = stbi_load(m_syboxFaces[i].c_str(), &width, &height, NULL, 0);
+
+		if (data)
+		{
+			std::vector<unsigned char> skyboxFaceData;
+
+			for (size_t j = 0; j < width * height * 4; ++j)
+			{
+				skyboxFaceData.push_back(data[j]);
+			}
+
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &skyboxFaceData.at(0));
+			stbi_image_free(data);
+		}
+		else
+		{
+			throw std::exception();
+			stbi_image_free(data);
+		}
+	}
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
 GLuint Texture::id()

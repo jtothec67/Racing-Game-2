@@ -5,9 +5,6 @@
 
 #include <vector>
 
-#ifndef MESH_H
-#define MESH_H
-
 struct Vertex
 {
 	glm::vec3 m_position;
@@ -32,16 +29,17 @@ public:
 	GLuint id();
 	GLsizei vertex_count() const;
 
+	bool IsSkybox() { return m_skybox; }
+
 
 private:
-	GLuint m_id;
+	GLuint m_id = 0;
 
-	GLuint m_vaoid;
-	GLuint m_vboid;
+	GLuint m_vaoid = 0;
+	GLuint m_vboid = 0;
 
-	bool m_dirty;
-	bool m_skybox;
+	bool m_dirty = true;
+	bool m_skybox = false;
 
 	std::vector<Face> m_faces;
 };
-#endif // MESH_H
