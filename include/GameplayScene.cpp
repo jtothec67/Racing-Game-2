@@ -25,15 +25,6 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 		enemy->transform.position = glm::vec3(dis(gen), 0.f, 40.f + (40.f * i));
 		AddGameObject(enemy);
 	}
-
-	for (int i = 0; i < 1000; i++)
-	{
-		for (int j = 0; j < 1000; j++)
-		{
-			Enemy* enemy = new Enemy(mGame);
-			enemy->transform.position = glm::vec3(dis(gen), 0.f, 40.f + (40.f * i) + (40.f * j));
-		}
-	}
 }
 
 GameplayScene::~GameplayScene()
