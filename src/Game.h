@@ -55,13 +55,13 @@ private:
 
 	void SwapScenes();
 
+	Window mWindow;
+
 	Timer mFrameTimer;
 
 	BaseScene* mCurrentScene;
 
 	SDL_Event event = {};
-
-	Window mWindow;
 
 	Camera mCamera;
 

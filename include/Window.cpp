@@ -15,11 +15,13 @@ Window::Window(int _width, int _height)
 
 	if (!SDL_GL_CreateContext(mWindow))
 	{
+		std::cout << "Couldn't create SDL window." << std::endl;
 		throw std::exception("Couldn't create SDL window.");
 	}
 
 	if (glewInit() != GLEW_OK)
 	{
+		std::cout << "Couldn't initialise glew." << std::endl;
 		throw std::exception("Couldn't initialise glew.");
 	}
 
@@ -40,11 +42,15 @@ void Window::Update()
 {
 	SDL_GetWindowSize(mWindow, &mWidth, &mHeight);
 	glViewport(0, 0, mWidth, mHeight);
-	//std::cout << "Window size: " << mWidth << "x" << mHeight << std::endl;
 }
 
 void Window::ClearWindow()
 {
-    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Window::SetClearColour(glm::vec4 _colour)
+{
+	mClearColour = _colour;
+	glClearColor(mClearColour.r, mClearColour.g, mClearColour.b, mClearColour.a);
 }
