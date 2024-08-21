@@ -4,6 +4,7 @@
 #include <glm/ext.hpp>
 
 Button::Button(Game* _game) : UIObject(_game)
+	, mText(_game)
 {
 	mHoverTexture = &(mGame->GetModelLibrary()->defaultTexture);
 	mHoverTexture->GetSize(mHoveredWidth, mHoveredHeight);
@@ -35,5 +36,10 @@ void Button::Draw()
 		mShader->uniform("u_Model", model);
 
 		mShader->draw(mMesh, mHoverTexture);
+	}
+
+	if (mText.GetText() != "")
+	{
+		mText.Draw(transform.position.x, transform.position.y);
 	}
 }

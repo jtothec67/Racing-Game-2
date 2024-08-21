@@ -168,6 +168,7 @@
     <ClCompile Include="include\GameplayScene.cpp" />
     <ClCompile Include="include\MenuScene.cpp" />
     <ClCompile Include="include\ModelLibrary.cpp" />
+    <ClCompile Include="include\OpenGLWrappedcpp\Font.cpp" />
     <ClCompile Include="include\Player.cpp" />
     <ClCompile Include="include\Racing.cpp" />
     <ClCompile Include="include\OpenGLWrappedcpp\Mesh.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="include\ShaderLibrary.cpp" />
     <ClCompile Include="include\Skybox.cpp" />
     <ClCompile Include="include\OpenGLWrappedcpp\Texture.cpp" />
+    <ClCompile Include="include\Text.cpp" />
     <ClCompile Include="include\threeDObject.cpp" />
     <ClCompile Include="include\Timer.cpp" />
     <ClCompile Include="include\UIObject.cpp" />
@@ -190,6 +192,7 @@
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameplayScene.h" />
     <ClInclude Include="src\MenuScene.h" />
+    <ClInclude Include="src\OpenGLWrappedh\Font.h" />
     <ClInclude Include="src\OpenGLWrappedh\Mesh.h" />
     <ClInclude Include="src\OpenGLWrappedh\Model.h" />
     <ClInclude Include="src\ModelLibrary.h" />
@@ -199,12 +202,15 @@
     <ClInclude Include="src\ShaderLibrary.h" />
     <ClInclude Include="src\Skybox.h" />
     <ClInclude Include="src\OpenGLWrappedh\Texture.h" />
+    <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\threeDObject.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\UIObject.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Shaders\FontShader.frag" />
+    <None Include="Assets\Shaders\FontShader.vert" />
     <None Include="Assets\Shaders\ObjShader.frag" />
     <None Include="Assets\Shaders\ObjShader.vert" />
     <None Include="Assets\Shaders\SkyboxShader.frag" />

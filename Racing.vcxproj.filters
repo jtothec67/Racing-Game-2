@@ -78,6 +78,12 @@
     <ClCompile Include="include\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\OpenGLWrappedcpp\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLWrappedh\Mesh.h">
@@ -143,6 +149,12 @@
     <ClInclude Include="src\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGLWrappedh\Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\ObjShader.vert" />
@@ -151,5 +163,7 @@
     <None Include="Assets\Shaders\UIShader.vert" />
     <None Include="Assets\Shaders\SkyboxShader.frag" />
     <None Include="Assets\Shaders\SkyboxShader.vert" />
+    <None Include="Assets\Shaders\FontShader.vert" />
+    <None Include="Assets\Shaders\FontShader.frag" />
   </ItemGroup>
 </Project>

@@ -5,9 +5,50 @@ Mesh::Mesh()
 
 }
 
-Mesh::Mesh(bool _skybox)
+Mesh::Mesh(std::string _meshType)
 {
-	m_skybox = _skybox;
+	if (_meshType == "skybox")
+	{
+		m_skybox = true;
+
+		glGenVertexArrays(1, &m_vaoid);
+		glBindVertexArray(m_vaoid);
+
+		glGenBuffers(1, &m_vboid);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vboid);
+
+		// Full-screen quad vertices
+		float quadVertices[] = {
+			-1.0f,  1.0f, 0.0f,
+			-1.0f, -1.0f, 0.0f,
+			 1.0f,  1.0f, 0.0f,
+			 1.0f, -1.0f, 0.0f,
+		};
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+
+		glBindVertexArray(0);
+
+		m_dirty = false;
+	}
+	else if (_meshType == "text")
+	{
+		m_text = true;
+
+		glGenVertexArrays(1, &m_vaoid);
+		glGenBuffers(1, &m_vboid);
+		glBindVertexArray(m_vaoid);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vboid);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+
+		m_dirty = false;
+	}
 }
 
 void Mesh::add(Face& _face)
@@ -20,7 +61,7 @@ GLuint Mesh::id()
 {
 	if (m_dirty)
 	{
-		if (!m_skybox)
+		if (!m_skybox && !m_text)
 		{
 			std::vector<GLfloat> data;
 
@@ -87,7 +128,7 @@ GLuint Mesh::id()
 
 			m_dirty = false;
 		}
-		else
+		else if (m_skybox)
 		{
 			glGenVertexArrays(1, &m_vaoid);
 			glBindVertexArray(m_vaoid);
@@ -110,6 +151,18 @@ GLuint Mesh::id()
 			glBindVertexArray(0);
 
 			m_dirty = false;
+		}
+		else
+		{
+			glGenVertexArrays(1, &m_vaoid);
+			glGenBuffers(1, &m_vboid);
+			glBindVertexArray(m_vaoid);
+			glBindBuffer(GL_ARRAY_BUFFER, m_vboid);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
 		}
 	}
 

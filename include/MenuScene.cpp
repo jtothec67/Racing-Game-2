@@ -3,6 +3,8 @@
 #include "Button.h"
 #include "Skybox.h"
 
+#include <string>
+
 MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 {
 	int windowWidth, windowHeight;
@@ -14,6 +16,8 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	playButton->SetSelected(true);
 	playButton->transform.position = glm::vec3(windowWidth/2, (windowHeight / 4) * 3, 0);
 	playButton->SetAnchor(Anchor::TopCentre);
+	playButton->SetText("Play");
+	playButton ->SetTextScale(0.8f);
 	AddGameObject(playButton);
 	mNamedGameObjects["PlayButton"] = playButton;
 
@@ -22,6 +26,8 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	htpButton->SetSelectedTexture(&(mGame->GetModelLibrary()->htpButHoverTex));
 	htpButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4) * 2, 0);
 	htpButton->SetAnchor(Anchor::Centre);
+	htpButton->SetText("How To\n Play");
+	htpButton->SetTextScale(0.4f);
 	AddGameObject(htpButton);
 	mNamedGameObjects["HowToPlayButton"] = htpButton;
 
@@ -30,6 +36,8 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	quitButton->SetSelectedTexture(&(mGame->GetModelLibrary()->quitButHoverTex));
 	quitButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4), 0);
 	quitButton->SetAnchor(Anchor::BottomCentre);
+	quitButton->SetText("Quit");
+	quitButton->SetTextScale(0.8f);
 	AddGameObject(quitButton);
 	mNamedGameObjects["QuitButton"] = quitButton;
 

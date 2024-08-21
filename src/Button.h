@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UIObject.h"
+#include "Text.h"
 
 #include <iostream>
 
@@ -18,8 +19,15 @@ public:
 
 	void SetSelectedTexture(Texture* _texture) { mHoverTexture = _texture; mHoverTexture->GetSize(mHoveredWidth, mHoveredHeight); }
 
+	void SetText(std::string _text) { mText.SetText(_text); }
+
+	void SetTextScale(float _scale) { mText.transform.scale.x = _scale; mText.transform.scale.y = _scale; }
+
 protected:
 	Texture* mHoverTexture;
+
+	Text mText;
+
 	int mHoveredWidth = 0;
 	int mHoveredHeight = 0;
 

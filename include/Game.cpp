@@ -109,6 +109,10 @@ void Game::UseCamera(Camera* _camera)
 	glm::mat4 invPV = glm::inverse(projection * view);
 
 	mShaderLibrary.skyboxShader.uniform("invPV", invPV);
+
+	glm::mat4 fontProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
+
+	mShaderLibrary.fontShader.uniform("projection", fontProjection);
 }
 
 void Game::CheckUserInput()

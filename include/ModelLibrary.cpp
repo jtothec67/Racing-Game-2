@@ -3,7 +3,6 @@
 ModelLibrary::ModelLibrary()
 	: carModel("Assets/Models/F1Car/Model/formula_car.obj")
 	, playerTexture("Assets/Models/F1Car/Textures/car_02_m.png")
-	, skyboxMesh(true)
 	, skyboxTexture({ "Assets/Textures/skyboxHangar/px.png", "Assets/Textures/skyboxHangar/nx.png", "Assets/Textures/skyboxHangar/py.png", "Assets/Textures/skyboxHangar/ny.png", "Assets/Textures/skyboxHangar/pz.png", "Assets/Textures/skyboxHangar/nz.png" })
 	, defaultTexture("Assets/Textures/defaultTex.png")
 	, playButTex("Assets/Textures/playButtonTex.png")
@@ -12,7 +11,10 @@ ModelLibrary::ModelLibrary()
 	, quitButHoverTex("Assets/Textures/quitSelectedButtonTex.png")
 	, htpButTex("Assets/Textures/htpButtonTex.png")
 	, htpButHoverTex("Assets/Textures/htpButtonSelectedTex.png")
+	, testFont("Assets/Fonts/munro.ttf")
 {
+	skyboxMesh = Mesh("skybox");
+
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m2.png"));
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m3.png"));
 	enemyCarTextures.push_back(Texture("Assets/Models/F1Car/Textures/car_02_m4.png"));
@@ -42,4 +44,6 @@ ModelLibrary::ModelLibrary()
 	face2.b.m_texcoords = glm::vec2(1.0f, 1.0f);
 	face2.c.m_texcoords = glm::vec2(0.0f, 1.0f);
 	quadMesh.add(face2);
+
+	textMesh = Mesh("text");
 }

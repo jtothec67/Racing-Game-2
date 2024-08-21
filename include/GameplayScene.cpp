@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Skybox.h"
+#include "text.h"
 
 #include <random>
 #include <iostream>
@@ -11,9 +12,18 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	AddGameObject(new Skybox(mGame));
 
 	Player* player = new Player(mGame);
-
 	AddGameObject(player);
 	mNamedGameObjects["Player"] = player;
+
+	int windowWidth, windowHeight;
+	mGame->GetWindowSize(windowWidth, windowHeight);
+
+	Text* scoreText = new Text(mGame);
+	scoreText->transform.position = glm::vec3(100.f, windowHeight - 200.f, 0.f);
+	scoreText->SetAnchor(Anchor::TopLeft);
+	AddGameObject(scoreText);
+	mNamedGameObjects["ScoreText"] = scoreText;
+
 
 	std::random_device rd;  // Seed for the random number engine
 	std::mt19937 gen(rd()); // Mersenne Twister engine
@@ -49,6 +59,9 @@ void GameplayScene::Update(float _deltaTime)
 	else
 	{
 		mGameSpeed += mGameSpeedAccel * _deltaTime;
+
+		Text* scoreText = (Text*)mNamedGameObjects["ScoreText"];
+		scoreText->SetText(std::to_string((int)mGameSpeed));
 	}
 
 	for (int i = 0; i < mGameObjects.size(); i++)

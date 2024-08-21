@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Model.h"
 #include "RenderTexture.h"
+#include "Font.h"
 
 #include <GL/glew.h>
 
@@ -27,6 +28,7 @@ public:
 	void draw(Model& _model, Texture& _tex, RenderTexture& _renderTex);
 	void draw(Mesh& _mesh, Texture& _tex, RenderTexture& _renderTexId);
 	void drawSkybox(Mesh& _skyboxMesh, Texture& _tex);
+	void drawText(Mesh& _mesh, Font& _font, const std::string& _text, float _x, float _y, float _scale, const glm::vec3& _color);
 
 private:
 	GLuint m_id = 0;

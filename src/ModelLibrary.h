@@ -3,6 +3,7 @@
 #include "OpenGLWrappedh/Model.h"
 #include "OpenGLWrappedh/Texture.h"
 #include "OpenGLWrappedh/Mesh.h"
+#include "OpenGLWrappedh/Font.h"
 
 #include <vector>
 
@@ -31,4 +32,7 @@ struct ModelLibrary
 
 	Texture htpButTex;
 	Texture htpButHoverTex;
+
+	Font testFont;
+	Mesh textMesh;
 };
