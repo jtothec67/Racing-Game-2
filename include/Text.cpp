@@ -17,38 +17,62 @@ void Text::Draw()
 
 void Text::Draw(int _x, int _y)
 {
-    //Split the text into lines
-    std::vector<std::string> lines;
-    std::string currentLine;
-    std::istringstream stream(mText);
-    while (std::getline(stream, currentLine, '\n')) {
-        lines.push_back(currentLine);
-    }
+	float currentLineWidth = 0.0f;
+	float widestLineWidth = 0.0f;
 
-    // Find the length of the longest line
-    int maxLength = 0;
-    for (const auto& line : lines) {
-        if (line.length() > maxLength) {
-            maxLength = line.length();
-        }
-    }
+    float currentLineHeight = 0.0f;
+    float totalHeight = 0.0f;
 
-    // Get the number of lines
-    int numLines = lines.size();
+	int numLines = 1;
 
-    // Font size is 200 pixels heigh at 1 scale
-    // 200 pixels is 3.5cm
-    // 4 letters is 8.5cm (unless there's a long letter like w)
-    // 1 letter is 2.125cm (2.1)
-    // 2.1cm is 11.8 pixels
+	std::string::const_iterator c;
+	for (c = mText.begin(); c != mText.end(); c++)
+	{
+		Character* ch = mFont->GetCharacter(c);
+
+		if (*c == '\n')
+		{
+			currentLineWidth = 0.0f;
+            totalHeight += currentLineHeight + (1.1 * transform.scale.x);
+			numLines++;
+		}
+		else
+		{
+			float h = ch->Size.y * transform.scale.x;
+
+			if (ch->Size.y - ch->Bearing.y != 0) h -= (ch->Size.y - ch->Bearing.y) * transform.scale.x;
+
+            if (currentLineHeight < ((ch->Size.y)) * 1.1 * transform.scale.x) currentLineHeight = h;
+
+            float advance = (ch->Advance >> 6) * transform.scale.x;
+            currentLineWidth += advance;
+            
+			if (currentLineWidth > widestLineWidth) widestLineWidth = currentLineWidth;
+		}
+	}
+
+    if (totalHeight == 0.0f) totalHeight = currentLineHeight;
+
+    //std::cout << "Total Height: " << totalHeight << " Widest width: " << widestLineWidth << std::endl;
 
     int centredX = _x + transform.position.x;
     int centredY = _y + transform.position.y;
 
+	int xVal = centredX - (widestLineWidth / 2);
+	int yVal = 0;
     // Only going to use scale in x
-    int xVal = centredX - (maxLength * 38.f * transform.scale.x);
-    int yVal = centredY +(((numLines * 100) - 155) * transform.scale.x);    // Not too sure tbh
-                                                                            // Would be a lot easier if I could get the width/height of the mesh
+	if (numLines == 1)
+	{
+		yVal = centredY - (totalHeight / 2);
+	}
+	else
+	{
+		// y needs to offset because its the bottom left of first letter
+		yVal = centredY - (totalHeight / 2);
+	}
+    
+
+    //std::cout << "X: " << xVal << " Y: " << yVal << std::endl;
 
 	mGame->GetShaderLibrary()->fontShader.drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x, mColour);
 }

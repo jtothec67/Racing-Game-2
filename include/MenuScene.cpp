@@ -41,6 +41,11 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	AddGameObject(quitButton);
 	mNamedGameObjects["QuitButton"] = quitButton;
 
+	Text* testText = new Text(mGame);
+	testText->SetText("B");
+	testText->transform.position = glm::vec3(826+200, 755, 0);
+	AddGameObject(testText);
+
 	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 }
 

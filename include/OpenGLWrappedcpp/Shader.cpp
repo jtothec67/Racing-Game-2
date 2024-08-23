@@ -227,6 +227,8 @@ void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float 
 	glDisable(GL_DEPTH_TEST);
     
 	float copyX = _x;
+	float currentLineWidth = 0.0f;
+	float widestLineWidth = 0.0f;
 
 	glUseProgram(id());
 	glUniform3f(glGetUniformLocation(id(), "textColor"), _color.x, _color.y, _color.z);
@@ -243,15 +245,19 @@ void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float 
 		{
 			_y -= ((ch->Size.y)) * 1.1 * _scale;
 			_x = copyX;
+			currentLineWidth = 0.0f;
 		}
 		else
 		{
-
 			float xpos = _x + ch->Bearing.x * _scale;
 			float ypos = _y - (ch->Size.y - ch->Bearing.y) * _scale;
 
 			float w = ch->Size.x * _scale;
 			float h = ch->Size.y * _scale;
+
+			currentLineWidth += w;
+			if (currentLineWidth > widestLineWidth) widestLineWidth = currentLineWidth;
+			
 			// update VBO for each character
 			float vertices[6][4] = {
 				{ xpos,     ypos + h,   0.0f, 0.0f },
@@ -274,34 +280,6 @@ void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float 
 			_x += (ch->Advance >> 6) * _scale; // bitshift by 6 to get value in pixels (2^6 = 64)
 		}
 	}
-	
-	/* --------------------------Failed attempt at getting width of mesh to help centre text--------------------------*/
-	//GLint bufferSize;
-	//glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-
-	//// Allocate memory to store the vertex data
-	//GLfloat* vertexData = new GLfloat[bufferSize / sizeof(GLfloat)];
-
-	//// Retrieve the vertex data from the VBO
-	//glGetBufferSubData(GL_ARRAY_BUFFER, 0, bufferSize, vertexData);
-
-	//// Now you can access the vertex data stored in the vertexData array
- //   float meshWidth = 0.0f;
- //   for (int i = 0; i < _mesh.vertex_count(); i += 3)
- //   {
- //       glm::vec3 v0 = glm::vec3(reinterpret_cast<float*>(_mesh.id())[i * 3], reinterpret_cast<float*>(_mesh.id())[(i * 3) + 1], reinterpret_cast<float*>(_mesh.id())[(i * 3) + 2]);
- //       glm::vec3 v1 = glm::vec3(reinterpret_cast<float*>(_mesh.id())[(i + 1) * 3], reinterpret_cast<float*>(_mesh.id())[((i + 1) * 3) + 1], reinterpret_cast<float*>(_mesh.id())[((i + 1) * 3) + 2]);
- //       glm::vec3 v2 = glm::vec3(reinterpret_cast<float*>(_mesh.id())[(i + 2) * 3], reinterpret_cast<float*>(_mesh.id())[((i + 2) * 3) + 1], reinterpret_cast<float*>(_mesh.id())[((i + 2) * 3) + 2]);
-
- //       float triangleWidth = glm::length(v1 - v0) + glm::length(v2 - v1) + glm::length(v0 - v2);
- //       meshWidth = std::max(meshWidth, triangleWidth);
- //   }
-
-	//_mesh.SetTextboxWidth(meshWidth);
-	//std::cout << "Mesh width: " << meshWidth << std::endl;
-	//
-	//// Don't forget to delete the allocated memory
-	//delete[] vertexData;
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);

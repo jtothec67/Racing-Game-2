@@ -36,9 +36,6 @@ public:
 	bool IsSkybox() { return m_skybox; }
 	bool IsText() { return m_text; }
 
-	void SetTextboxWidth(float _width) { textbox_width = _width; }
-	float GetTextboxWidth() { return textbox_width; }
-
 private:
 	GLuint m_vaoid = 0;
 	GLuint m_vboid = 0;

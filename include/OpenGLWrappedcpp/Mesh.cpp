@@ -1,5 +1,7 @@
 #include "OpenGLWrappedh/Mesh.h"
 
+#include <iostream>
+
 Mesh::Mesh()
 {
 
@@ -53,6 +55,12 @@ Mesh::Mesh(std::string _meshType)
 
 void Mesh::add(Face& _face)
 {
+	if (m_skybox || m_text)
+	{
+		std::cout << "Cannot add faces to a skybox or text mesh" << std::endl;
+		throw std::exception();
+	}
+
 	m_faces.push_back(_face);
 	m_dirty = true;
 }

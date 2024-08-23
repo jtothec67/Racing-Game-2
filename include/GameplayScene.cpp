@@ -9,7 +9,7 @@
 
 GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 {
-	AddGameObject(new Skybox(mGame));
+	//AddGameObject(new Skybox(mGame));
 
 	Player* player = new Player(mGame);
 	AddGameObject(player);
