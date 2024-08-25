@@ -20,8 +20,8 @@ public:
 	void SetSelectedTexture(Texture* _texture) { mHoverTexture = _texture; mHoverTexture->GetSize(mHoveredWidth, mHoveredHeight); }
 
 	void SetText(std::string _text) { mText.SetText(_text); }
-
 	void SetTextScale(float _scale) { mText.transform.scale.x = _scale; mText.transform.scale.y = _scale; }
+	void SetTextColour(glm::vec3 _colour) { mText.SetColour(_colour); }
 
 protected:
 	Texture* mHoverTexture;

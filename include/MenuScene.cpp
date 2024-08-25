@@ -26,8 +26,8 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	htpButton->SetSelectedTexture(&(mGame->GetModelLibrary()->htpButHoverTex));
 	htpButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4) * 2, 0);
 	htpButton->SetAnchor(Anchor::Centre);
-	htpButton->SetText("How To\n Play");
-	htpButton->SetTextScale(0.4f);
+	htpButton->SetText("How To\n  Play");
+	htpButton->SetTextScale(0.44f);
 	AddGameObject(htpButton);
 	mNamedGameObjects["HowToPlayButton"] = htpButton;
 
@@ -40,11 +40,6 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	quitButton->SetTextScale(0.8f);
 	AddGameObject(quitButton);
 	mNamedGameObjects["QuitButton"] = quitButton;
-
-	Text* testText = new Text(mGame);
-	testText->SetText("B");
-	testText->transform.position = glm::vec3(826+200, 755, 0);
-	AddGameObject(testText);
 
 	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 }

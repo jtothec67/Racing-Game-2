@@ -9,7 +9,7 @@
 
 GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 {
-	//AddGameObject(new Skybox(mGame));
+	AddGameObject(new Skybox(mGame));
 
 	Player* player = new Player(mGame);
 	AddGameObject(player);
@@ -19,7 +19,7 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	mGame->GetWindowSize(windowWidth, windowHeight);
 
 	Text* scoreText = new Text(mGame);
-	scoreText->transform.position = glm::vec3(100.f, windowHeight - 200.f, 0.f);
+	scoreText->transform.position = glm::vec3(200.f, windowHeight - 200.f, 0.f);
 	scoreText->SetAnchor(Anchor::TopLeft);
 	AddGameObject(scoreText);
 	mNamedGameObjects["ScoreText"] = scoreText;

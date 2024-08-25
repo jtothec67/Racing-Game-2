@@ -222,18 +222,17 @@ void Shader::drawSkybox(Mesh& _skyboxMesh, Texture& _tex)
 	glUseProgram(0);
 }
 
-void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float _x, float _y, float _scale, const glm::vec3& _color)
+void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float _x, float _y, float _scale)
 {
 	glDisable(GL_DEPTH_TEST);
-    
+
+	glUseProgram(id());
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(_mesh.vao());
+
 	float copyX = _x;
 	float currentLineWidth = 0.0f;
 	float widestLineWidth = 0.0f;
-
-	glUseProgram(id());
-	glUniform3f(glGetUniformLocation(id(), "textColor"), _color.x, _color.y, _color.z);
-	glActiveTexture(GL_TEXTURE0);
-	glBindVertexArray(_mesh.vao());
 
 	// iterate through all characters
 	std::string::const_iterator c;
@@ -243,7 +242,7 @@ void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float 
 
 		if (*c == '\n')
 		{
-			_y -= ((ch->Size.y)) * 1.1 * _scale;
+			_y -= ((ch->Size.y)) * 1.3 * _scale;
 			_x = copyX;
 			currentLineWidth = 0.0f;
 		}

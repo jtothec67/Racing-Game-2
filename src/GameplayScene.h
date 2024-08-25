@@ -20,7 +20,7 @@ public:
 
 private:
 	float mGameSpeed = 10.f;
-	float mGameSpeedAccel = 2.f;
+	float mGameSpeedAccel = 10.f;
 
 	float mGameOverDecelSpeed = 1.f; // Shouldn't get used as 1 but just in case
 	float mGameOverWaitTime = 3.f; // Time for player to reach 0 speed after game over
