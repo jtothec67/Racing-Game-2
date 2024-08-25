@@ -212,6 +212,10 @@ void Shader::draw(Mesh& _mesh, Texture& _tex, RenderTexture& _renderTex)
 
 void Shader::drawSkybox(Mesh& _skyboxMesh, Texture& _tex)
 {
+	// Change depth function so depth test passes when values are equal to depth buffer's content
+	glDepthFunc(GL_LEQUAL);
+	glDepthMask(GL_FALSE);
+
 	glUseProgram(id());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, _tex.id());
 	GLuint textureLocation = glGetUniformLocation(id(), "uTexEnv");
@@ -220,12 +224,13 @@ void Shader::drawSkybox(Mesh& _skyboxMesh, Texture& _tex)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
 	glUseProgram(0);
+
+	glDepthFunc(GL_LESS);
+	glDepthMask(GL_TRUE);
 }
 
 void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float _x, float _y, float _scale)
 {
-	glDisable(GL_DEPTH_TEST);
-
 	glUseProgram(id());
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(_mesh.vao());
@@ -283,6 +288,4 @@ void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
-
-	glEnable(GL_DEPTH_TEST);
 }

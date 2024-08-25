@@ -8,6 +8,7 @@ uniform vec3 u_ViewPos;
 
 void main()
 {
- vec4 tex = texture2D(u_Texture, v_TexCoord);
- gl_FragColor = tex;
+	vec4 tex = texture2D(u_Texture, v_TexCoord);
+	gl_FragColor = tex;
+	gl_FragDepth = 0.02;
 }

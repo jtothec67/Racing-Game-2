@@ -4,5 +4,5 @@ out vec4 color;
 uniform samplerCube uTexEnv;
 void main()
 {
-        color=texture(uTexEnv, dir);
+    color=texture(uTexEnv, dir);
 }

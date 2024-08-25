@@ -83,7 +83,7 @@ void Text::Draw()
 		// Still slightly off but it's close enough.
 	}
 
-	mGame->GetShaderLibrary()->fontShader.uniform("textColor", mColour);
+	mGame->GetShaderLibrary()->fontShader.uniform("u_TextColour", mColour);
 	mGame->GetShaderLibrary()->fontShader.drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x);
 }
 
@@ -163,6 +163,6 @@ void Text::Draw(int _x, int _y)
 		// Still slightly off but it's close enough.
 	}
 
-	mGame->GetShaderLibrary()->fontShader.uniform("textColor", mColour);
+	mGame->GetShaderLibrary()->fontShader.uniform("u_TextColour", mColour);
 	mGame->GetShaderLibrary()->fontShader.drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x);
 }
