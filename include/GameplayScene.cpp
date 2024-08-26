@@ -1,6 +1,7 @@
 #include "GameplayScene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Track.h"
 #include "Skybox.h"
 #include "text.h"
 
@@ -24,16 +25,22 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	AddGameObject(scoreText);
 	mNamedGameObjects["ScoreText"] = scoreText;
 
-
 	std::random_device rd;  // Seed for the random number engine
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 	std::uniform_real_distribution<> dis(-7.5f, 7.5f); // Define the range
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		Enemy* enemy = new Enemy(mGame);
 		enemy->transform.position = glm::vec3(dis(gen), 0.f, 40.f + (40.f * i));
 		AddGameObject(enemy);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		Track* track = new Track(mGame);
+		track->transform.position.z = (i * track->GetLength());
+		AddGameObject(track);
 	}
 }
 
@@ -69,7 +76,7 @@ void GameplayScene::Update(float _deltaTime)
 		mGameObjects[i]->Update(_deltaTime);
 	}
 	
-	mLightPos = glm::vec3(0.f, 20.f, mNamedGameObjects["Player"]->transform.position.z - 10.f);
+	mLightPos = glm::vec3(0.f, 50.f, mNamedGameObjects["Player"]->transform.position.z - 20.f);
 
 	glm::vec3 camPos = mNamedGameObjects["Player"]->transform.position + glm::vec3(0.f, 0.f, -10.f);
 	camPos.y = 7.f;

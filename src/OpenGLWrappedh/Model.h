@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iostream>
 
 class Model
 {
@@ -19,6 +20,10 @@ public:
 
     GLsizei vertex_count() const;
     GLuint vao_id();
+
+    float get_width() const;
+    float get_height() const;
+    float get_length() const;
 
 private:
     struct Vertex
@@ -42,12 +47,17 @@ private:
     GLuint m_vboid = 0;
     bool m_dirty = true;
 
+    float m_width = 0.0f;
+    float m_height = 0.0f;
+    float m_length = 0.0f;
+
     void split_string_whitespace(const std::string& _input,
     std::vector<std::string>& _output);
 
     void split_string(const std::string& _input, char _splitter,
     std::vector<std::string>& _output);
 
+    void calculate_dimensions();
 };
 
 #include <stdexcept>
@@ -68,7 +78,8 @@ inline Model::Model(const std::string& _path)
 
     if(!file.is_open())
     {
-        throw std::runtime_error("Failed to open model [" + _path + "]");
+        std::cout << "Failed to open file: " << _path << std::endl;
+        throw std::exception();
     }
 
     while(!file.eof())
@@ -206,6 +217,8 @@ inline Model::Model(const std::string& _path)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     m_dirty = false;
+
+    calculate_dimensions();
 }
 
 inline Model::~Model()
@@ -389,3 +402,39 @@ inline GLsizei Model::vertex_count() const
 
 inline Model::Vertex::Vertex()
 { }
+
+inline void Model::calculate_dimensions()
+{
+    if (m_faces.empty()) return;
+
+    glm::vec3 min_pos = m_faces[0].a.position;
+    glm::vec3 max_pos = m_faces[0].a.position;
+
+    for (const auto& face : m_faces)
+    {
+        for (const auto& vertex : { face.a, face.b, face.c })
+        {
+            min_pos = glm::min(min_pos, vertex.position);
+            max_pos = glm::max(max_pos, vertex.position);
+        }
+    }
+
+    m_width = max_pos.x - min_pos.x;
+    m_height = max_pos.y - min_pos.y;
+    m_length = max_pos.z - min_pos.z;
+}
+
+inline float Model::get_width() const
+{
+    return m_width;
+}
+
+inline float Model::get_height() const
+{
+    return m_height;
+}
+
+inline float Model::get_length() const
+{
+    return m_length;
+}

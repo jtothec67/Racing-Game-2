@@ -8,7 +8,6 @@ Enemy::Enemy(Game* _game) : threeDObject(_game)
 {
 	mTag = Tag::Enemy;
 
-	mShader = &(mGame->GetShaderLibrary()->objectShader);
 	mModel = &(mGame->GetModelLibrary()->carModel);
 
 	std::random_device rd;  // Seed for the random number engine
@@ -67,13 +66,11 @@ void Enemy::Update(float _deltaTime)
 		std::uniform_real_distribution<> dis(-7.5f, 7.5f); // Define the range
 
 		Enemy* enemy = new Enemy(mGame);
-		enemy->transform.position = glm::vec3(dis(gen), 0.f, player->transform.position.z + 160.f);
+		enemy->transform.position = glm::vec3(dis(gen), 0.f, player->transform.position.z + 200.f);
 		gameplayScene->AddGameObject(enemy);
 		mSpawnedNew = true;
 	}
 
 	if (transform.position.z < player->transform.position.z -20.f)
-	{
 		gameplayScene->RemoveGameObject(this);
-	}
 }

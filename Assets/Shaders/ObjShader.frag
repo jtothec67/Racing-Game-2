@@ -10,11 +10,12 @@ uniform vec3 u_ViewPos;
 
 uniform vec3 u_LightPos;
 
+uniform vec3 u_Ambient;
+
 void main()
 {
 	vec4 tex = texture2D(u_Texture, v_TexCoord);
 
-	vec3 lightPos = vec3(10, 10, 10);
 	vec3 diffuseColor = vec3(1, 1, 1);
 
 	vec3 N = normalize(v_Normal);
@@ -29,6 +30,6 @@ void main()
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 	vec3 specular = spec * specularColor;
 
-	vec3 lighting = diffuse + specular; 
+	vec3 lighting = diffuse + specular + u_Ambient; 
 	gl_FragColor =  vec4(lighting, 1) * tex;
 }

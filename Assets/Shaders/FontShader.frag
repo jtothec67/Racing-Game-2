@@ -8,7 +8,7 @@ uniform vec3 u_TextColour;
 void main()
 {    
     vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
-    if (sampled.a < 0.1) // Discard fragments with low alpha
+    if (sampled.a < 0.9) // Discard fragments with low alpha
         discard;
     color = vec4(u_TextColour, 1.0) * sampled;
 

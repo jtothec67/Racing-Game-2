@@ -17,6 +17,10 @@ struct ModelLibrary
 
 	std::vector<Texture> enemyCarTextures;
 
+	Model trackModel;
+	Model grassModel;
+	Texture trackAndGrassTexture;
+
 	Mesh skyboxMesh;
 	Texture skyboxTexture;
 

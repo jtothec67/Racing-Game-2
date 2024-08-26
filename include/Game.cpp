@@ -8,7 +8,7 @@
 
 Game::Game()
 	: mWindow(1920, 1080)
-	, mCamera(this, 45, 0.1f, 200.f)
+	, mCamera(this, 45, 0.1f, 300.f)
 {
 	mCurrentScene = new MenuScene(this);
 
@@ -85,32 +85,55 @@ void Game::UseCamera(Camera* _camera)
 {
 	int width, height;
 	GetWindowSize(width, height);
+
 	glm::mat4 projection = glm::perspective(glm::radians(_camera->GetFOV()), (float)width / (float)height, _camera->GetNearClip(), _camera->GetFarClip());
 
-	glm::mat4 view(1.0f);
-	view = glm::translate(view, _camera->transform.position);
-	
-	view = glm::rotate(view, glm::radians(_camera->transform.rotation.y + 180.f), glm::vec3(0, 1, 0));
-	view = glm::rotate(view, glm::radians(_camera->transform.rotation.x), glm::vec3(1, 0, 0));
-	view = glm::rotate(view, glm::radians(_camera->transform.rotation.z), glm::vec3(0, 0, 1));
-	view = glm::inverse(view);
+	if (mLastProjection != projection)
+	{
+		mShaderLibrary.objectShader.uniform("u_Projection", projection);
 
-	mShaderLibrary.objectShader.uniform("u_Projection", projection);
-	mShaderLibrary.objectShader.uniform("u_View", view);
-	mShaderLibrary.objectShader.uniform("u_LightPos", GetCurrentScene()->GetLightPos());
+		mLastProjection = projection;
+	}
+
+	if (mLastCameraPos != _camera->transform.position || mLastCameraPos != _camera->transform.rotation)
+	{
+		glm::mat4 view(1.0f);
+		view = glm::translate(view, _camera->transform.position);
+
+		view = glm::rotate(view, glm::radians(_camera->transform.rotation.y + 180), glm::vec3(0, 1, 0));
+		view = glm::rotate(view, glm::radians(_camera->transform.rotation.x), glm::vec3(1, 0, 0));
+		view = glm::rotate(view, glm::radians(_camera->transform.rotation.z), glm::vec3(0, 0, 1));
+		view = glm::inverse(view);
+
+		mShaderLibrary.objectShader.uniform("u_View", view);
 
 
-	glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
+		glm::mat4 invPV = glm::inverse(projection * view);
+		mShaderLibrary.skyboxShader.uniform("u_InvPV", invPV);
 
-	mShaderLibrary.uiShader.uniform("u_Projection", uiProjection);
-	mShaderLibrary.uiShader.uniform("u_View", glm::mat4(1.0f));
+		mLastCameraPos = _camera->transform.position;
+		mLastCameraRot = _camera->transform.rotation;
+	}
 
+	if (mCurrentScene->GetLightPos() != mLastLightPos)
+	{
+		mShaderLibrary.objectShader.uniform("u_LightPos", mCurrentScene->GetLightPos());
+		mLastLightPos = mCurrentScene->GetLightPos();
+	}
 
-	glm::mat4 invPV = glm::inverse(projection * view);
+	if (mLastWindowHeight != height || mLastWindowWidth != width)
+	{
+		glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
 
-	mShaderLibrary.skyboxShader.uniform("u_InvPV", invPV);glm::mat4 fontProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
+		mShaderLibrary.uiShader.uniform("u_Projection", uiProjection);
 
-	mShaderLibrary.fontShader.uniform("u_Projection", uiProjection);
+		mShaderLibrary.fontShader.uniform("u_Projection", uiProjection);
+
+		mLastWindowHeight = height;
+		mLastWindowWidth = width;
+	}
+
+	mShaderLibrary.objectShader.uniform("u_Ambient", glm::vec3(0.0, 0.0, 0.0));
 }
 
 void Game::CheckUserInput()

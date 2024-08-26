@@ -6,5 +6,5 @@ ShaderLibrary::ShaderLibrary()
 	, skyboxShader("Assets/Shaders/SkyboxShader.vert", "Assets/Shaders/SkyboxShader.frag")
 	, fontShader("Assets/Shaders/FontShader.vert", "Assets/Shaders/FontShader.frag")
 {
-
+	uiShader.uniform("u_View", glm::mat4(1.0f));
 }

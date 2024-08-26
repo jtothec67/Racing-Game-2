@@ -35,6 +35,10 @@ public:
 
 	BoundingBox GetBoundingBox() { return mBoundingBox; }
 
+	float GetWidth() { return mModel->get_width() * transform.scale.x; }
+	float GetHeight() { return mModel->get_height() * transform.scale.y; }
+	float GetLength() { return mModel->get_length() * transform.scale.z; }
+
 protected:
 	Model* mModel;
 	Texture* mTexture;

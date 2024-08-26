@@ -1,0 +1,34 @@
+# Aspose.3D Wavefront OBJ Exporter
+# Copyright 2004-2024 Aspose Pty Ltd.
+# File created: 08/26/2024 10:43:25
+
+mtllib material.lib
+g Lawn_plane_15m_free
+
+#
+# object Lawn_plane_15m_free
+#
+
+v -750 0 750
+v 750 0 750
+v -750 0 -750
+v 750 0 -750
+# 4 vertices
+
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+# 4 vertex normals
+
+vt 0.9405571 0.68698466 0
+vt 0.9405571 0.68698466 0
+vt 0.9405571 0.68698466 0
+vt 0.9405571 0.68698466 0
+# 4 texture coords
+
+usemtl Road
+s 1
+f 1/1/1 2/3/2 4/4/3 3/2/4
+#1 polygons
+

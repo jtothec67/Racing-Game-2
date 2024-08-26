@@ -10,7 +10,6 @@ Player::Player(Game* _game) : threeDObject(_game)
 {
 	mTag = Tag::Player;
 
-	mShader = &(mGame->GetShaderLibrary()->objectShader);
 	mModel = &(mGame->GetModelLibrary()->carModel);
 	mTexture = &(mGame->GetModelLibrary()->playerTexture);
 
@@ -68,12 +67,12 @@ void Player::Update(float _deltaTime)
 	float hoverHeight = sin(mHoverValue);
 	transform.position.y = hoverHeight * 0.25f;
 
-	if (mGame->keyPress[SDLK_a] || mGame->keyPress[SDLK_LEFT])
+	if ((mGame->keyPress[SDLK_a] || mGame->keyPress[SDLK_LEFT]) && transform.position.x < 7.5)
 	{
 		transform.position.x += mLRMoveSpeed * _deltaTime;
 	}
 
-	if (mGame->keyPress[SDLK_d] || mGame->keyPress[SDLK_RIGHT])
+	if ((mGame->keyPress[SDLK_d] || mGame->keyPress[SDLK_RIGHT]) && transform.position.x > -7.5)
 	{
 		transform.position.x += -mLRMoveSpeed * _deltaTime;
 	}

@@ -72,4 +72,12 @@ private:
 
 	Scene mNextScene = Scene::Menu;
 	bool mSceneChanged = false;
+
+	// To detect changes
+	glm::mat4 mLastProjection = glm::mat4(1.f);
+	glm::vec3 mLastLightPos = glm::vec3(0.f);
+	glm::vec3 mLastCameraPos = glm::vec3(0.f);
+	glm::vec3 mLastCameraRot = glm::vec3(0.f);
+	float mLastWindowWidth = 0.f;
+	float mLastWindowHeight = 0.f;
 };
