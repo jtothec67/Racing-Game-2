@@ -39,10 +39,15 @@ public:
 	float GetHeight() { return mModel->get_height() * transform.scale.y; }
 	float GetLength() { return mModel->get_length() * transform.scale.z; }
 
+	void SetSpecular(bool _isSpecular) { mIsSpecular = _isSpecular; mUpdateSpecular = true; }
+
 protected:
 	Model* mModel;
 	Texture* mTexture;
 	Shader* mShader;
 
 	BoundingBox mBoundingBox;
+
+	bool mIsSpecular = true;
+	bool mUpdateSpecular = true;
 };

@@ -80,4 +80,6 @@ private:
 	glm::vec3 mLastCameraRot = glm::vec3(0.f);
 	float mLastWindowWidth = 0.f;
 	float mLastWindowHeight = 0.f;
+	glm::vec3 mLastAmbientLight = glm::vec3(0.f);
+	float mLastLightStrength = 0.f;
 };

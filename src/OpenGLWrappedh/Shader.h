@@ -16,8 +16,10 @@ public:
 	Shader(const std::string& _vertpath, const std::string& _fragpath);
 	GLuint id() { return m_id; }
 
-	void uniform(const std::string& _name, const glm::mat4& value);
-	void uniform(const std::string& _name, const glm::vec3& value);
+	void uniform(const std::string& _name, bool _value);
+	void uniform(const std::string& _name, float _value);
+	void uniform(const std::string& _name, const glm::mat4& _value);
+	void uniform(const std::string& _name, const glm::vec3& _value);
 
 	void draw(Model* _model, Texture* _tex);
 	void draw(Mesh* _mesh, Texture* _tex);

@@ -76,7 +76,10 @@ void GameplayScene::Update(float _deltaTime)
 		mGameObjects[i]->Update(_deltaTime);
 	}
 	
-	mLightPos = glm::vec3(0.f, 50.f, mNamedGameObjects["Player"]->transform.position.z - 20.f);
+	mLightPos = glm::vec3(0.f , 100.f, mNamedGameObjects["Player"]->transform.position.z - 20.f);
+
+	//std::cout << "Player z: " << mNamedGameObjects["Player"]->transform.position.z << std::endl;
+	//std::cout << "Light z: " << mLightPos.z << std::endl;
 
 	glm::vec3 camPos = mNamedGameObjects["Player"]->transform.position + glm::vec3(0.f, 0.f, -10.f);
 	camPos.y = 7.f;

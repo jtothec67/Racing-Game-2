@@ -14,7 +14,7 @@ public:
 
 private:
 	float mFBMoveSpeed = 5.f;
-	float mLRMoveSpeed = 5.f;
+	float mLRMoveSpeed = 10.f;
 
 	float mHoverValue = 0.f;
 	float mHoverSpeed = 3.f;

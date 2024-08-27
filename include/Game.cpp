@@ -133,7 +133,17 @@ void Game::UseCamera(Camera* _camera)
 		mLastWindowWidth = width;
 	}
 
-	mShaderLibrary.objectShader.uniform("u_Ambient", glm::vec3(0.0, 0.0, 0.0));
+	if (mCurrentScene->GetAmbientLight() != mLastAmbientLight)
+	{
+		mShaderLibrary.objectShader.uniform("u_Ambient", mCurrentScene->GetAmbientLight());
+		mLastAmbientLight = mCurrentScene->GetAmbientLight();
+	}
+
+	if (mCurrentScene->GetLightStrength() != mLastLightStrength)
+	{
+		mShaderLibrary.objectShader.uniform("u_LightStrength", mCurrentScene->GetLightStrength());
+		mLastLightStrength = mCurrentScene->GetLightStrength();
+	}
 }
 
 void Game::CheckUserInput()

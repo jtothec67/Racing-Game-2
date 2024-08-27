@@ -10,6 +10,8 @@ Track::Track(Game* _game) : threeDObject(_game)
 
 	transform.position = glm::vec3(0.f, -2.f, 0.f);
 	transform.scale = glm::vec3(0.02f, 0.06f, 0.1f);
+
+	SetSpecular(false);
 }
 
 void Track::Update(float _deltaTime)

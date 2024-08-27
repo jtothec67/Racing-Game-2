@@ -90,6 +90,26 @@ Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 	glDeleteShader(f_id);
 }
 
+void Shader::uniform(const std::string& _name, bool value)
+{
+	// Find uniform locations
+	GLint loc = glGetUniformLocation(id(), _name.c_str());
+
+	glUseProgram(id());
+	glUniform1i(loc, value);
+	glUseProgram(0);
+}
+
+void Shader::uniform(const std::string& _name, float value)
+{
+	// Find uniform locations
+	GLint loc = glGetUniformLocation(id(), _name.c_str());
+
+	glUseProgram(id());
+	glUniform1f(loc, value);
+	glUseProgram(0);
+}
+
 void Shader::uniform(const std::string& _name, const glm::mat4& value)
 {
 	// Find uniform locations

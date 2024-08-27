@@ -19,8 +19,8 @@ public:
 	void Collision();
 
 private:
-	float mGameSpeed = 10.f;
-	float mGameSpeedAccel = 5.f;
+	float mGameSpeed = 10.f; // Starting speed
+	float mGameSpeedAccel = 2.f;
 
 	float mGameOverDecelSpeed = 1.f; // Shouldn't get used as 1 but just in case
 	float mGameOverWaitTime = 3.f; // Time for player to reach 0 speed after game over

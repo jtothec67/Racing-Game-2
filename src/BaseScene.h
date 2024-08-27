@@ -21,7 +21,8 @@ public:
 	const std::vector<GameObject*>* GetGameObjects() { return &mGameObjects; }
 
 	glm::vec3 GetLightPos() { return mLightPos; }
-	void SetLightPos(glm::vec3 _lightPos) { mLightPos = _lightPos; }
+	float GetLightStrength() { return mLightStrength; }
+	glm::vec3 GetAmbientLight() { return mAmbientLight; }
 
 	GameObject* FindGameObjectByTag(Tag _tag);
 
@@ -36,5 +37,7 @@ protected:
 	std::vector<GameObject*> mGameObjects;
 	std::vector<GameObject*> mGameObjectsToRemove;
 
-	glm::vec3 mLightPos = glm::vec3(0.f, 20.f, 0.f);
+	glm::vec3 mLightPos = glm::vec3(0.f, 100.f, 0.f);
+	float mLightStrength = 1.f;
+	glm::vec3 mAmbientLight = glm::vec3(0.1f, 0.1f, 0.1f);
 };

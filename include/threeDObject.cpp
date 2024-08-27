@@ -25,9 +25,13 @@ void threeDObject::Draw()
 	model = glm::rotate(model, glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
 	model = glm::scale(model, glm::vec3(transform.scale.x, transform.scale.y, transform.scale.z));
 
-	// Upload uniforms to our shader
 	mShader->uniform("u_Model", model);
 
-	// Draw using our shader and out model and texture
+	if (mUpdateSpecular)
+	{
+		mShader->uniform("u_IsSpecular", mIsSpecular);
+		mUpdateSpecular = false;
+	}
+
 	mShader->draw(GetModel(), GetTexture());
 }
