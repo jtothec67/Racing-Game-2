@@ -39,11 +39,11 @@ void UIObject::Update(float _deltaTime)
                 transform.position = glm::vec3(winWidth - widthFromRight, winHeight - heightFromTop, 0);
                 break;
             }
-            case Anchor::TopCentre:
+            case Anchor::TopCenter:
             {
-                int widthDistFromCentre = transform.position.x - (mScreenWidthLastFrame / 2);
+                int widthDistFromCenter = transform.position.x - (mScreenWidthLastFrame / 2);
                 int heightDistFromTop = mScreenHeightLastFrame - transform.position.y;
-                transform.position = glm::vec3((winWidth / 2) + widthDistFromCentre, winHeight - heightDistFromTop, 0);
+                transform.position = glm::vec3((winWidth / 2) + widthDistFromCenter, winHeight - heightDistFromTop, 0);
                 break;
             }
             case Anchor::BottomLeft:
@@ -60,26 +60,26 @@ void UIObject::Update(float _deltaTime)
                 transform.position = glm::vec3(winWidth - widthFromRight, heightFromBottom, 0);
                 break;
             }
-            case Anchor::BottomCentre:
+            case Anchor::BottomCenter:
             {
-                int widthDistFromCentre = transform.position.x - (mScreenWidthLastFrame / 2);
+                int widthDistFromCenter = transform.position.x - (mScreenWidthLastFrame / 2);
                 int heightFromBottom = transform.position.y;
-                transform.position = glm::vec3((winWidth / 2) + widthDistFromCentre, heightFromBottom, 0);
+                transform.position = glm::vec3((winWidth / 2) + widthDistFromCenter, heightFromBottom, 0);
                 break;
             }
-            case Anchor::Centre:
+            case Anchor::Center:
             {
-                int widthDistFromCentre = transform.position.x - (mScreenWidthLastFrame / 2);
-                int heightDistFromCentre = transform.position.y - (mScreenHeightLastFrame / 2);
-                transform.position = glm::vec3((winWidth / 2) + widthDistFromCentre, (winHeight / 2) + heightDistFromCentre, 0);
+                int widthDistFromCenter = transform.position.x - (mScreenWidthLastFrame / 2);
+                int heightDistFromCenter = transform.position.y - (mScreenHeightLastFrame / 2);
+                transform.position = glm::vec3((winWidth / 2) + widthDistFromCenter, (winHeight / 2) + heightDistFromCenter, 0);
                 break;
             }
-            case Anchor::LeftCentre:
+            case Anchor::LeftCenter:
 			{
 				transform.position = glm::vec3(transform.position.x, transform.position.y, 0);
 				break;
 			}
-            case Anchor::RightCentre:
+            case Anchor::RightCenter:
             {
                 int widthFromRight = mScreenWidthLastFrame - transform.position.x;
                 transform.position = glm::vec3(winWidth - widthFromRight, transform.position.y, 0);

@@ -10,13 +10,13 @@ enum class Anchor
 {
 	TopLeft,
 	TopRight,
-	TopCentre,
+	TopCenter,
 	BottomLeft,
 	BottomRight,
-	BottomCentre,
-	Centre,
-	LeftCentre,
-	RightCentre
+	BottomCenter,
+	Center,
+	LeftCenter,
+	RightCenter
 };
 
 class UIObject : public GameObject
@@ -43,7 +43,7 @@ protected:
 	int mWidth = 0;
 	int mHeight = 0;
 
-	Anchor mAnchor = Anchor::Centre;
+	Anchor mAnchor = Anchor::Center;
 
 	Mesh* mMesh;
 	Texture* mTexture;

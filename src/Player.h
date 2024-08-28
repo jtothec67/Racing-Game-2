@@ -13,7 +13,8 @@ public:
 	void Update(float _deltaTime);
 
 private:
-	float mFBMoveSpeed = 5.f;
+	float mForwardMultiplier = 0.3f;
+	float mBackwardsMultiplier = 0.3f;
 	float mLRMoveSpeed = 10.f;
 
 	float mHoverValue = 0.f;

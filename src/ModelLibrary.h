@@ -28,14 +28,8 @@ struct ModelLibrary
 
 	Texture defaultTexture;
 
-	Texture playButTex;
-	Texture playButHoverTex;
-
-	Texture quitButTex;
-	Texture quitButHoverTex;
-
-	Texture htpButTex;
-	Texture htpButHoverTex;
+	Texture unselectedButtonTex;
+	Texture selectedButtonTex;
 
 	Font testFont;
 	Mesh textMesh;

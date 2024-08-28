@@ -7,6 +7,8 @@
 
 #include <random>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 {
@@ -19,11 +21,23 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	int windowWidth, windowHeight;
 	mGame->GetWindowSize(windowWidth, windowHeight);
 
+	Text* gameSpeedText = new Text(mGame);
+	gameSpeedText->transform.position = glm::vec3(200.f, windowHeight - 200.f, 0.f);
+	gameSpeedText->SetAnchor(Anchor::TopLeft);
+	AddGameObject(gameSpeedText);
+	mNamedGameObjects["GameSpeedText"] = gameSpeedText;
+
 	Text* scoreText = new Text(mGame);
-	scoreText->transform.position = glm::vec3(200.f, windowHeight - 200.f, 0.f);
-	scoreText->SetAnchor(Anchor::TopLeft);
+	scoreText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight - 200.f, 0.f);
+	scoreText->SetAnchor(Anchor::TopRight);
 	AddGameObject(scoreText);
 	mNamedGameObjects["ScoreText"] = scoreText;
+
+	Text* multiplierText = new Text(mGame);
+	multiplierText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight / 2.f, 0.f);
+	multiplierText->SetAnchor(Anchor::RightCenter);
+	AddGameObject(multiplierText);
+	mNamedGameObjects["MultiplierText"] = multiplierText;
 
 	std::random_device rd;  // Seed for the random number engine
 	std::mt19937 gen(rd()); // Mersenne Twister engine
@@ -32,7 +46,7 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	for (int i = 0; i < 5; i++)
 	{
 		Enemy* enemy = new Enemy(mGame);
-		enemy->transform.position = glm::vec3(dis(gen), 0.f, 40.f + (40.f * i));
+		enemy->transform.position = glm::vec3(dis(gen), 0.f, 50.f + (40.f * i));
 		AddGameObject(enemy);
 	}
 
@@ -67,8 +81,18 @@ void GameplayScene::Update(float _deltaTime)
 	{
 		mGameSpeed += mGameSpeedAccel * _deltaTime;
 
+		mScore += mGameSpeedAccel * mScoreMultiplier * _deltaTime;
+
+        Text* multiplierText = (Text*)mNamedGameObjects["MultiplierText"];
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(1) << mScoreMultiplier;
+        multiplierText->SetText("x" + ss.str());
+
 		Text* scoreText = (Text*)mNamedGameObjects["ScoreText"];
-		scoreText->SetText(std::to_string((int)mGameSpeed));
+		scoreText->SetText(std::to_string((int)mScore));
+
+		Text* gameSpeedText = (Text*)mNamedGameObjects["GameSpeedText"];
+		gameSpeedText->SetText(std::to_string((int)mGameSpeed));
 	}
 
 	for (int i = 0; i < mGameObjects.size(); i++)
@@ -77,9 +101,6 @@ void GameplayScene::Update(float _deltaTime)
 	}
 	
 	mLightPos = glm::vec3(0.f , 100.f, mNamedGameObjects["Player"]->transform.position.z - 20.f);
-
-	//std::cout << "Player z: " << mNamedGameObjects["Player"]->transform.position.z << std::endl;
-	//std::cout << "Light z: " << mLightPos.z << std::endl;
 
 	glm::vec3 camPos = mNamedGameObjects["Player"]->transform.position + glm::vec3(0.f, 0.f, -10.f);
 	camPos.y = 7.f;

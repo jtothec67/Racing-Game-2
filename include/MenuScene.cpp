@@ -11,31 +11,25 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	mGame->GetWindowSize(windowWidth, windowHeight);
 
 	Button* playButton = new Button(mGame);
-	playButton->SetTexture(&(mGame->GetModelLibrary()->playButTex));
-	playButton->SetSelectedTexture(&(mGame->GetModelLibrary()->playButHoverTex));
 	playButton->SetSelected(true);
 	playButton->transform.position = glm::vec3(windowWidth/2, (windowHeight / 4) * 3, 0);
-	playButton->SetAnchor(Anchor::TopCentre);
+	playButton->SetAnchor(Anchor::TopCenter);
 	playButton->SetText("Play");
 	playButton ->SetTextScale(0.8f);
 	AddGameObject(playButton);
 	mNamedGameObjects["PlayButton"] = playButton;
 
 	Button* htpButton = new Button(mGame);
-	htpButton->SetTexture(&(mGame->GetModelLibrary()->htpButTex));
-	htpButton->SetSelectedTexture(&(mGame->GetModelLibrary()->htpButHoverTex));
 	htpButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4) * 2, 0);
-	htpButton->SetAnchor(Anchor::Centre);
+	htpButton->SetAnchor(Anchor::Center);
 	htpButton->SetText("How To\n  Play");
 	htpButton->SetTextScale(0.44f);
 	AddGameObject(htpButton);
 	mNamedGameObjects["HowToPlayButton"] = htpButton;
 
 	Button* quitButton = new Button(mGame);
-	quitButton->SetTexture(&(mGame->GetModelLibrary()->quitButTex));
-	quitButton->SetSelectedTexture(&(mGame->GetModelLibrary()->quitButHoverTex));
 	quitButton->transform.position = glm::vec3(windowWidth / 2, (windowHeight / 4), 0);
-	quitButton->SetAnchor(Anchor::BottomCentre);
+	quitButton->SetAnchor(Anchor::BottomCenter);
 	quitButton->SetText("Quit");
 	quitButton->SetTextScale(0.8f);
 	AddGameObject(quitButton);

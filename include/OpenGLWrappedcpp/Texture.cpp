@@ -82,6 +82,7 @@ Texture::Texture(const std::vector<std::string>& _facePaths)
 		}
 		else
 		{
+			std::cout << "Failed to load skybox texture data: " << _facePaths.at(0) << std::endl;
 			throw std::exception();
 			stbi_image_free(data);
 		}

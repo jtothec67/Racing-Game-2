@@ -14,22 +14,22 @@ public:
 
 	void Draw() override;
 
-	bool IsSelected() { return mHovered; }
-	void SetSelected(bool _hovered) { mHovered = _hovered; }
+	bool IsSelected() { return mSelected; }
+	void SetSelected(bool _hovered) { mSelected = _hovered; }
 
-	void SetSelectedTexture(Texture* _texture) { mHoverTexture = _texture; mHoverTexture->GetSize(mHoveredWidth, mHoveredHeight); }
+	void SetSelectedTexture(Texture* _texture) { mSelectedTexture = _texture; mSelectedTexture->GetSize(mSelectedWidth, mSelectedHeight); }
 
 	void SetText(std::string _text) { mText.SetText(_text); }
 	void SetTextScale(float _scale) { mText.transform.scale.x = _scale; mText.transform.scale.y = _scale; }
 	void SetTextColour(glm::vec3 _colour) { mText.SetColour(_colour); }
 
 protected:
-	Texture* mHoverTexture;
+	Texture* mSelectedTexture;
 
 	Text mText;
 
-	int mHoveredWidth = 0;
-	int mHoveredHeight = 0;
+	int mSelectedWidth = 0;
+	int mSelectedHeight = 0;
 
-	bool mHovered = false;
+	bool mSelected = false;
 };

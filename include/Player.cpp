@@ -67,6 +67,8 @@ void Player::Update(float _deltaTime)
 	float hoverHeight = sin(mHoverValue);
 	transform.position.y = hoverHeight * 0.25f;
 
+	gameplayScene->SetMultiplier(1.f);
+
 	if ((mGame->keyPress[SDLK_a] || mGame->keyPress[SDLK_LEFT]) && transform.position.x < 7.5)
 	{
 		transform.position.x += mLRMoveSpeed * _deltaTime;
@@ -79,11 +81,18 @@ void Player::Update(float _deltaTime)
 
 	if (mGame->keyPress[SDLK_w] || mGame->keyPress[SDLK_UP])
 	{
-		transform.position += transform.GetForward() * mFBMoveSpeed * _deltaTime;
+		transform.position += transform.GetForward() * (gameplayScene->GetGameSpeed() * mForwardMultiplier) * _deltaTime;
+		gameplayScene->SetMultiplier(1.5f);
 	}
 
 	if (mGame->keyPress[SDLK_s] || mGame->keyPress[SDLK_DOWN])
 	{
-		transform.position += -transform.GetForward() * mFBMoveSpeed * _deltaTime;
+		transform.position += -transform.GetForward() * (gameplayScene->GetGameSpeed() * mBackwardsMultiplier) * _deltaTime;
+		gameplayScene->SetMultiplier(0.5f);
+	}
+
+	if ((mGame->keyPress[SDLK_w] || mGame->keyPress[SDLK_UP]) && (mGame->keyPress[SDLK_s] || mGame->keyPress[SDLK_DOWN]))
+	{
+		gameplayScene->SetMultiplier(1.f);
 	}
 }

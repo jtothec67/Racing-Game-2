@@ -19,6 +19,9 @@ Window::Window(int _width, int _height)
 		throw std::exception("Couldn't create SDL window.");
 	}
 
+	// Disable vsync
+	//SDL_GL_SetSwapInterval(0);
+
 	if (glewInit() != GLEW_OK)
 	{
 		std::cout << "Couldn't initialise glew." << std::endl;
