@@ -20,7 +20,7 @@ public:
 	
 	void GetWindowSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
 
-	void SetClearColour(glm::vec4 _colour);
+	void SetClearColour(glm::vec3 _colour);
 
 private:
 	SDL_Window* mWindow;
@@ -28,5 +28,5 @@ private:
 	int mWidth;
 	int mHeight;
 
-	glm::vec4 mClearColour = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	glm::vec3 mClearColour = glm::vec3(0.0f, 0.0f, 0.0f);
 };

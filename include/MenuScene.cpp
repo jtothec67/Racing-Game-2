@@ -7,6 +7,8 @@
 
 MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 {
+	AddGameObject(new Skybox(mGame));
+
 	int windowWidth, windowHeight;
 	mGame->GetWindowSize(windowWidth, windowHeight);
 
@@ -15,7 +17,7 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	playButton->transform.position = glm::vec3(windowWidth/2, (windowHeight / 4) * 3, 0);
 	playButton->SetAnchor(Anchor::TopCenter);
 	playButton->SetText("Play");
-	playButton ->SetTextScale(0.8f);
+	playButton->SetTextScale(0.8f);
 	AddGameObject(playButton);
 	mNamedGameObjects["PlayButton"] = playButton;
 
@@ -34,8 +36,6 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	quitButton->SetTextScale(0.8f);
 	AddGameObject(quitButton);
 	mNamedGameObjects["QuitButton"] = quitButton;
-
-	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 }
 
 MenuScene::~MenuScene()
@@ -45,6 +45,8 @@ MenuScene::~MenuScene()
 
 void MenuScene::Update(float _deltaTime)
 {
+	mGame->GetCamera()->transform.rotation.y -= 10.f * _deltaTime;
+
 	if (mGame->keyDown[SDLK_RETURN])
 	{
 		switch (mCurrentOption)

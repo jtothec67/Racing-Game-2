@@ -12,7 +12,7 @@
 
 GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 {
-	AddGameObject(new Skybox(mGame));
+	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.f, 0.f, 0.f));
 
 	Player* player = new Player(mGame);
 	AddGameObject(player);
@@ -56,6 +56,14 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 		track->transform.position.z = (i * track->GetLength());
 		AddGameObject(track);
 	}
+
+	Text* fpsText = new Text(mGame);
+	fpsText->transform.position = glm::vec3(30.f, windowHeight - 20.f, 0.f);
+	fpsText->SetColour(glm::vec3(0.f, 1.f, 0.f));
+	fpsText->transform.scale.x = 0.2f;
+	fpsText->SetAnchor(Anchor::TopLeft);
+	AddGameObject(fpsText);
+	mNamedGameObjects["FPSText"] = fpsText;
 }
 
 GameplayScene::~GameplayScene()
@@ -65,7 +73,10 @@ GameplayScene::~GameplayScene()
 
 void GameplayScene::Update(float _deltaTime)
 {
-	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedTime() > mGameOverWaitTime)
+	Text* fpsText = (Text*)mNamedGameObjects["FPSText"];
+	fpsText->SetText(std::to_string((int)(1.f / _deltaTime)));
+
+	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedSeconds() > mGameOverWaitTime)
 	{
 		mGame->ChangeScene(Scene::Menu);
 	}

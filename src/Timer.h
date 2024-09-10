@@ -5,9 +5,12 @@
 class Timer
 {
 public:
-    void Start();
+    Timer(); // Starts on creation
+    ~Timer() { }
+
+    void Start(); // Set start time
     float Stop(); // Get time passed and stop the timer
-    float GetElapsedTime(); // Get time passed without stopping the timer
+    float GetElapsedSeconds(); // Get time passed without stopping the timer
 
     bool IsRunning() { return mRunning; }
 

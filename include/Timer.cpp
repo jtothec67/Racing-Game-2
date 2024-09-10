@@ -1,5 +1,10 @@
 #include "Timer.h"
 
+Timer::Timer()
+{
+	
+}
+
 void Timer::Start()
 {
 	mStart = std::chrono::steady_clock::now();
@@ -24,7 +29,7 @@ float Timer::Stop()
 	return duration.count();
 }
 
-float Timer::GetElapsedTime()
+float Timer::GetElapsedSeconds()
 {
 	if (!mRunning)
 	{

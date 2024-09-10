@@ -19,7 +19,7 @@ Window::Window(int _width, int _height)
 		throw std::exception("Couldn't create SDL window.");
 	}
 
-	// Disable vsync
+	// Disables vsync (unlimited fps)
 	//SDL_GL_SetSwapInterval(0);
 
 	if (glewInit() != GLEW_OK)
@@ -33,7 +33,7 @@ Window::Window(int _width, int _height)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	glClearColor(mClearColour.r, mClearColour.g, mClearColour.b, mClearColour.a);
+	glClearColor(mClearColour.r, mClearColour.g, mClearColour.b, 1.f);
 }
 
 Window::~Window()
@@ -52,8 +52,8 @@ void Window::ClearWindow()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Window::SetClearColour(glm::vec4 _colour)
+void Window::SetClearColour(glm::vec3 _colour)
 {
 	mClearColour = _colour;
-	glClearColor(mClearColour.r, mClearColour.g, mClearColour.b, mClearColour.a);
+	glClearColor(mClearColour.r, mClearColour.g, mClearColour.b, 1.f);
 }

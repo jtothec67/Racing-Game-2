@@ -45,7 +45,5 @@ private:
 	bool m_skybox = false;
 	bool m_text = false;
 
-	float textbox_width = 0.0f;
-
 	std::vector<Face> m_faces;
 };

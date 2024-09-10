@@ -24,7 +24,7 @@ private:
 	int m_width = 0;
 	int m_height = 0;
 
-	bool m_dirty = false;
+	bool m_dirty = true;
 
 	bool skybox = false;
 

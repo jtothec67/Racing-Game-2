@@ -4,10 +4,12 @@
 
 #include <iostream>
 #include <exception>
-#include <fstream>
 
 Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 {
+	m_vertpath = _vertpath;
+	m_fragpath = _fragpath;
+
 	std::ifstream vfile(_vertpath);
 	
 	if (!vfile.is_open())
@@ -42,52 +44,62 @@ Shader::Shader(const std::string& _vertpath, const std::string& _fragpath)
 		lline += "\n";
 		m_fragsrc += lline;
 	}
+}
 
-	GLuint v_id = glCreateShader(GL_VERTEX_SHADER);
-	const GLchar* GLvertsrc = m_vertsrc.c_str();
-	glShaderSource(v_id, 1, &GLvertsrc, NULL);
-	glCompileShader(v_id);
-	GLint success = 0;
-	glGetShaderiv(v_id, GL_COMPILE_STATUS, &success);
-
-	if (!success)
+GLuint Shader::id()
+{
+	if (m_dirty)
 	{
-		std::cout << "Shader failed to compile: " << _vertpath << std::endl;
-		throw std::exception();
+		GLuint v_id = glCreateShader(GL_VERTEX_SHADER);
+		const GLchar* GLvertsrc = m_vertsrc.c_str();
+		glShaderSource(v_id, 1, &GLvertsrc, NULL);
+		glCompileShader(v_id);
+		GLint success = 0;
+		glGetShaderiv(v_id, GL_COMPILE_STATUS, &success);
+
+		if (!success)
+		{
+			std::cout << "Shader failed to compile: " << m_vertpath << std::endl;
+			throw std::exception();
+		}
+
+
+		GLuint f_id = glCreateShader(GL_FRAGMENT_SHADER);
+		const GLchar* GLfragsrc = m_fragsrc.c_str();
+		glShaderSource(f_id, 1, &GLfragsrc, NULL);
+		glCompileShader(f_id);
+		glGetShaderiv(f_id, GL_COMPILE_STATUS, &success);
+
+		if (!success)
+		{
+			std::cout << "Shader failed to compile: " << m_fragpath << std::endl;
+			throw std::exception();
+		}
+
+
+		m_id = glCreateProgram();
+
+		glAttachShader(m_id, v_id);
+		glAttachShader(m_id, f_id);
+
+		glLinkProgram(m_id);
+		glGetProgramiv(m_id, GL_LINK_STATUS, &success);
+
+		if (!success)
+		{
+			std::cout << "Shader id failed to be created: " << m_vertpath << std::endl << m_fragpath << std::endl;
+			throw std::exception();
+		}
+
+		glDetachShader(m_id, v_id);
+		glDeleteShader(v_id);
+		glDetachShader(m_id, f_id);
+		glDeleteShader(f_id);
+
+		m_dirty = false;
 	}
 
-
-	GLuint f_id = glCreateShader(GL_FRAGMENT_SHADER);
-	const GLchar* GLfragsrc = m_fragsrc.c_str();
-	glShaderSource(f_id, 1, &GLfragsrc, NULL);
-	glCompileShader(f_id);
-	glGetShaderiv(f_id, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		std::cout << "Shader failed to compile: " << _fragpath << std::endl;
-		throw std::exception();
-	}
-
-
-	m_id = glCreateProgram();
-
-	glAttachShader(m_id, v_id);
-	glAttachShader(m_id, f_id);
-
-	glLinkProgram(m_id);
-	glGetProgramiv(m_id, GL_LINK_STATUS, &success);
-
-	if (!success)
-	{
-		std::cout << "Shader id failed to be created: " << _vertpath << std::endl << _fragpath << std::endl;
-		throw std::exception();
-	}
-
-	glDetachShader(m_id, v_id);
-	glDeleteShader(v_id);
-	glDetachShader(m_id, f_id);
-	glDeleteShader(f_id);
+	return m_id;
 }
 
 void Shader::uniform(const std::string& _name, bool value)
@@ -251,6 +263,9 @@ void Shader::drawSkybox(Mesh& _skyboxMesh, Texture& _tex)
 
 void Shader::drawText(Mesh& _mesh, Font& _font, const std::string& _text, float _x, float _y, float _scale)
 {
+	// Call id incase mesh hasn't been generated yet
+	_mesh.id();
+
 	glUseProgram(id());
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(_mesh.vao());

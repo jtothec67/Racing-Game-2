@@ -14,7 +14,7 @@ class Shader
 {
 public:
 	Shader(const std::string& _vertpath, const std::string& _fragpath);
-	GLuint id() { return m_id; }
+	GLuint id();
 
 	void uniform(const std::string& _name, bool _value);
 	void uniform(const std::string& _name, float _value);
@@ -35,6 +35,11 @@ public:
 private:
 	GLuint m_id = 0;
 
+	std::string m_vertpath;
+	std::string m_fragpath;
+
 	std::string m_vertsrc;
 	std::string m_fragsrc;
+
+	bool m_dirty = true;
 };

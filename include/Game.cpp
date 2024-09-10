@@ -36,11 +36,11 @@ void Game::Run()
 
 	Update(deltaTime); // deltaTime is the time the last frame took to update and draw (in seconds)
 
-	Draw();
-
 	if (mSceneChanged)
 		SwapScenes();
-	
+
+	Draw();
+
 	//std::cout << "FPS: " << 1.f /  deltaTime << std::endl; // Uses vsync if monitor has gsync/freesync
 }
 
@@ -68,17 +68,20 @@ void Game::SwapScenes()
 
 	switch (mNextScene)
 	{
-	case Scene::Menu:
-	{
-		mCurrentScene = new MenuScene(this);
-		break;
+		case Scene::Menu:
+		{
+			mCurrentScene = new MenuScene(this);
+			break;
+		}
+		case Scene::Game:
+		{
+			mCurrentScene = new GameplayScene(this);
+			break;
+		}
 	}
-	case Scene::Game:
-	{
-		mCurrentScene = new GameplayScene(this);
-		break;
-	}
-	}
+
+	mCamera.transform.position = glm::vec3(0.f, 0.f, 0.f);
+	mCamera.transform.rotation = glm::vec3(0.f, 0.f, 0.f);
 }
 
 void Game::UseCamera(Camera* _camera)
