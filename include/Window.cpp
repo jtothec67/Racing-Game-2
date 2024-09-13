@@ -19,8 +19,9 @@ Window::Window(int _width, int _height)
 		throw std::exception("Couldn't create SDL window.");
 	}
 
-	// Disables vsync (unlimited fps)
-	//SDL_GL_SetSwapInterval(0);
+	// 0 = no vsync, 1 = vsync, 2 = half of vsync
+	// (using a value other than 0 on a monitor without gsync/freesync feels very slow)
+	SDL_GL_SetSwapInterval(0);
 
 	if (glewInit() != GLEW_OK)
 	{

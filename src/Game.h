@@ -72,7 +72,10 @@ private:
 	Scene mNextScene = Scene::Menu;
 	bool mSceneChanged = false;
 
-	// To detect changes
+	bool mLimitingFPS = false;
+	float mFPSLimit = 144.f;
+
+	// To detect changes for shader uniforms
 	glm::mat4 mLastProjection = glm::mat4(1.f);
 	glm::vec3 mLastLightPos = glm::vec3(0.f);
 	glm::vec3 mLastCameraPos = glm::vec3(0.f);

@@ -27,6 +27,13 @@ void Game::Run()
 
 	mFrameTimer.Start();
 
+	if (mLimitingFPS)
+	{
+		float sleepTime = (1000.f / mFPSLimit) - (deltaTime * 1000.f);
+		if (sleepTime > 0)
+			SDL_Delay(sleepTime);
+	}
+
 	// Avoids first frame after scene has been changed being very long due to scene initialising
 	if (mSceneChanged)
 	{

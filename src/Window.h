@@ -22,6 +22,8 @@ public:
 
 	void SetClearColour(glm::vec3 _colour);
 
+	void ActivateVSync(bool _activate) { SDL_GL_SetSwapInterval(_activate ? 1 : 0); }
+
 private:
 	SDL_Window* mWindow;
 	

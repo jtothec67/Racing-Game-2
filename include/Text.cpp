@@ -20,8 +20,7 @@ void Text::Draw()
 
 	bool firstLine = true;
 
-	// float so we can /2 later
-	float numLines = 1.f;
+	int numLines = 1;
 
 	std::string::const_iterator c;
 	for (c = mText.begin(); c != mText.end(); c++)
@@ -82,9 +81,11 @@ void Text::Draw()
 		// Not too sure how this works but took me a while to figure out.
 		// Still slightly off but it's close enough.
 	}
-
-	mGame->GetShaderLibrary()->fontShader.uniform("u_TextColour", mColour);
-	mGame->GetShaderLibrary()->fontShader.drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x);
+	
+	// Contemplated creating a "GetUniform" function to check if we actually need to update the uniform,
+	// but that is apparently more expensive than just setting a uniform.
+	mShader->uniform("u_TextColour", mColour);
+	mShader->drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x);
 }
 
 void Text::Draw(int _x, int _y)
@@ -163,6 +164,6 @@ void Text::Draw(int _x, int _y)
 		// Still slightly off but it's close enough.
 	}
 
-	mGame->GetShaderLibrary()->fontShader.uniform("u_TextColour", mColour);
-	mGame->GetShaderLibrary()->fontShader.drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x);
+	mShader->uniform("u_TextColour", mColour);
+	mShader->drawText(*mMesh, *mFont, mText, xVal, yVal, transform.scale.x);
 }

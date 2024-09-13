@@ -17,14 +17,16 @@ Track::Track(Game* _game) : threeDObject(_game)
 void Track::Update(float _deltaTime)
 {
 	GameplayScene* gameplayScene = (GameplayScene*)mGame->GetCurrentScene();
-	transform.position.z -= gameplayScene->GetGameSpeed() * mSpeedDiff * _deltaTime;
 
-	if (transform.position.z <= mGame->GetCurrentScene()->GetPlayer()->transform.position.z - GetLength())
+	if (transform.position.z <= gameplayScene->GetPlayer()->transform.position.z - GetLength())
 	{
 		gameplayScene->RemoveGameObject(this);
 
 		Track* track = new Track(mGame);
-		track->transform.position.z = mGame->GetCurrentScene()->GetPlayer()->transform.position.z + (2 * GetLength()) - (5*(gameplayScene->GetGameSpeed() * mSpeedDiff * _deltaTime));
+		track->transform.position.z = transform.position.z + (3 * GetLength());
+		//track->transform.position.z -= gameplayScene->GetGameSpeed() * mSpeedDiff * _deltaTime;
 		gameplayScene->AddGameObject(track);
 	}
+
+	transform.position.z -= gameplayScene->GetGameSpeed() * mSpeedDiff * _deltaTime;
 }
