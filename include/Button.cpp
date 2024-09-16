@@ -14,6 +14,9 @@ Button::Button(Game* _game) : UIObject(_game)
 
 void Button::Draw()
 {
+	if (!mVisible)
+		return;
+
 	glm::mat4 model(1.0f);
 	model = glm::mat4(1.0f);
 

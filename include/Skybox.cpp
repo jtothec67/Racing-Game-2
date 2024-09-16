@@ -15,5 +15,8 @@ Skybox::Skybox(Game* _game) : GameObject(_game)
 
 void Skybox::Draw()
 {
+	if (!mVisible)
+		return;
+
 	mShader->drawSkybox(*mMesh, *mTexture);
 }

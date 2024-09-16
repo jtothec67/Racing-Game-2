@@ -22,7 +22,9 @@ public:
 
 	void SetClearColour(glm::vec3 _colour);
 
-	void ActivateVSync(bool _activate) { SDL_GL_SetSwapInterval(_activate ? 1 : 0); }
+	void ActivateVSync(bool _activate) { SDL_GL_SetSwapInterval(_activate ? 1 : 0); mVSync = _activate; }
+
+	bool IsVSyncActive() { return mVSync; }
 
 private:
 	SDL_Window* mWindow;
@@ -31,4 +33,6 @@ private:
 	int mHeight;
 
 	glm::vec3 mClearColour = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	bool mVSync = true;
 };

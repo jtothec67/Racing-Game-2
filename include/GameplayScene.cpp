@@ -12,6 +12,8 @@
 
 GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 {
+	mDisplayFPS.Start();
+
 	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.f, 0.f, 0.f));
 
 	Player* player = new Player(mGame);
@@ -58,7 +60,7 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	}
 
 	Text* fpsText = new Text(mGame);
-	fpsText->transform.position = glm::vec3(30.f, windowHeight - 20.f, 0.f);
+	fpsText->transform.position = glm::vec3(40.f, windowHeight - 20.f, 0.f);
 	fpsText->SetColour(glm::vec3(0.f, 1.f, 0.f));
 	fpsText->transform.scale.x = 0.2f;
 	fpsText->SetAnchor(Anchor::TopLeft);
@@ -73,8 +75,13 @@ GameplayScene::~GameplayScene()
 
 void GameplayScene::Update(float _deltaTime)
 {
-	Text* fpsText = (Text*)mNamedGameObjects["FPSText"];
-	fpsText->SetText(std::to_string((int)(1.f / _deltaTime)));
+	if (mDisplayFPS.GetElapsedSeconds() > 0.5f)
+	{
+		Text* fpsText = (Text*)mNamedGameObjects["FPSText"];
+		fpsText->SetText(std::to_string((int)(1.f / _deltaTime)));
+
+		mDisplayFPS.Start();
+	}
 
 	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedSeconds() > mGameOverWaitTime)
 	{

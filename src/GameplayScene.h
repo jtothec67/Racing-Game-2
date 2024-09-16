@@ -33,4 +33,6 @@ private:
 	Timer mCrashTimer;
 
 	bool mGameOver = false;
+
+	Timer mDisplayFPS;
 };

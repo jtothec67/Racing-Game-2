@@ -12,6 +12,9 @@ threeDObject::threeDObject(Game* _game) : GameObject(_game)
 
 void threeDObject::Draw()
 {
+	if (!mVisible)
+		return;
+
 	if (mModel == nullptr)
 	{
 		return;

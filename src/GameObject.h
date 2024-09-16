@@ -38,6 +38,9 @@ public:
 	virtual void Update(float _deltaTime) {}
 	virtual void Draw() {}
 
+	virtual void SetVisible(bool _visible) { mVisible = _visible; }
+	virtual bool GetVisible() { return mVisible; }
+
 	Tag GetTag() { return mTag; }
 
 	Transform transform;
@@ -46,4 +49,6 @@ protected:
 	Game* mGame;
 
 	Tag mTag = Tag::NoTag;
+
+	bool mVisible = true;
 };

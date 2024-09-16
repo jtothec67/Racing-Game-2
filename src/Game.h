@@ -36,6 +36,11 @@ public:
 	Window* GetWindow() { return &mWindow; }
 	void GetWindowSize(int& _width, int& _height) { mWindow.GetWindowSize(_width, _height); }
 
+	void LimitFPS(bool _limit) { mLimitingFPS = _limit; }
+	bool IsFPSLimited() { return mLimitingFPS; }
+	void SetFPSLimit(int _fps) { mFPSLimit = _fps; }
+	float GetFPSLimit() { return mFPSLimit; }
+
 	void StopGameRunning() { mGameRunning = false; }
 	bool IsGameRunning() { return mGameRunning; }
 
@@ -73,7 +78,7 @@ private:
 	bool mSceneChanged = false;
 
 	bool mLimitingFPS = false;
-	float mFPSLimit = 144.f;
+	int mFPSLimit = 60;
 
 	// To detect changes for shader uniforms
 	glm::mat4 mLastProjection = glm::mat4(1.f);

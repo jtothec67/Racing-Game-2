@@ -21,7 +21,7 @@ Window::Window(int _width, int _height)
 
 	// 0 = no vsync, 1 = vsync, 2 = half of vsync
 	// (using a value other than 0 on a monitor without gsync/freesync feels very slow)
-	SDL_GL_SetSwapInterval(0);
+	SDL_GL_SetSwapInterval(mVSync ? 1 : 0);
 
 	if (glewInit() != GLEW_OK)
 	{

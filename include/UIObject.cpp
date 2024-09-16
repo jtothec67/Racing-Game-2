@@ -94,6 +94,9 @@ void UIObject::Update(float _deltaTime)
 
 void UIObject::Draw()
 {
+    if (!mVisible) 
+        return;
+
 	glm::mat4 model(1.0f);
 	model = glm::mat4(1.0f);
 	float halfWidth = mWidth * 0.5f * transform.scale.x;
