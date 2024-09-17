@@ -355,7 +355,7 @@ void MenuScene::UpdateSettingsButtons()
 
 				mFPSLimitToApply = mFPSOptions[mCurrentFPSOption];
 
-				Button * fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
+				Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 				fpsLimitToButton->SetText("FPS Limit\n  To " + std::to_string(mFPSLimitToApply));
 				break;
 			}
@@ -452,8 +452,8 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mCurrentSettingsOption = SettingsOption::Apply;
 
-					Button* limitFPSButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-					limitFPSButton->SetSelected(true);
+					Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
+					applyButton->SetSelected(true);
 				}
 				else
 				{
@@ -467,8 +467,8 @@ void MenuScene::UpdateSettingsButtons()
 			}
 			case SettingsOption::LimitFPS:
 			{
-				Button* limitFPSButton2 = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-				limitFPSButton2->SetSelected(false);
+				Button* limitFPSButton = (Button*)(mNamedGameObjects["LimitFPSButton"]);
+				limitFPSButton->SetSelected(false);
 
 				if (mLimitFPSToApply)
 				{
@@ -485,27 +485,27 @@ void MenuScene::UpdateSettingsButtons()
 					applyButton->SetSelected(true);
 				}
 
-				Button* fpsLimitToButton2 = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-				fpsLimitToButton2->SetSelected(true);
+				Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
+				fpsLimitToButton->SetSelected(true);
 				break;
 			}
 			case SettingsOption::FPSLimitTo:
 			{
 				mCurrentSettingsOption = SettingsOption::Apply;
 
-				Button* fpsLimitToButton3 = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-				fpsLimitToButton3->SetSelected(false);
+				Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
+				fpsLimitToButton->SetSelected(false);
 
-				Button* applyButton3 = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton3->SetSelected(true);
+				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
+				applyButton->SetSelected(true);
 				break;
 			}
 			case SettingsOption::Apply:
 			{
 				mCurrentSettingsOption = SettingsOption::Back;
 
-				Button* applyButton4 = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton4->SetSelected(false);
+				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
+				applyButton->SetSelected(false);
 
 				Button* backButton = (Button*)(mNamedGameObjects["BackButton"]);
 				backButton->SetSelected(true);
@@ -542,29 +542,29 @@ void MenuScene::UpdateSettingsButtons()
 			}
 			case SettingsOption::Apply:
 			{
-				Button* applyButton3 = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton3->SetSelected(false);
+				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
+				applyButton->SetSelected(false);
 
 				if (mVSyncToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::VSync;
 
-					Button* vsyncButton3 = (Button*)(mNamedGameObjects["VSyncButton"]);
-					vsyncButton3->SetSelected(true);
+					Button* vsyncButton = (Button*)(mNamedGameObjects["VSyncButton"]);
+					vsyncButton->SetSelected(true);
 				}
 				else if (mLimitFPSToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::FPSLimitTo;
 
-					Button* fpsLimitToButton3 = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-					fpsLimitToButton3->SetSelected(true);
+					Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
+					fpsLimitToButton->SetSelected(true);
 				}
 				else if (!mLimitFPSToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::LimitFPS;
 
-					Button* fpsLimitToButton3 = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-					fpsLimitToButton3->SetSelected(true);
+					Button* fpsLimitToButton = (Button*)(mNamedGameObjects["LimitFPSButton"]);
+					fpsLimitToButton->SetSelected(true);
 				}
 				
 
@@ -577,8 +577,8 @@ void MenuScene::UpdateSettingsButtons()
 				Button* backButton = (Button*)(mNamedGameObjects["BackButton"]);
 				backButton->SetSelected(false);
 
-				Button* applyButton4 = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton4->SetSelected(true);
+				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
+				applyButton->SetSelected(true);
 				break;
 			}
 		}

@@ -38,7 +38,7 @@ public:
 
 	void LimitFPS(bool _limit) { mLimitingFPS = _limit; }
 	bool IsFPSLimited() { return mLimitingFPS; }
-	void SetFPSLimit(int _fps) { mFPSLimit = _fps; }
+	void SetFPSLimit(float _fps) { mFPSLimit = _fps; }
 	float GetFPSLimit() { return mFPSLimit; }
 
 	void StopGameRunning() { mGameRunning = false; }
@@ -78,7 +78,7 @@ private:
 	bool mSceneChanged = false;
 
 	bool mLimitingFPS = false;
-	int mFPSLimit = 60;
+	float mFPSLimit = 60;
 
 	// To detect changes for shader uniforms
 	glm::mat4 mLastProjection = glm::mat4(1.f);

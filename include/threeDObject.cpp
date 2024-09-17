@@ -36,5 +36,5 @@ void threeDObject::Draw()
 		mUpdateSpecular = false;
 	}
 
-	mShader->draw(GetModel(), GetTexture());
+	mShader->draw(mModel, mTexture);
 }

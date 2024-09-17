@@ -59,6 +59,15 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 		AddGameObject(track);
 	}
 
+	threeDObject* grass = new threeDObject(mGame);
+	grass->SetModel(&(mGame->GetModelLibrary()->grassModel));
+	grass->SetTexture(&(mGame->GetModelLibrary()->trackAndGrassTexture));
+	grass->transform.scale.z = 2.f;
+	grass->transform.scale.x = 0.2f;
+	grass->transform.position = glm::vec3(0.f, -2.25f, 0.f);
+	grass->SetSpecular(false);
+	AddGameObject(grass);
+
 	Text* fpsText = new Text(mGame);
 	fpsText->transform.position = glm::vec3(40.f, windowHeight - 20.f, 0.f);
 	fpsText->SetColour(glm::vec3(0.f, 1.f, 0.f));
