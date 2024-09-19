@@ -16,65 +16,7 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 
 	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.f, 0.f, 0.f));
 
-	Player* player = new Player(mGame);
-	AddGameObject(player);
-	mNamedGameObjects["Player"] = player;
-
-	int windowWidth, windowHeight;
-	mGame->GetWindowSize(windowWidth, windowHeight);
-
-	Text* gameSpeedText = new Text(mGame);
-	gameSpeedText->transform.position = glm::vec3(200.f, windowHeight - 200.f, 0.f);
-	gameSpeedText->SetAnchor(Anchor::TopLeft);
-	AddGameObject(gameSpeedText);
-	mNamedGameObjects["GameSpeedText"] = gameSpeedText;
-
-	Text* scoreText = new Text(mGame);
-	scoreText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight - 200.f, 0.f);
-	scoreText->SetAnchor(Anchor::TopRight);
-	AddGameObject(scoreText);
-	mNamedGameObjects["ScoreText"] = scoreText;
-
-	Text* multiplierText = new Text(mGame);
-	multiplierText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight / 2.f, 0.f);
-	multiplierText->SetAnchor(Anchor::RightCenter);
-	AddGameObject(multiplierText);
-	mNamedGameObjects["MultiplierText"] = multiplierText;
-
-	std::random_device rd;  // Seed for the random number engine
-	std::mt19937 gen(rd()); // Mersenne Twister engine
-	std::uniform_real_distribution<> dis(-7.5f, 7.5f); // Define the range
-
-	for (int i = 0; i < 5; i++)
-	{
-		Enemy* enemy = new Enemy(mGame);
-		enemy->transform.position = glm::vec3(dis(gen), 0.f, 50.f + (40.f * i));
-		AddGameObject(enemy);
-	}
-
-	for (int i = 0; i < 3; i++)
-	{
-		Track* track = new Track(mGame);
-		track->transform.position.z = (i * track->GetLength());
-		AddGameObject(track);
-	}
-
-	threeDObject* grass = new threeDObject(mGame);
-	grass->SetModel(&(mGame->GetModelLibrary()->grassModel));
-	grass->SetTexture(&(mGame->GetModelLibrary()->trackAndGrassTexture));
-	grass->transform.scale.z = 2.f;
-	grass->transform.scale.x = 0.2f;
-	grass->transform.position = glm::vec3(0.f, -2.25f, 0.f);
-	grass->SetSpecular(false);
-	AddGameObject(grass);
-
-	Text* fpsText = new Text(mGame);
-	fpsText->transform.position = glm::vec3(40.f, windowHeight - 20.f, 0.f);
-	fpsText->SetColour(glm::vec3(0.f, 1.f, 0.f));
-	fpsText->transform.scale.x = 0.2f;
-	fpsText->SetAnchor(Anchor::TopLeft);
-	AddGameObject(fpsText);
-	mNamedGameObjects["FPSText"] = fpsText;
+	InitialiseSceneObjects();
 }
 
 GameplayScene::~GameplayScene()
@@ -146,6 +88,69 @@ void GameplayScene::Draw()
 	{
 		mGameObjects[i]->Draw();
 	}
+}
+
+void GameplayScene::InitialiseSceneObjects()
+{
+	Player* player = new Player(mGame);
+	AddGameObject(player);
+	mNamedGameObjects["Player"] = player;
+
+	int windowWidth, windowHeight;
+	mGame->GetWindowSize(windowWidth, windowHeight);
+
+	Text* gameSpeedText = new Text(mGame);
+	gameSpeedText->transform.position = glm::vec3(200.f, windowHeight - 200.f, 0.f);
+	gameSpeedText->SetAnchor(Anchor::TopLeft);
+	AddGameObject(gameSpeedText);
+	mNamedGameObjects["GameSpeedText"] = gameSpeedText;
+
+	Text* scoreText = new Text(mGame);
+	scoreText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight - 200.f, 0.f);
+	scoreText->SetAnchor(Anchor::TopRight);
+	AddGameObject(scoreText);
+	mNamedGameObjects["ScoreText"] = scoreText;
+
+	Text* multiplierText = new Text(mGame);
+	multiplierText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight / 2.f, 0.f);
+	multiplierText->SetAnchor(Anchor::RightCenter);
+	AddGameObject(multiplierText);
+	mNamedGameObjects["MultiplierText"] = multiplierText;
+
+	std::random_device rd;  // Seed for the random number engine
+	std::mt19937 gen(rd()); // Mersenne Twister engine
+	std::uniform_real_distribution<> dis(-7.5f, 7.5f); // Define the range
+
+	for (int i = 0; i < 5; i++)
+	{
+		Enemy* enemy = new Enemy(mGame);
+		enemy->transform.position = glm::vec3(dis(gen), 0.f, 50.f + (40.f * i));
+		AddGameObject(enemy);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		Track* track = new Track(mGame);
+		track->transform.position.z = (i * track->GetLength());
+		AddGameObject(track);
+	}
+
+	threeDObject* grass = new threeDObject(mGame);
+	grass->SetModel(&(mGame->GetModelLibrary()->grassModel));
+	grass->SetTexture(&(mGame->GetModelLibrary()->trackAndGrassTexture));
+	grass->transform.scale.z = 2.f;
+	grass->transform.scale.x = 0.25f;
+	grass->transform.position = glm::vec3(0.f, -2.25f, 0.f);
+	grass->SetSpecular(false);
+	AddGameObject(grass);
+
+	Text* fpsText = new Text(mGame);
+	fpsText->transform.position = glm::vec3(40.f, windowHeight - 20.f, 0.f);
+	fpsText->SetColour(glm::vec3(0.f, 1.f, 0.f));
+	fpsText->transform.scale.x = 0.2f;
+	fpsText->SetAnchor(Anchor::TopLeft);
+	AddGameObject(fpsText);
+	mNamedGameObjects["FPSText"] = fpsText;
 }
 
 void GameplayScene::Collision()

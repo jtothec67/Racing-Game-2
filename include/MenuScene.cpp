@@ -20,6 +20,19 @@ MenuScene::MenuScene(Game* _game) : BaseScene(_game)
 	mLimitFPSToApply = mGame->IsFPSLimited();
 	mFPSLimitToApply = mGame->GetFPSLimit();
 
+	for (int i = 0; i < mFPSOptions.size(); i++)
+	{
+		if (mFPSOptions[i] == mFPSLimitToApply)
+		{
+			mCurrentFPSOption = i;
+			break;
+		}
+		else
+		{
+			mCurrentFPSOption++;
+		}
+	}
+
 	Text* fpsText = new Text(mGame);
 	fpsText->transform.position = glm::vec3(40.f, windowHeight - 20.f, 0.f);
 	fpsText->SetColour(glm::vec3(0.f, 1.f, 0.f));
@@ -136,7 +149,7 @@ void MenuScene::CreateSettingsButtons(int _windowWidth, int _windowHeight)
     Button* fpsLimitToButton = new Button(mGame);
     fpsLimitToButton->transform.position = glm::vec3(_windowWidth / 2, (_windowHeight / 6) * 3, 0);
     fpsLimitToButton->SetAnchor(Anchor::BottomCenter);
-	fpsLimitToButton->SetText("FPS Limit\n  To " + std::to_string(mFPSLimitToApply));
+	fpsLimitToButton->SetText("FPS Limit\n  To " + std::to_string(mFPSOptions[mCurrentFPSOption]));
     fpsLimitToButton->SetTextScale(0.4f);
 	if (!mLimitFPSToApply || (mVSyncToApply && mLimitFPSToApply)) fpsLimitToButton->SetVisible(false);
     AddGameObject(fpsLimitToButton);
@@ -280,6 +293,19 @@ void MenuScene::UpdateSettingsButtons()
 				mVSyncToApply = mGame->GetWindow()->IsVSyncActive();
 				mLimitFPSToApply = mGame->IsFPSLimited();
 				mFPSLimitToApply = mGame->GetFPSLimit();
+
+				for (int i = 0; i < mFPSOptions.size(); i++)
+				{
+					if (mFPSOptions[i] == mFPSLimitToApply)
+					{
+						mCurrentFPSOption = i;
+						break;
+					}
+					else
+					{
+						mCurrentFPSOption++;
+					}
+				}
 
 				break;
 			}

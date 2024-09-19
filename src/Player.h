@@ -13,8 +13,9 @@ public:
 	void Update(float _deltaTime);
 
 private:
-	float mForwardMultiplier = 0.3f;
-	float mBackwardsMultiplier = 0.3f;
+	float mCurrentSpeed = 0.f;
+
+	float mFBMultiplier = 0.3f;
 	float mLRMoveSpeed = 10.f;
 
 	float mHoverValue = 0.f;
@@ -23,4 +24,10 @@ private:
 	float mSpinTime = 0.f;
 	float mFinalRotation = 0.f;
 	float mSpinK = 5.f;
+
+	float mBaseFOV = 45.f;
+	float mMaxFOVChange = 10.f;
+
+	float mBaseMultiplier = 1.f;
+	float mMaxMultiplierChange = 0.5f;
 };
