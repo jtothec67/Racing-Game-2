@@ -27,7 +27,7 @@ void Mesh::add(Face& _face)
 		throw std::exception();
 	}
 
-	m_faces.push_back(_face);
+	m_faces.emplace_back(_face);
 	m_dirty = true;
 }
 
@@ -38,6 +38,8 @@ GLuint Mesh::id()
 		if (!m_skybox && !m_text)
 		{
 			std::vector<GLfloat> data;
+
+			data.reserve(m_faces.size() * 8 * 3);
 
 			for (int i = 0; i < m_faces.size(); i++)
 			{

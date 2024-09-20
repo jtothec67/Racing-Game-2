@@ -130,8 +130,8 @@ void MenuScene::CreateSettingsButtons(int _windowWidth, int _windowHeight)
 	vsyncButton->SetSelected(true);
     vsyncButton->transform.position = glm::vec3(_windowWidth / 2, (_windowHeight / 6) * 5, 0);
     vsyncButton->SetAnchor(Anchor::TopCenter);
-	if (mVSyncToApply) vsyncButton->SetText("VSync\n  Yes");
-	else vsyncButton->SetText("VSync\n   No");
+	if (mVSyncToApply) vsyncButton->SetText(" VSync\n< Yes >");
+	else vsyncButton->SetText(" VSync\n < No >");
     vsyncButton->SetTextScale(0.4f);
     AddGameObject(vsyncButton);
     mNamedGameObjects["VSyncButton"] = vsyncButton;
@@ -139,8 +139,8 @@ void MenuScene::CreateSettingsButtons(int _windowWidth, int _windowHeight)
     Button* limitFPSButton = new Button(mGame);
     limitFPSButton->transform.position = glm::vec3(_windowWidth / 2, (_windowHeight / 6) * 4, 0);
     limitFPSButton->SetAnchor(Anchor::Center);
-	if (mLimitFPSToApply) limitFPSButton->SetText("Limit FPS\n    Yes");
-    else limitFPSButton->SetText("Limit FPS\n     No");
+	if (mLimitFPSToApply) limitFPSButton->SetText("Limit FPS\n < Yes >");
+    else limitFPSButton->SetText("Limit FPS\n  < No >");
     limitFPSButton->SetTextScale(0.4f);
 	if (mVSyncToApply) limitFPSButton->SetVisible(false);
     AddGameObject(limitFPSButton);
@@ -149,7 +149,7 @@ void MenuScene::CreateSettingsButtons(int _windowWidth, int _windowHeight)
     Button* fpsLimitToButton = new Button(mGame);
     fpsLimitToButton->transform.position = glm::vec3(_windowWidth / 2, (_windowHeight / 6) * 3, 0);
     fpsLimitToButton->SetAnchor(Anchor::BottomCenter);
-	fpsLimitToButton->SetText("FPS Limit\n  To " + std::to_string(mFPSOptions[mCurrentFPSOption]));
+	fpsLimitToButton->SetText("FPS Limit\nTo <" + std::to_string(mFPSOptions[mCurrentFPSOption]) + ">");
     fpsLimitToButton->SetTextScale(0.4f);
 	if (!mLimitFPSToApply || (mVSyncToApply && mLimitFPSToApply)) fpsLimitToButton->SetVisible(false);
     AddGameObject(fpsLimitToButton);
@@ -321,7 +321,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mVSyncToApply = false;
 					Button* VSyncButton = (Button*)mNamedGameObjects["VSyncButton"];
-					VSyncButton->SetText("VSync\n   No");
+					VSyncButton->SetText(" VSync\n < No >");
 
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
 					limitFPSButton->SetVisible(true);
@@ -336,7 +336,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mVSyncToApply = true;
 					Button* VSyncButton = (Button*)mNamedGameObjects["VSyncButton"];
-					VSyncButton->SetText("VSync\n   Yes");
+					VSyncButton->SetText(" VSync\n< Yes >");
 
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
 					limitFPSButton->SetVisible(false);
@@ -354,7 +354,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mLimitFPSToApply = false;
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
-					limitFPSButton->SetText("Limit FPS\n     No");
+					limitFPSButton->SetText("Limit FPS\n  < No >");
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(false);
@@ -364,7 +364,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mLimitFPSToApply = true;
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
-					limitFPSButton->SetText("Limit FPS\n    Yes");
+					limitFPSButton->SetText("Limit FPS\n < Yes >");
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(true);
@@ -382,7 +382,7 @@ void MenuScene::UpdateSettingsButtons()
 				mFPSLimitToApply = mFPSOptions[mCurrentFPSOption];
 
 				Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
-				fpsLimitToButton->SetText("FPS Limit\n  To " + std::to_string(mFPSLimitToApply));
+				fpsLimitToButton->SetText("FPS Limit\nTo <" + std::to_string(mFPSLimitToApply) + ">");
 				break;
 			}
 		}
@@ -398,7 +398,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mVSyncToApply = false;
 					Button* VSyncButton = (Button*)mNamedGameObjects["VSyncButton"];
-					VSyncButton->SetText("VSync\n   No");
+					VSyncButton->SetText(" VSync\n < No >");
 
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
 					limitFPSButton->SetVisible(true);
@@ -413,7 +413,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mVSyncToApply = true;
 					Button* VSyncButton = (Button*)mNamedGameObjects["VSyncButton"];
-					VSyncButton->SetText("VSync\n   Yes");
+					VSyncButton->SetText(" VSync\n< Yes >");
 
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
 					limitFPSButton->SetVisible(false);
@@ -431,7 +431,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mLimitFPSToApply = false;
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
-					limitFPSButton->SetText("Limit FPS\n     No");
+					limitFPSButton->SetText("Limit FPS\n  < No >");
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(false);
@@ -441,7 +441,7 @@ void MenuScene::UpdateSettingsButtons()
 				{
 					mLimitFPSToApply = true;
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
-					limitFPSButton->SetText("Limit FPS\n    Yes");
+					limitFPSButton->SetText("Limit FPS\n < Yes >");
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(true);
@@ -459,7 +459,7 @@ void MenuScene::UpdateSettingsButtons()
 				mFPSLimitToApply = mFPSOptions[mCurrentFPSOption];
 
 				Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
-				fpsLimitToButton->SetText("FPS Limit\n  To " + std::to_string(mFPSLimitToApply));
+				fpsLimitToButton->SetText("FPS Limit\nTo <" + std::to_string(mFPSLimitToApply) + ">");
 				break;
 			}
 		}

@@ -16,6 +16,7 @@ Texture::Texture(const std::string& _path)
 		throw std::exception();
 	}
 
+	m_data.reserve(m_width * m_height * 4);
 	for (size_t i = 0; i < m_width * m_height * 4; ++i)
 	{
 		m_data.push_back(data[i]);
@@ -81,6 +82,7 @@ GLuint Texture::id()
 				{
 					std::vector<unsigned char> skyboxFaceData;
 
+					skyboxFaceData.reserve(width * height * 4);
 					for (size_t j = 0; j < width * height * 4; ++j)
 					{
 						skyboxFaceData.push_back(data[j]);

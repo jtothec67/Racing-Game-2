@@ -26,6 +26,7 @@ GameplayScene::~GameplayScene()
 
 void GameplayScene::Update(float _deltaTime)
 {
+	// Display FPS
 	if (mDisplayFPS.GetElapsedSeconds() > 0.5f)
 	{
 		Text* fpsText = (Text*)mNamedGameObjects["FPSText"];
@@ -45,6 +46,14 @@ void GameplayScene::Update(float _deltaTime)
 		
 		if (mGameSpeed < 0.f)
 			mGameSpeed = 0.f;
+
+		Text* multiplierText = (Text*)mNamedGameObjects["MultiplierText"];
+		std::stringstream ss;
+		ss << std::fixed << std::setprecision(1) << mScoreMultiplier;
+		multiplierText->SetText("x" + ss.str());
+
+		Text* gameSpeedText = (Text*)mNamedGameObjects["GameSpeedText"];
+		gameSpeedText->SetText(std::to_string((int)mGameSpeed));
 	}
 	else
 	{

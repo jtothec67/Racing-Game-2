@@ -27,6 +27,7 @@ private:
 
 	float mBaseFOV = 45.f;
 	float mMaxFOVChange = 10.f;
+	float mCurrentFOV = 45.f;
 
 	float mBaseMultiplier = 1.f;
 	float mMaxMultiplierChange = 0.5f;

@@ -39,7 +39,7 @@ public:
 	float GetHeight() { return mModel->get_height() * transform.scale.y; }
 	float GetLength() { return mModel->get_length() * transform.scale.z; }
 
-	void SetSpecular(bool _isSpecular) { mIsSpecular = _isSpecular; mUpdateSpecular = true; }
+	void SetSpecular(bool _isSpecular) { mIsSpecular = _isSpecular; }
 
 protected:
 	Model* mModel;
@@ -48,6 +48,13 @@ protected:
 
 	BoundingBox mBoundingBox;
 
+private:
 	bool mIsSpecular = true;
-	bool mUpdateSpecular = true;
+
+	glm::mat4 mModelMatrix{ 0 };
+
+	// For checking if we need to calculate the model matrix again
+	glm::vec3 mLastPosition{ 0 };
+	glm::vec3 mLastRotation{ 0 };
+	glm::vec3 mLastScale{ 0 };
 };

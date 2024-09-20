@@ -47,6 +47,11 @@ void Player::Update(float _deltaTime)
 
 	if (gameplayScene->GetGameOver())
 	{
+		gameplayScene->SetMultiplier(mBaseMultiplier);
+
+		mCurrentFOV = glm::mix(mCurrentFOV, mBaseFOV, 2 * _deltaTime);
+		mGame->GetCamera()->SetFOV(mCurrentFOV);
+
 		// Player is spinning
 		float gameOverWaitTime = gameplayScene->GetGOWaitTime() - 1.f;
 		mSpinTime += _deltaTime;
@@ -93,8 +98,8 @@ void Player::Update(float _deltaTime)
 	}
 
 	float speedRatio = mCurrentSpeed / gameplayScene->GetGameSpeed() * mFBMultiplier;
-	float newFOV = mBaseFOV + (mMaxFOVChange * speedRatio);
-	mGame->GetCamera()->SetFOV(newFOV);
+	mCurrentFOV = mBaseFOV + (mMaxFOVChange * speedRatio);
+	mGame->GetCamera()->SetFOV(mCurrentFOV);
 
 	float newMultiplier;
 	if (mCurrentSpeed > 0)

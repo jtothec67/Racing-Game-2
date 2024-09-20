@@ -23,4 +23,11 @@ private:
 	std::string mText = "";
 
 	glm::vec3 mColour = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	float mXPos = 0.0f;
+	float mYPos = 0.0f;
+
+	// For checking if we need to do maths again
+	std::string mLastText = "";
+	float mLastScale = 0.0f;
 };

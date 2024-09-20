@@ -41,8 +41,5 @@ void Button::Draw()
 		mShader->draw(mMesh, mSelectedTexture);
 	}
 
-	if (mText.GetText() != "")
-	{
-		mText.Draw(transform.position.x, transform.position.y);
-	}
+	mText.Draw(transform.position.x, transform.position.y);
 }
