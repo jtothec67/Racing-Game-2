@@ -9,10 +9,10 @@ public:
 	MenuScene(Game* _game);
 	~MenuScene();
 
-private:
 	void Update(float _deltaTime) override;
 	void Draw() override;
 
+private:
 	void CreateMenuButtons(int _windowWidth, int _windowHeight);
 	void CreateSettingsButtons(int _windowWidth, int _windowHeight);
 

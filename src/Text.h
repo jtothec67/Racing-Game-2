@@ -30,4 +30,6 @@ private:
 	// For checking if we need to do maths again
 	std::string mLastText = "";
 	float mLastScale = 0.0f;
+	int mLast_x = 0;
+	int mLast_y = 0;
 };

@@ -35,14 +35,14 @@ void GameplayScene::Update(float _deltaTime)
 		mDisplayFPS.Start();
 	}
 
-	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedSeconds() > mGameOverWaitTime)
+	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedSeconds() > mGameEndingWaitTime)
 	{
 		mGame->ChangeScene(Scene::Menu);
 	}
 
-	if (mGameOver)
+	if (mGameEnding)
 	{
-		mGameSpeed -= mGameOverDecelSpeed * _deltaTime;
+		mGameSpeed -= mGameEndingDecelSpeed * _deltaTime;
 		
 		if (mGameSpeed < 0.f)
 			mGameSpeed = 0.f;
@@ -164,10 +164,10 @@ void GameplayScene::InitialiseSceneObjects()
 
 void GameplayScene::Collision()
 {
-	if (mGameOver)
+	if (mGameEnding)
 		return;
 
-	mGameOver = true;
+	mGameEnding = true;
 	mCrashTimer.Start();
-	mGameOverDecelSpeed = mGameSpeed / mGameOverWaitTime;
+	mGameEndingDecelSpeed = mGameSpeed / mGameEndingWaitTime;
 }

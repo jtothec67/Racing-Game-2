@@ -28,8 +28,8 @@ struct ModelLibrary
 
 	Texture defaultTexture;
 
-	Texture unselectedButtonTex;
-	Texture selectedButtonTex;
+	Texture unhoveredButtonTex;
+	Texture hoveredButtonTex;
 
 	Font testFont;
 	Mesh textMesh;

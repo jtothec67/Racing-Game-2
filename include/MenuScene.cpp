@@ -95,7 +95,7 @@ void MenuScene::CreateMenuButtons(int _windowWidth, int _windowHeight)
 	RemoveGameObject(mNamedGameObjects["BackButton"]);
 
 	Button* playButton = new Button(mGame);
-	playButton->SetSelected(true);
+	playButton->SetHovered(true);
 	playButton->transform.position = glm::vec3(_windowWidth / 2, (_windowHeight / 4) * 3, 0);
 	playButton->SetAnchor(Anchor::TopCenter);
 	playButton->SetText("Play");
@@ -127,7 +127,7 @@ void MenuScene::CreateSettingsButtons(int _windowWidth, int _windowHeight)
 	RemoveGameObject(mNamedGameObjects["QuitButton"]);
 
     Button* vsyncButton = new Button(mGame);
-	vsyncButton->SetSelected(true);
+	vsyncButton->SetHovered(true);
     vsyncButton->transform.position = glm::vec3(_windowWidth / 2, (_windowHeight / 6) * 5, 0);
     vsyncButton->SetAnchor(Anchor::TopCenter);
 	if (mVSyncToApply) vsyncButton->SetText(" VSync\n< Yes >");
@@ -210,10 +210,10 @@ void MenuScene::UpdateMenuButtons()
 			{
 				mCurrentOption = MenuOption::Settings;
 				Button* playButton = (Button*)(mNamedGameObjects["PlayButton"]);
-				playButton->SetSelected(false);
+				playButton->SetHovered(false);
 
 				Button* htpButton = (Button*)(mNamedGameObjects["SettingsButton"]);
-				htpButton->SetSelected(true);
+				htpButton->SetHovered(true);
 				break;
 			}
 			case MenuOption::Settings:
@@ -221,10 +221,10 @@ void MenuScene::UpdateMenuButtons()
 				mCurrentOption = MenuOption::Quit;
 
 				Button* htpButton2 = (Button*)(mNamedGameObjects["SettingsButton"]);
-				htpButton2->SetSelected(false);
+				htpButton2->SetHovered(false);
 
 				Button* quitButton2 = (Button*)(mNamedGameObjects["QuitButton"]);
-				quitButton2->SetSelected(true);
+				quitButton2->SetHovered(true);
 				break;
 			}
 		}
@@ -239,10 +239,10 @@ void MenuScene::UpdateMenuButtons()
 				mCurrentOption = MenuOption::Settings;
 
 				Button* quitButton3 = (Button*)mNamedGameObjects["QuitButton"];
-				quitButton3->SetSelected(false);
+				quitButton3->SetHovered(false);
 
 				Button* htpButton3 = (Button*)mNamedGameObjects["SettingsButton"];
-				htpButton3->SetSelected(true);
+				htpButton3->SetHovered(true);
 				break;
 			}
 			case MenuOption::Settings:
@@ -250,10 +250,10 @@ void MenuScene::UpdateMenuButtons()
 				mCurrentOption = MenuOption::Play;
 
 				Button* htpButton4 = (Button*)mNamedGameObjects["SettingsButton"];
-				htpButton4->SetSelected(false);
+				htpButton4->SetHovered(false);
 
 				Button* playButton4 = (Button*)mNamedGameObjects["PlayButton"];
-				playButton4->SetSelected(true);
+				playButton4->SetHovered(true);
 				break;
 			}
 		}
@@ -340,11 +340,11 @@ void MenuScene::UpdateSettingsButtons()
 
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
 					limitFPSButton->SetVisible(false);
-					limitFPSButton->SetSelected(false);
+					limitFPSButton->SetHovered(false);
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(false);
-					fpsLimitToButton->SetSelected(false);
+					fpsLimitToButton->SetHovered(false);
 				}
 				break;
 			}
@@ -358,7 +358,7 @@ void MenuScene::UpdateSettingsButtons()
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(false);
-					fpsLimitToButton->SetSelected(false);
+					fpsLimitToButton->SetHovered(false);
 				}
 				else
 				{
@@ -417,11 +417,11 @@ void MenuScene::UpdateSettingsButtons()
 
 					Button* limitFPSButton = (Button*)mNamedGameObjects["LimitFPSButton"];
 					limitFPSButton->SetVisible(false);
-					limitFPSButton->SetSelected(false);
+					limitFPSButton->SetHovered(false);
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(false);
-					fpsLimitToButton->SetSelected(false);
+					fpsLimitToButton->SetHovered(false);
 				}
 				break;
 			}
@@ -435,7 +435,7 @@ void MenuScene::UpdateSettingsButtons()
 
 					Button* fpsLimitToButton = (Button*)mNamedGameObjects["FPSLimitToButton"];
 					fpsLimitToButton->SetVisible(false);
-					fpsLimitToButton->SetSelected(false);
+					fpsLimitToButton->SetHovered(false);
 				}
 				else
 				{
@@ -472,21 +472,21 @@ void MenuScene::UpdateSettingsButtons()
 			case SettingsOption::VSync:
 			{
 				Button* vsyncButton = (Button*)(mNamedGameObjects["VSyncButton"]);
-				vsyncButton->SetSelected(false);
+				vsyncButton->SetHovered(false);
 
 				if (mVSyncToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::Apply;
 
 					Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-					applyButton->SetSelected(true);
+					applyButton->SetHovered(true);
 				}
 				else
 				{
 					mCurrentSettingsOption = SettingsOption::LimitFPS;
 
 					Button* limitFPSButton = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-					limitFPSButton->SetSelected(true);
+					limitFPSButton->SetHovered(true);
 				}
 
 				break;
@@ -494,25 +494,25 @@ void MenuScene::UpdateSettingsButtons()
 			case SettingsOption::LimitFPS:
 			{
 				Button* limitFPSButton = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-				limitFPSButton->SetSelected(false);
+				limitFPSButton->SetHovered(false);
 
 				if (mLimitFPSToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::FPSLimitTo;
 
 					Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-					fpsLimitToButton->SetSelected(true);
+					fpsLimitToButton->SetHovered(true);
 				}
 				else
 				{
 					mCurrentSettingsOption = SettingsOption::Apply;
 
 					Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-					applyButton->SetSelected(true);
+					applyButton->SetHovered(true);
 				}
 
 				Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-				fpsLimitToButton->SetSelected(true);
+				fpsLimitToButton->SetHovered(true);
 				break;
 			}
 			case SettingsOption::FPSLimitTo:
@@ -520,10 +520,10 @@ void MenuScene::UpdateSettingsButtons()
 				mCurrentSettingsOption = SettingsOption::Apply;
 
 				Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-				fpsLimitToButton->SetSelected(false);
+				fpsLimitToButton->SetHovered(false);
 
 				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton->SetSelected(true);
+				applyButton->SetHovered(true);
 				break;
 			}
 			case SettingsOption::Apply:
@@ -531,10 +531,10 @@ void MenuScene::UpdateSettingsButtons()
 				mCurrentSettingsOption = SettingsOption::Back;
 
 				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton->SetSelected(false);
+				applyButton->SetHovered(false);
 
 				Button* backButton = (Button*)(mNamedGameObjects["BackButton"]);
-				backButton->SetSelected(true);
+				backButton->SetHovered(true);
 				break;
 			}
 		}
@@ -549,10 +549,10 @@ void MenuScene::UpdateSettingsButtons()
 				mCurrentSettingsOption = SettingsOption::VSync;
 
 				Button* limitFPSButton = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-				limitFPSButton->SetSelected(false);
+				limitFPSButton->SetHovered(false);
 
 				Button* vsyncButton = (Button*)(mNamedGameObjects["VSyncButton"]);
-				vsyncButton->SetSelected(true);
+				vsyncButton->SetHovered(true);
 				break;
 			}
 			case SettingsOption::FPSLimitTo:
@@ -560,37 +560,37 @@ void MenuScene::UpdateSettingsButtons()
 				mCurrentSettingsOption = SettingsOption::LimitFPS;
 
 				Button* fpsLimitToButton2 = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-				fpsLimitToButton2->SetSelected(false);
+				fpsLimitToButton2->SetHovered(false);
 
 				Button* limitFPSButton2 = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-				limitFPSButton2->SetSelected(true);
+				limitFPSButton2->SetHovered(true);
 				break;
 			}
 			case SettingsOption::Apply:
 			{
 				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton->SetSelected(false);
+				applyButton->SetHovered(false);
 
 				if (mVSyncToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::VSync;
 
 					Button* vsyncButton = (Button*)(mNamedGameObjects["VSyncButton"]);
-					vsyncButton->SetSelected(true);
+					vsyncButton->SetHovered(true);
 				}
 				else if (mLimitFPSToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::FPSLimitTo;
 
 					Button* fpsLimitToButton = (Button*)(mNamedGameObjects["FPSLimitToButton"]);
-					fpsLimitToButton->SetSelected(true);
+					fpsLimitToButton->SetHovered(true);
 				}
 				else if (!mLimitFPSToApply)
 				{
 					mCurrentSettingsOption = SettingsOption::LimitFPS;
 
 					Button* fpsLimitToButton = (Button*)(mNamedGameObjects["LimitFPSButton"]);
-					fpsLimitToButton->SetSelected(true);
+					fpsLimitToButton->SetHovered(true);
 				}
 				
 
@@ -601,10 +601,10 @@ void MenuScene::UpdateSettingsButtons()
 				mCurrentSettingsOption = SettingsOption::Apply;
 
 				Button* backButton = (Button*)(mNamedGameObjects["BackButton"]);
-				backButton->SetSelected(false);
+				backButton->SetHovered(false);
 
 				Button* applyButton = (Button*)(mNamedGameObjects["ApplyButton"]);
-				applyButton->SetSelected(true);
+				applyButton->SetHovered(true);
 				break;
 			}
 		}

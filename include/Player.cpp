@@ -45,7 +45,7 @@ void Player::Update(float _deltaTime)
 {
 	GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(mGame->GetCurrentScene());
 
-	if (gameplayScene->GetGameOver())
+	if (gameplayScene->IsGameEnding())
 	{
 		gameplayScene->SetMultiplier(mBaseMultiplier);
 
@@ -53,7 +53,7 @@ void Player::Update(float _deltaTime)
 		mGame->GetCamera()->SetFOV(mCurrentFOV);
 
 		// Player is spinning
-		float gameOverWaitTime = gameplayScene->GetGOWaitTime() - 1.f;
+		float gameOverWaitTime = gameplayScene->GetGameEndingWaitTime() - 1.f;
 		mSpinTime += _deltaTime;
 
 		float t = mSpinTime / gameOverWaitTime;

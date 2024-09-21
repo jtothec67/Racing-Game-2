@@ -103,10 +103,12 @@ void Text::Draw(int _x, int _y)
 	if (mText == "")
 		return;
 
-	if (mText != mLastText || transform.scale.x != mLastScale)
+	if (mText != mLastText || transform.scale.x != mLastScale || _x != mLast_x || _y != mLast_y)
 	{
 		mLastText = mText;
 		mLastScale = transform.scale.x;
+		mLast_x = _x;
+		mLast_y = _y;
 
 		float currentLineWidth = 0.0f;
 		float widestLineWidth = 0.0f;

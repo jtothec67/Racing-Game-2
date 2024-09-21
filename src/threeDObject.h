@@ -48,11 +48,11 @@ protected:
 
 	BoundingBox mBoundingBox;
 
-private:
 	bool mIsSpecular = true;
 
 	glm::mat4 mModelMatrix{ 0 };
 
+private:
 	// For checking if we need to calculate the model matrix again
 	glm::vec3 mLastPosition{ 0 };
 	glm::vec3 mLastRotation{ 0 };

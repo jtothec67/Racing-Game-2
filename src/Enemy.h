@@ -15,8 +15,6 @@ public:
 	void Update(float _deltaTime) override;
 
 private:
-	float mSpeed = 1.0f;
-
 	float mHoverValue = 0.f;
 	float mHoverSpeed = 3.f;
 
