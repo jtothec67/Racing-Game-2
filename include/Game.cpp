@@ -96,61 +96,79 @@ void Game::UseCamera(Camera* _camera)
 
 	glm::mat4 projection = glm::perspective(glm::radians(_camera->GetFOV()), (float)width / (float)height, _camera->GetNearClip(), _camera->GetFarClip());
 
-	if (mLastProjection != projection)
-	{
-		mShaderLibrary.objectShader.uniform("u_Projection", projection);
+	glm::mat4 view(1.0f);
+	view = glm::translate(view, _camera->transform.position);
 
-		mLastProjection = projection;
+	view = glm::rotate(view, glm::radians(_camera->transform.rotation.y + 180), glm::vec3(0, 1, 0));
+	view = glm::rotate(view, glm::radians(_camera->transform.rotation.x), glm::vec3(1, 0, 0));
+	view = glm::rotate(view, glm::radians(_camera->transform.rotation.z), glm::vec3(0, 0, 1));
+	view = glm::inverse(view);
+
+	if (mShaderLibrary.objectShader.use_count() > 1)
+	{
+		if (mLastProjection != projection)
+		{
+			mShaderLibrary.objectShader->uniform("u_Projection", projection);
+			mLastProjection = projection;
+		}
+
+		if (mLastCameraPos != _camera->transform.position || mLastCameraPos != _camera->transform.rotation)
+		{
+			mShaderLibrary.objectShader->uniform("u_View", view);
+		}
+
+		if (mCurrentScene->GetLightPos() != mLastLightPos)
+		{
+			mShaderLibrary.objectShader->uniform("u_LightPos", mCurrentScene->GetLightPos());
+			mLastLightPos = mCurrentScene->GetLightPos();
+		}
+
+		if (mCurrentScene->GetAmbientLight() != mLastAmbientLight)
+		{
+			mShaderLibrary.objectShader->uniform("u_Ambient", mCurrentScene->GetAmbientLight());
+			mLastAmbientLight = mCurrentScene->GetAmbientLight();
+		}
+
+		if (mCurrentScene->GetLightStrength() != mLastLightStrength)
+		{
+			mShaderLibrary.objectShader->uniform("u_LightStrength", mCurrentScene->GetLightStrength());
+			mLastLightStrength = mCurrentScene->GetLightStrength();
+		}
 	}
 
-	if (mLastCameraPos != _camera->transform.position || mLastCameraPos != _camera->transform.rotation)
+	if (mShaderLibrary.skyboxShader.use_count() > 1)
 	{
-		glm::mat4 view(1.0f);
-		view = glm::translate(view, _camera->transform.position);
+		if (mLastCameraPos != _camera->transform.position || mLastCameraPos != _camera->transform.rotation)
+		{
+			glm::mat4 invPV = glm::inverse(projection * view);
+			mShaderLibrary.skyboxShader->uniform("u_InvPV", invPV);
 
-		view = glm::rotate(view, glm::radians(_camera->transform.rotation.y + 180), glm::vec3(0, 1, 0));
-		view = glm::rotate(view, glm::radians(_camera->transform.rotation.x), glm::vec3(1, 0, 0));
-		view = glm::rotate(view, glm::radians(_camera->transform.rotation.z), glm::vec3(0, 0, 1));
-		view = glm::inverse(view);
-
-		mShaderLibrary.objectShader.uniform("u_View", view);
-
-
-		glm::mat4 invPV = glm::inverse(projection * view);
-		mShaderLibrary.skyboxShader.uniform("u_InvPV", invPV);
-
-		mLastCameraPos = _camera->transform.position;
-		mLastCameraRot = _camera->transform.rotation;
+			mLastCameraPos = _camera->transform.position;
+			mLastCameraRot = _camera->transform.rotation;
+		}
 	}
 
-	if (mCurrentScene->GetLightPos() != mLastLightPos)
+	if (mShaderLibrary.uiShader.use_count() > 1)
 	{
-		mShaderLibrary.objectShader.uniform("u_LightPos", mCurrentScene->GetLightPos());
-		mLastLightPos = mCurrentScene->GetLightPos();
+		if (mLastWindowHeight != height || mLastWindowWidth != width)
+		{
+			glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
+
+			mShaderLibrary.uiShader->uniform("u_Projection", uiProjection);
+		}
 	}
 
-	if (mLastWindowHeight != height || mLastWindowWidth != width)
+	if (mShaderLibrary.fontShader.use_count() > 1)
 	{
-		glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
+		if (mLastWindowHeight != height || mLastWindowWidth != width)
+		{
+			glm::mat4 uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.0f, 1.0f);
 
-		mShaderLibrary.uiShader.uniform("u_Projection", uiProjection);
+			mShaderLibrary.fontShader->uniform("u_Projection", uiProjection);
 
-		mShaderLibrary.fontShader.uniform("u_Projection", uiProjection);
-
-		mLastWindowHeight = height;
-		mLastWindowWidth = width;
-	}
-
-	if (mCurrentScene->GetAmbientLight() != mLastAmbientLight)
-	{
-		mShaderLibrary.objectShader.uniform("u_Ambient", mCurrentScene->GetAmbientLight());
-		mLastAmbientLight = mCurrentScene->GetAmbientLight();
-	}
-
-	if (mCurrentScene->GetLightStrength() != mLastLightStrength)
-	{
-		mShaderLibrary.objectShader.uniform("u_LightStrength", mCurrentScene->GetLightStrength());
-		mLastLightStrength = mCurrentScene->GetLightStrength();
+			mLastWindowHeight = height;
+			mLastWindowWidth = width;
+		}
 	}
 }
 

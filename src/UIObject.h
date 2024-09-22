@@ -6,6 +6,8 @@
 #include "OpenGLWrappedh/Texture.h"
 #include "OpenGLWrappedh/Shader.h"
 
+#include <memory>
+
 enum class Anchor
 {
 	TopLeft,
@@ -32,8 +34,8 @@ public:
 	virtual void SetTexture(Texture* _texture) { mTexture = _texture; mTexture->GetSize(mWidth, mHeight); }
 	virtual Texture* GetTexture() { return mTexture; }
 
-	virtual void SetShader(Shader* _shader) { mShader = _shader; }
-	virtual Shader* GetShader() { return mShader; }
+	virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
+	virtual std::shared_ptr<Shader> GetShader() { return mShader; }
 
 	void GetTextureSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
 
@@ -47,7 +49,7 @@ protected:
 
 	Mesh* mMesh;
 	Texture* mTexture;
-	Shader* mShader;
+	std::shared_ptr<Shader> mShader;
 
 private:
 	int mScreenWidthLastFrame = 0;

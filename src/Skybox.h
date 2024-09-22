@@ -6,6 +6,8 @@
 #include "OpenGLWrappedh/Texture.h"
 #include "OpenGLWrappedh/Shader.h"
 
+#include <memory>
+
 class Skybox : public GameObject
 {
 public:
@@ -21,11 +23,11 @@ public:
 	virtual void SetTexture(Texture* _texture) { mTexture = _texture; }
 	virtual Texture* GetTexture() { return mTexture; }
 
-	virtual void SetShader(Shader* _shader) { mShader = _shader; }
-	virtual Shader* GetShader() { return mShader; }
+	virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
+	virtual std::shared_ptr<Shader> GetShader() { return mShader; }
 
 private:
 	Mesh* mMesh;
 	Texture* mTexture;
-	Shader* mShader;
+	std::shared_ptr<Shader> mShader;
 };

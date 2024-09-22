@@ -6,6 +6,8 @@
 #include "OpenGLWrappedh/Texture.h"
 #include "OpenGLWrappedh/Shader.h"
 
+#include <memory>
+
 struct BoundingBox
 {
 	glm::vec3 offset = glm::vec3(0.f, 0.f, 0.f);
@@ -30,8 +32,8 @@ public:
 	virtual void SetTexture(Texture* _texture) { mTexture = _texture; }
 	virtual Texture* GetTexture() { return mTexture; }
 
-	virtual void SetShader(Shader* _shader) { mShader = _shader; }
-	virtual Shader* GetShader() { return mShader; }
+	virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
+	virtual std::shared_ptr<Shader> GetShader() { return mShader; }
 
 	BoundingBox GetBoundingBox() { return mBoundingBox; }
 
@@ -44,7 +46,7 @@ public:
 protected:
 	Model* mModel;
 	Texture* mTexture;
-	Shader* mShader;
+	std::shared_ptr<Shader> mShader;
 
 	BoundingBox mBoundingBox;
 

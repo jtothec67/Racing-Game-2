@@ -7,7 +7,7 @@ UIObject::UIObject(Game* _game) : GameObject(_game)
 {
 	mTag = Tag::UI;
 
-	mShader = &(mGame->GetShaderLibrary()->uiShader);
+	mShader = mGame->GetShaderLibrary()->uiShader;
 	mMesh = &(mGame->GetModelLibrary()->quadMesh);
 	mTexture = &(mGame->GetModelLibrary()->defaultTexture);
 

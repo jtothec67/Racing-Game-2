@@ -7,7 +7,7 @@ threeDObject::threeDObject(Game* _game) : GameObject(_game)
 {
 	mModel = nullptr; // Make/download cube model and put it here as default model perchance
 	mTexture = &(mGame->GetModelLibrary()->defaultTexture);
-	mShader = &(mGame->GetShaderLibrary()->objectShader);
+	mShader = mGame->GetShaderLibrary()->objectShader;
 }
 
 void threeDObject::Draw()
