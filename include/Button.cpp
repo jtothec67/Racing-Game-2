@@ -6,8 +6,8 @@
 Button::Button(Game* _game) : UIObject(_game)
 	, mText(_game)
 {
-	SetTexture(&(mGame->GetModelLibrary()->unhoveredButtonTex));
-	SetHoveredTexture(&(mGame->GetModelLibrary()->hoveredButtonTex));
+	SetTexture(mGame->GetModelLibrary()->unhoveredButtonTex);
+	SetHoveredTexture(mGame->GetModelLibrary()->hoveredButtonTex);
 
 	mTag = Tag::Button;
 }
@@ -28,7 +28,7 @@ void Button::Draw()
 		model = glm::scale(model, glm::vec3(transform.scale.x * mWidth, transform.scale.y * mHeight, 1));
 		mShader->uniform("u_Model", model);
 
-		mShader->draw(mMesh, mTexture);
+		mShader->draw(mMesh.get(), mTexture.get());
 	}
 	else
 	{
@@ -38,7 +38,7 @@ void Button::Draw()
 		model = glm::scale(model, glm::vec3(transform.scale.x * mHoveredWidth, transform.scale.y * mHoveredHeight, 1));
 		mShader->uniform("u_Model", model);
 
-		mShader->draw(mMesh, mHoveredTexture);
+		mShader->draw(mMesh.get(), mHoveredTexture.get());
 	}
 
 	mText.Draw(transform.position.x, transform.position.y);

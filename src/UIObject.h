@@ -10,48 +10,48 @@
 
 enum class Anchor
 {
-	TopLeft,
-	TopRight,
-	TopCenter,
-	BottomLeft,
-	BottomRight,
-	BottomCenter,
-	Center,
-	LeftCenter,
-	RightCenter
+    TopLeft,
+    TopRight,
+    TopCenter,
+    BottomLeft,
+    BottomRight,
+    BottomCenter,
+    Center,
+    LeftCenter,
+    RightCenter
 };
 
 class UIObject : public GameObject
 {
 public:
-	UIObject(Game* _game);
+    UIObject(Game* _game);
 
-	~UIObject() {}
+    ~UIObject() {}
 
-	void Update(float _deltaTime);
-	void Draw() override;
+    void Update(float _deltaTime);
+    void Draw() override;
 
-	virtual void SetTexture(Texture* _texture) { mTexture = _texture; mTexture->GetSize(mWidth, mHeight); }
-	virtual Texture* GetTexture() { return mTexture; }
+    virtual void SetTexture(std::shared_ptr<Texture> _texture) { mTexture = _texture; mTexture->GetSize(mWidth, mHeight); }
+    virtual std::shared_ptr<Texture> GetTexture() { return mTexture; }
 
-	virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
-	virtual std::shared_ptr<Shader> GetShader() { return mShader; }
+    virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
+    virtual std::shared_ptr<Shader> GetShader() { return mShader; }
 
-	void GetTextureSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
+    void GetTextureSize(int& _width, int& _height) { _width = mWidth; _height = mHeight; }
 
-	void SetAnchor(Anchor _anchor) { mAnchor = _anchor; }
+    void SetAnchor(Anchor _anchor) { mAnchor = _anchor; }
 
 protected:
-	int mWidth = 0;
-	int mHeight = 0;
+    int mWidth = 0;
+    int mHeight = 0;
 
-	Anchor mAnchor = Anchor::Center;
+    Anchor mAnchor = Anchor::Center;
 
-	Mesh* mMesh;
-	Texture* mTexture;
-	std::shared_ptr<Shader> mShader;
+    std::shared_ptr<Mesh> mMesh;
+    std::shared_ptr<Texture> mTexture;
+    std::shared_ptr<Shader> mShader;
 
 private:
-	int mScreenWidthLastFrame = 0;
-	int mScreenHeightLastFrame = 0;
+    int mScreenWidthLastFrame = 0;
+    int mScreenHeightLastFrame = 0;
 };

@@ -42,3 +42,17 @@ float Timer::GetElapsedSeconds()
 
 	return duration.count();
 }
+
+float Timer::GetElapsedMilliseconds()
+{
+	if (!mRunning)
+	{
+		return 0.0f;
+	}
+
+	mTempTimeStamp = std::chrono::steady_clock::now();
+
+	std::chrono::duration<float, std::milli> duration = mTempTimeStamp - mStart;
+
+	return duration.count();
+}

@@ -3,6 +3,8 @@
 #include "UIObject.h"
 #include "OpenGLWrappedh/Font.h"
 
+#include <memory>
+
 class Text : public UIObject
 {
 public:
@@ -18,7 +20,7 @@ public:
 	void SetColour(glm::vec3 _colour) { mColour = _colour; }
 
 private:
-	Font* mFont;
+	std::shared_ptr<Font> mFont;
 
 	std::string mText = "";
 

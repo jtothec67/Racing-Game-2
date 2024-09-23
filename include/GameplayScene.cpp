@@ -145,8 +145,8 @@ void GameplayScene::InitialiseSceneObjects()
 	}
 
 	threeDObject* grass = new threeDObject(mGame);
-	grass->SetModel(&(mGame->GetModelLibrary()->grassModel));
-	grass->SetTexture(&(mGame->GetModelLibrary()->trackAndGrassTexture));
+	grass->SetModel(mGame->GetModelLibrary()->grassModel);
+	grass->SetTexture(mGame->GetModelLibrary()->trackAndGrassTexture);
 	grass->transform.scale.z = 2.f;
 	grass->transform.scale.x = 0.25f;
 	grass->transform.position = glm::vec3(0.f, -2.25f, 0.f);

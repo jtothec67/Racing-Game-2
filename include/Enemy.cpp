@@ -8,12 +8,12 @@ Enemy::Enemy(Game* _game) : threeDObject(_game)
 {
 	mTag = Tag::Enemy;
 
-	mModel = &(mGame->GetModelLibrary()->carModel);
+	mModel = mGame->GetModelLibrary()->carModel;
 
 	std::random_device rd;  // Seed for the random number engine
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 	std::uniform_real_distribution<> dis(0, mGame->GetModelLibrary()->enemyCarTextures.size()); // Define the range
-	mTexture = &(mGame->GetModelLibrary()->enemyCarTextures[dis(gen)]);
+	mTexture = mGame->GetModelLibrary()->enemyCarTextures[dis(gen)];
 
 	mHoverValue = dis(gen);
 

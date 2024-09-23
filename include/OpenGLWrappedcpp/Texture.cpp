@@ -114,3 +114,15 @@ GLuint Texture::id()
 
 	return m_id;
 }
+
+void Texture::Unload()
+{
+	if (m_id)
+	{
+		glDeleteTextures(1, &m_id);
+		m_id = 0;
+		m_dirty = true;
+	}
+	m_data.clear();
+	m_syboxFaces.clear();
+}

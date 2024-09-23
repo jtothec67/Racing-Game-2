@@ -10,8 +10,8 @@ Player::Player(Game* _game) : threeDObject(_game)
 {
 	mTag = Tag::Player;
 
-	mModel = &(mGame->GetModelLibrary()->carModel);
-	mTexture = &(mGame->GetModelLibrary()->playerTexture);
+	mModel = mGame->GetModelLibrary()->carModel;
+	mTexture = mGame->GetModelLibrary()->playerTexture;
 
 	// Figures come from testing model in Unity
 	mBoundingBox.offset.y = 0.2f;

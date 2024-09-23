@@ -5,26 +5,26 @@
 
 UIObject::UIObject(Game* _game) : GameObject(_game)
 {
-	mTag = Tag::UI;
+    mTag = Tag::UI;
 
-	mShader = mGame->GetShaderLibrary()->uiShader;
-	mMesh = &(mGame->GetModelLibrary()->quadMesh);
-	mTexture = &(mGame->GetModelLibrary()->defaultTexture);
+    mShader = mGame->GetShaderLibrary()->uiShader;
+    mMesh = mGame->GetModelLibrary()->quadMesh;
+    mTexture = mGame->GetModelLibrary()->defaultTexture;
 
-	mTexture->GetSize(mWidth, mHeight);
-	
-	mGame->GetWindowSize(mScreenWidthLastFrame, mScreenHeightLastFrame);
+    mTexture->GetSize(mWidth, mHeight);
+    
+    mGame->GetWindowSize(mScreenWidthLastFrame, mScreenHeightLastFrame);
 }
 
 void UIObject::Update(float _deltaTime)
 {
-	int winWidth, winHeight;
-	mGame->GetWindowSize(winWidth, winHeight);
+    int winWidth, winHeight;
+    mGame->GetWindowSize(winWidth, winHeight);
 
-	if (mScreenWidthLastFrame != winWidth || mScreenHeightLastFrame != winHeight)
-	{
-		switch (mAnchor)
-		{
+    if (mScreenWidthLastFrame != winWidth || mScreenHeightLastFrame != winHeight)
+    {
+        switch (mAnchor)
+        {
             case Anchor::TopLeft:
             {
                 int widthFromLeft = transform.position.x;
@@ -75,21 +75,21 @@ void UIObject::Update(float _deltaTime)
                 break;
             }
             case Anchor::LeftCenter:
-			{
-				transform.position = glm::vec3(transform.position.x, transform.position.y, 0);
-				break;
-			}
+            {
+                transform.position = glm::vec3(transform.position.x, transform.position.y, 0);
+                break;
+            }
             case Anchor::RightCenter:
             {
                 int widthFromRight = mScreenWidthLastFrame - transform.position.x;
                 transform.position = glm::vec3(winWidth - widthFromRight, transform.position.y, 0);
                 break;
             }
-		}
+        }
 
-		mScreenWidthLastFrame = winWidth;
-		mScreenHeightLastFrame = winHeight;
-	}
+        mScreenWidthLastFrame = winWidth;
+        mScreenHeightLastFrame = winHeight;
+    }
 }
 
 void UIObject::Draw()
@@ -97,14 +97,14 @@ void UIObject::Draw()
     if (!mVisible) 
         return;
 
-	glm::mat4 model(1.0f);
-	model = glm::mat4(1.0f);
-	float halfWidth = mWidth * 0.5f * transform.scale.x;
-	float halfHeight = mHeight * 0.5f * transform.scale.y;
-	model = glm::translate(model, glm::vec3(transform.position.x - halfWidth, transform.position.y - halfHeight, 0));
-	model = glm::scale(model, glm::vec3(transform.scale.x * mWidth, transform.scale.y * mHeight, 1));
+    glm::mat4 model(1.0f);
+    model = glm::mat4(1.0f);
+    float halfWidth = mWidth * 0.5f * transform.scale.x;
+    float halfHeight = mHeight * 0.5f * transform.scale.y;
+    model = glm::translate(model, glm::vec3(transform.position.x - halfWidth, transform.position.y - halfHeight, 0));
+    model = glm::scale(model, glm::vec3(transform.scale.x * mWidth, transform.scale.y * mHeight, 1));
 
-	mShader->uniform("u_Model", model);
+    mShader->uniform("u_Model", model);
 
-	mShader->draw(mMesh, mTexture);
+    mShader->draw(mMesh.get(), mTexture.get());
 }

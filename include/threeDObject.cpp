@@ -6,7 +6,7 @@
 threeDObject::threeDObject(Game* _game) : GameObject(_game)
 {
 	mModel = nullptr; // Make/download cube model and put it here as default model perchance
-	mTexture = &(mGame->GetModelLibrary()->defaultTexture);
+	mTexture = mGame->GetModelLibrary()->defaultTexture;
 	mShader = mGame->GetShaderLibrary()->objectShader;
 }
 
@@ -37,5 +37,5 @@ void threeDObject::Draw()
 
 	mShader->uniform("u_IsSpecular", mIsSpecular);
 
-	mShader->draw(mModel, mTexture);
+	mShader->draw(mModel.get(), mTexture.get());
 }

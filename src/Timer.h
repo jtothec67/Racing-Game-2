@@ -11,6 +11,7 @@ public:
     void Start(); // Set start time
     float Stop(); // Get time passed and stop the timer
     float GetElapsedSeconds(); // Get time passed without stopping the timer
+    float GetElapsedMilliseconds(); // Get time passed in milliseconds without stopping the timer
 
     bool IsRunning() { return mRunning; }
 

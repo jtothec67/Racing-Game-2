@@ -17,17 +17,17 @@ public:
 
 	void Draw() override;
 
-	virtual void SetMesh(Mesh* _mesh) { mMesh = _mesh; }
-	virtual Mesh* GetMesh() { return mMesh; }
+	virtual void SetMesh(std::shared_ptr<Mesh> _mesh) { mMesh = _mesh; }
+	virtual std::shared_ptr<Mesh> GetMesh() { return mMesh; }
 
-	virtual void SetTexture(Texture* _texture) { mTexture = _texture; }
-	virtual Texture* GetTexture() { return mTexture; }
+	virtual void SetTexture(std::shared_ptr<Texture> _texture) { mTexture = _texture; }
+	virtual std::shared_ptr<Texture> GetTexture() { return mTexture; }
 
 	virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
 	virtual std::shared_ptr<Shader> GetShader() { return mShader; }
 
 private:
-	Mesh* mMesh;
-	Texture* mTexture;
+	std::shared_ptr<Mesh> mMesh;
+	std::shared_ptr<Texture> mTexture;
 	std::shared_ptr<Shader> mShader;
 };

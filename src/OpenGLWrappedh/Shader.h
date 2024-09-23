@@ -30,6 +30,7 @@ public:
 	void draw(Model& _model, Texture& _tex, RenderTexture& _renderTex);
 	void draw(Mesh& _mesh, Texture& _tex, RenderTexture& _renderTexId);
 	void drawSkybox(Mesh& _skyboxMesh, Texture& _tex);
+	void drawSkybox(Mesh* _skyboxMesh, Texture* _tex);
 	void drawText(Mesh& _mesh, Font& _font, const std::string& _text, float _x, float _y, float _scale);
 
 private:

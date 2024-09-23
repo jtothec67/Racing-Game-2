@@ -26,11 +26,11 @@ public:
 
 	void Draw() override;
 
-	virtual void SetModel(Model* _model) { mModel = _model; }
-	virtual Model* GetModel() { return mModel; }
+	virtual void SetModel(std::shared_ptr<Model> _model) { mModel = _model; }
+	virtual std::shared_ptr<Model> GetModel() { return mModel; }
 
-	virtual void SetTexture(Texture* _texture) { mTexture = _texture; }
-	virtual Texture* GetTexture() { return mTexture; }
+	virtual void SetTexture(std::shared_ptr<Texture> _texture) { mTexture = _texture; }
+	virtual std::shared_ptr<Texture> GetTexture() { return mTexture; }
 
 	virtual void SetShader(std::shared_ptr<Shader> _shader) { mShader = _shader; }
 	virtual std::shared_ptr<Shader> GetShader() { return mShader; }
@@ -44,8 +44,8 @@ public:
 	void SetSpecular(bool _isSpecular) { mIsSpecular = _isSpecular; }
 
 protected:
-	Model* mModel;
-	Texture* mTexture;
+	std::shared_ptr<Model> mModel;
+	std::shared_ptr<Texture> mTexture;
 	std::shared_ptr<Shader> mShader;
 
 	BoundingBox mBoundingBox;

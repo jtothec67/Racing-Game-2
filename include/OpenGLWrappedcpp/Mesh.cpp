@@ -86,7 +86,6 @@ GLuint Mesh::id()
 			glBindVertexArray(m_vaoid);
 			glBindBuffer(GL_ARRAY_BUFFER, m_vboid);
 
-
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 				8 * sizeof(data.at(0)), (void*)0);
 			glEnableVertexAttribArray(0);
@@ -116,8 +115,8 @@ GLuint Mesh::id()
 			float quadVertices[] = {
 				-1.0f,  1.0f, 0.0f,
 				-1.0f, -1.0f, 0.0f,
-				 1.0f,  1.0f, 0.0f,
-				 1.0f, -1.0f, 0.0f,
+				1.0f,  1.0f, 0.0f,
+				1.0f, -1.0f, 0.0f,
 			};
 
 			glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
@@ -150,4 +149,21 @@ GLuint Mesh::id()
 GLsizei Mesh::vertex_count() const
 {
 	return (GLsizei)m_faces.size() * 3;
+}
+
+void Mesh::Unload()
+{
+	if (m_vaoid)
+	{
+		glDeleteVertexArrays(1, &m_vaoid);
+		m_vaoid = 0;
+		m_dirty = true;
+	}
+
+	if (m_vboid)
+	{
+		glDeleteBuffers(1, &m_vboid);
+		m_vboid = 0;
+		m_dirty = true;
+	}
 }

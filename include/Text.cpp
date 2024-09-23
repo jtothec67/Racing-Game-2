@@ -5,8 +5,8 @@
 
 Text::Text(Game* _game) : UIObject(_game)
 {
-	mFont = &(mGame->GetModelLibrary()->testFont);
-	mMesh = &(mGame->GetModelLibrary()->textMesh);
+	mFont = mGame->GetModelLibrary()->testFont;
+	mMesh = mGame->GetModelLibrary()->textMesh;
 	mShader = mGame->GetShaderLibrary()->fontShader;
 }
 

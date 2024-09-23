@@ -20,15 +20,21 @@ class Font
 {
 public:
 	Font(const std::string& _fontPath);
-	~Font() { }//FT_Done_Face(face); FT_Done_FreeType(ft); }
+	~Font() { Unload(); }
 
 	void SetFontSize(int _size);
 	int GetFontSize() { return fontSize; }
 
-	Character* GetCharacter(std::string::const_iterator _c) { return &Characters[*_c]; }
+	Character* GetCharacter(std::string::const_iterator _c);
+
+	// Function to unload the font resources
+	void Unload();
 
 private:
 	void mGenerateCharacterInformation();
+	void mInitialise();
+
+	std::string m_fontPath;
 
 	FT_Library ft;
 	FT_Face face;
@@ -36,4 +42,6 @@ private:
 	int fontSize = 200; // Height in pixels
 
 	std::map<char, Character> Characters;
+
+	bool m_dirty = true;
 };

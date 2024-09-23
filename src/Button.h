@@ -4,6 +4,7 @@
 #include "Text.h"
 
 #include <iostream>
+#include <memory>
 
 class Button : public UIObject
 {
@@ -17,14 +18,14 @@ public:
 	bool IsSelected() { return mHovered; }
 	void SetHovered(bool _hovered) { mHovered = _hovered; }
 
-	void SetHoveredTexture(Texture* _texture) { mHoveredTexture = _texture; mHoveredTexture->GetSize(mHoveredWidth, mHoveredHeight); }
+	void SetHoveredTexture(std::shared_ptr<Texture> _texture) { mHoveredTexture = _texture; mHoveredTexture->GetSize(mHoveredWidth, mHoveredHeight); }
 
 	void SetText(std::string _text) { mText.SetText(_text); }
 	void SetTextScale(float _scale) { mText.transform.scale.x = _scale; mText.transform.scale.y = _scale; }
 	void SetTextColour(glm::vec3 _colour) { mText.SetColour(_colour); }
 
 private:
-	Texture* mHoveredTexture;
+	std::shared_ptr<Texture> mHoveredTexture;
 
 	Text mText;
 

@@ -13,7 +13,9 @@ class Texture
 public:
 	Texture(const std::string& _path);
 	Texture(const std::vector<std::string>& _facePaths);
+	~Texture() { Unload(); }
 	GLuint id();
+	void Unload();
 
 	void GetSize(int& _width, int& _height) { _width = m_width; _height = m_height; }
 	bool IsSkybox() { return skybox; }

@@ -21,6 +21,8 @@ public:
     GLsizei vertex_count() const;
     GLuint vao_id();
 
+    void Unload();
+
     float get_width() const;
     float get_height() const;
     float get_length() const;
@@ -223,15 +225,7 @@ inline Model::Model(const std::string& _path)
 
 inline Model::~Model()
 {
-    if(m_vaoid)
-    {
-        glDeleteVertexArrays(1, &m_vaoid);
-    }
-
-    if(m_vboid)
-    {
-        glDeleteBuffers(1, &m_vboid);
-    }
+    Unload();
 }
 
 inline Model::Model(const Model& _copy)
@@ -393,6 +387,23 @@ inline GLuint Model::vao_id()
     }
 
     return m_vaoid;
+}
+
+inline void Model::Unload()
+{
+    if(m_vaoid)
+	{
+		glDeleteVertexArrays(1, &m_vaoid);
+        m_vaoid = 0;
+        m_dirty = true;
+	}
+
+	if(m_vboid)
+	{
+		glDeleteBuffers(1, &m_vboid);
+        m_vboid = 0;
+        m_dirty = true;
+	}
 }
 
 inline GLsizei Model::vertex_count() const

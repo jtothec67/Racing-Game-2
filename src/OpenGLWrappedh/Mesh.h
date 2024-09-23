@@ -24,7 +24,8 @@ class Mesh
 {
 public:
 	Mesh();
-	Mesh(std::string _meshType); // User specifies mesh type, is not one we know we make a normal mesh
+	Mesh(std::string _meshType); // User specifies mesh type, if not one we know we make a normal mesh
+	~Mesh() { Unload(); }
 
 	void add(Face& _face);
 	GLuint id(); // Returns vao id + initialises mesh if dirty
@@ -35,6 +36,9 @@ public:
 
 	bool IsSkybox() { return m_skybox; }
 	bool IsText() { return m_text; }
+
+	// Function to unload the mesh from the GPU
+	void Unload();
 
 private:
 	GLuint m_vaoid = 0;

@@ -5,21 +5,32 @@
 
 Font::Font(const std::string& _fontPath)
 {
-    if (FT_Init_FreeType(&ft))
+    m_fontPath = _fontPath;
+    mInitialise();
+}
+
+void Font::mInitialise()
+{
+    if (m_dirty)
     {
-        std::cout << "Could not init FreeType Library" << std::endl;
-        throw std::exception();
+        if (FT_Init_FreeType(&ft))
+        {
+            std::cout << "Could not init FreeType Library" << std::endl;
+            throw std::exception();
+        }
+
+        if (FT_New_Face(ft, m_fontPath.c_str(), 0, &face))
+        {
+            std::cout << "Failed to load font: " << m_fontPath << std::endl;
+            throw std::exception();
+        }
+
+        FT_Set_Pixel_Sizes(face, 0, fontSize);
+
+        mGenerateCharacterInformation();
+
+        m_dirty = false;
     }
-
-    if (FT_New_Face(ft, _fontPath.c_str(), 0, &face))
-    {
-        std::cout << "Failed to load font: " << _fontPath << std::endl;
-        throw std::exception();
-    }
-
-    FT_Set_Pixel_Sizes(face, 0, fontSize);
-
-    mGenerateCharacterInformation();
 }
 
 void Font::mGenerateCharacterInformation()
@@ -70,4 +81,38 @@ void Font::SetFontSize(int _size)
 	fontSize = _size;
 	FT_Set_Pixel_Sizes(face, 0, fontSize);
 	mGenerateCharacterInformation();
+}
+
+Character* Font::GetCharacter(std::string::const_iterator _c)
+{
+    if (m_dirty)
+	{
+        mInitialise();
+        m_dirty = false;
+	}
+	return &Characters[*_c];
+}
+
+void Font::Unload()
+{
+    // Delete textures
+    for (auto& character : Characters)
+    {
+        glDeleteTextures(1, &character.second.TextureID);
+    }
+    Characters.clear();
+
+    // Free FreeType resources
+    if (face)
+    {
+        FT_Done_Face(face);
+        face = nullptr;
+    }
+    if (ft)
+    {
+        FT_Done_FreeType(ft);
+        ft = nullptr;
+    }
+
+    m_dirty = true;
 }
