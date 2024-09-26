@@ -1,7 +1,6 @@
 #include "UIObject.h"
 
 #include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
 UIObject::UIObject(Game* _game) : GameObject(_game)
 {

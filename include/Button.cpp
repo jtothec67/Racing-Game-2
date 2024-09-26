@@ -1,7 +1,6 @@
 #include "Button.h"
 
 #include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
 Button::Button(Game* _game) : UIObject(_game)
 	, mText(_game)

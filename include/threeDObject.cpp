@@ -1,7 +1,6 @@
 #include "threeDObject.h"
 
 #include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
 threeDObject::threeDObject(Game* _game) : GameObject(_game)
 {

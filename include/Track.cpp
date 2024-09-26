@@ -1,8 +1,6 @@
 #include "Track.h"
 #include "GameplayScene.h"
 
-#include <iostream>
-
 Track::Track(Game* _game) : threeDObject(_game)
 {
 	mModel = mGame->GetModelLibrary()->trackModel;

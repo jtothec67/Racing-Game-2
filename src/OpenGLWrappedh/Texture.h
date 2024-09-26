@@ -5,9 +5,6 @@
 #include <vector>
 #include <string>
 
-#ifndef TEXTURE_H
-#define TEXTURE_H
-
 class Texture
 {
 public:
@@ -33,4 +30,3 @@ private:
 	std::vector<unsigned char> m_data;
 	std::vector<std::string> m_syboxFaces;
 };
-#endif // TEXTURE_H

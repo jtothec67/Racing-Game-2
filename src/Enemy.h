@@ -3,8 +3,6 @@
 #include "threeDObject.h"
 #include "Game.h"
 
-#include <iostream>
-
 class Enemy : public threeDObject
 {
 public:

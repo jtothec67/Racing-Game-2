@@ -3,17 +3,12 @@
 #include "GameplayScene.h"
 
 #include <glm/glm.hpp>
-#include <glm/ext.hpp>
-#include <iostream>
 
 Game::Game()
 	: mWindow(1920, 1080)
 	, mCamera(this, 45, 0.1f, 300.f)
 {
 	mCurrentScene = new MenuScene(this);
-
-	// First deltaTime very small but that's fine
-	mFrameTimer.Start();
 }
 
 Game::~Game()
@@ -21,7 +16,7 @@ Game::~Game()
 	delete mCurrentScene;
 }
 
-void Game::Run()
+void Game::Tick()
 {
 	float deltaTime = mFrameTimer.Stop();
 
@@ -43,9 +38,12 @@ void Game::Run()
 
 	if (mLimitingFPS)
 	{
-		float sleepTime = (1000.f / mFPSLimit) - (deltaTime * 1000.f);
+		float sleepTime = (1.f / mFPSLimit) - deltaTime;
+
 		if (sleepTime > 0)
-			SDL_Delay(sleepTime);
+		{
+			SDL_Delay(static_cast<Uint32>(sleepTime * 1000));
+		}
 	}
 }
 

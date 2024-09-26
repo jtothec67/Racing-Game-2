@@ -6,7 +6,6 @@
 #include "text.h"
 
 #include <random>
-#include <iostream>
 #include <sstream>
 #include <iomanip>
 
@@ -17,6 +16,8 @@ GameplayScene::GameplayScene(Game* _game) : BaseScene(_game)
 	mGame->GetWindow()->SetClearColour(glm::vec4(1.0f, 0.f, 0.f, 0.f));
 
 	InitialiseSceneObjects();
+
+	mStartTimer.Start();
 }
 
 GameplayScene::~GameplayScene()
@@ -33,6 +34,36 @@ void GameplayScene::Update(float _deltaTime)
 		fpsText->SetText(std::to_string((int)(1.f / _deltaTime)));
 
 		mDisplayFPS.Start();
+	}
+
+	if (mGameStarting)
+	{
+		glm::vec3 camPos = mNamedGameObjects["Player"]->transform.position + glm::vec3(0.f, 0.f, -10.f);
+		camPos.y = 7.f;
+		mGame->GetCamera()->transform.position = camPos;
+		mGame->GetCamera()->transform.rotation.x = -25.f;
+
+		if (mStartTimer.GetElapsedSeconds() > 4.f)
+		{
+			RemoveGameObject(mNamedGameObjects["GameStartingText"]);
+			mGameStarting = false;
+			mGameSpeed = mStartGameSpeed;
+		}
+		else if (mStartTimer.GetElapsedSeconds() > 3.f)
+		{
+			Text* gameStartingText = (Text*)mNamedGameObjects["GameStartingText"];
+			gameStartingText->SetText("GO!");
+		}
+		else if (mStartTimer.GetElapsedSeconds() > 2.f)
+		{
+			Text* gameStartingText = (Text*)mNamedGameObjects["GameStartingText"];
+			gameStartingText->SetText("1");
+		}
+		else if (mStartTimer.GetElapsedSeconds() > 1.f)
+		{
+			Text* gameStartingText = (Text*)mNamedGameObjects["GameStartingText"];
+			gameStartingText->SetText("2");
+		}
 	}
 
 	if (mCrashTimer.IsRunning() && mCrashTimer.GetElapsedSeconds() > mGameEndingWaitTime)
@@ -57,9 +88,11 @@ void GameplayScene::Update(float _deltaTime)
 	}
 	else
 	{
-		mGameSpeed += mGameSpeedAccel * _deltaTime;
-
-		mScore += mGameSpeedAccel * mScoreMultiplier * _deltaTime;
+		if (!mGameStarting)
+		{
+			mGameSpeed += mGameSpeedAccel * _deltaTime;
+			mScore += mGameSpeedAccel * mScoreMultiplier * _deltaTime;
+		}
 
         Text* multiplierText = (Text*)mNamedGameObjects["MultiplierText"];
         std::stringstream ss;
@@ -109,16 +142,30 @@ void GameplayScene::InitialiseSceneObjects()
 	mGame->GetWindowSize(windowWidth, windowHeight);
 
 	Text* gameSpeedText = new Text(mGame);
-	gameSpeedText->transform.position = glm::vec3(200.f, windowHeight - 200.f, 0.f);
+	gameSpeedText->transform.position = glm::vec3(200.f, windowHeight - 275.f, 0.f);
 	gameSpeedText->SetAnchor(Anchor::TopLeft);
 	AddGameObject(gameSpeedText);
 	mNamedGameObjects["GameSpeedText"] = gameSpeedText;
 
+	Text* gameSpeedLabel = new Text(mGame);
+	gameSpeedLabel->transform.position = glm::vec3(225.f, windowHeight - 125.f, 0.f);
+	gameSpeedLabel->SetAnchor(Anchor::TopLeft);
+	gameSpeedLabel->transform.scale.x = 0.45f;
+	gameSpeedLabel->SetText("    Base \ngame speed");
+	AddGameObject(gameSpeedLabel);
+
 	Text* scoreText = new Text(mGame);
-	scoreText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight - 200.f, 0.f);
+	scoreText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight - 275.f, 0.f);
 	scoreText->SetAnchor(Anchor::TopRight);
 	AddGameObject(scoreText);
 	mNamedGameObjects["ScoreText"] = scoreText;
+
+	Text* scoreLabel = new Text(mGame);
+	scoreLabel->transform.position = glm::vec3(windowWidth - 200.f, windowHeight - 150.f, 0.f);
+	scoreLabel->SetAnchor(Anchor::TopRight);
+	scoreLabel->transform.scale.x = 0.5f;
+	scoreLabel->SetText("Score");
+	AddGameObject(scoreLabel);
 
 	Text* multiplierText = new Text(mGame);
 	multiplierText->transform.position = glm::vec3(windowWidth - 200.f, windowHeight / 2.f, 0.f);
@@ -160,6 +207,14 @@ void GameplayScene::InitialiseSceneObjects()
 	fpsText->SetAnchor(Anchor::TopLeft);
 	AddGameObject(fpsText);
 	mNamedGameObjects["FPSText"] = fpsText;
+
+	Text* gameStartingText = new Text(mGame);
+	gameStartingText->transform.position = glm::vec3(windowWidth / 2.f, windowHeight - (windowHeight / 3.f), 0.f);
+	gameStartingText->SetText("3");
+	gameStartingText->SetAnchor(Anchor::Center);
+	gameStartingText->SetColour(glm::vec3(1.f, 0.f, 0.f));
+	AddGameObject(gameStartingText);
+	mNamedGameObjects["GameStartingText"] = gameStartingText;
 }
 
 void GameplayScene::Collision()

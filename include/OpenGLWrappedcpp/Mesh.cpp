@@ -1,6 +1,7 @@
 #include "OpenGLWrappedh/Mesh.h"
 
 #include <iostream>
+#include <exception>
 
 Mesh::Mesh()
 {

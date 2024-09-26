@@ -3,8 +3,6 @@
 
 #include <glm/glm.hpp>
 #include <random>
-#include <cmath>
-#include <iostream>
 
 Player::Player(Game* _game) : threeDObject(_game)
 {
@@ -71,6 +69,9 @@ void Player::Update(float _deltaTime)
 	float hoverHeight = sin(mHoverValue);
 	transform.position.y = hoverHeight * 0.25f;
 
+	if (gameplayScene->IsGameStarting())
+		return;
+
 	if ((mGame->keyPress[SDLK_a] || mGame->keyPress[SDLK_LEFT]) && transform.position.x < 7.5)
 		transform.position.x += mLRMoveSpeed * _deltaTime;
 
@@ -110,6 +111,6 @@ void Player::Update(float _deltaTime)
 	{
 		newMultiplier = glm::mix(mBaseMultiplier, mBaseMultiplier - mMaxMultiplierChange, 11 * -speedRatio);
 	}
-	
+
 	gameplayScene->SetMultiplier(newMultiplier);
 }

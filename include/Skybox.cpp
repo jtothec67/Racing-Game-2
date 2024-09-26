@@ -1,9 +1,5 @@
 #include "Skybox.h"
 
-#include <iostream>
-
-#include <glm/ext.hpp>
-
 Skybox::Skybox(Game* _game) : GameObject(_game)
 {
 	mTag = Tag::Skybox;

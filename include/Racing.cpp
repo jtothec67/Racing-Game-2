@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#include <iostream>
-
 #undef main
 
 int main()
@@ -11,7 +9,7 @@ int main()
 
         while (myGame.IsGameRunning())
         {
-            myGame.Run();
+            myGame.Tick();
         }
     }
 

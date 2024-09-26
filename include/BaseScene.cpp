@@ -1,7 +1,5 @@
 #include "BaseScene.h"
 
-#include <iostream>
-
 BaseScene::BaseScene(Game* _game)
 {
 	mGame = _game;

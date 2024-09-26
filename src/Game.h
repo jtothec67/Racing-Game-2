@@ -23,7 +23,7 @@ public:
 	Game();
 	~Game();
 
-	void Run();
+	void Tick();
 
 	BaseScene* GetCurrentScene() { return mCurrentScene; }
 

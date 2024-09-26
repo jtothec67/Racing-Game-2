@@ -1,7 +1,6 @@
 #include "Text.h"
 
 #include <sstream>
-#include <iostream>
 
 Text::Text(Game* _game) : UIObject(_game)
 {
